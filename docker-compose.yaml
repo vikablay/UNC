@@ -1,0 +1,11 @@
+version: '1'
+services:
+  db-test-api:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5444:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: test-api
