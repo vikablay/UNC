@@ -1,0 +1,11 @@
+GET http://localhost:8081/api/v1/books
+Accept: */*
+Content-Type: application/json
+
+###
+
+POST http://localhost:8081/api/v1/saveBook?name=some%20name&author=some%20author
+Accept: */*
+Content-Type: application/json
+
+###
