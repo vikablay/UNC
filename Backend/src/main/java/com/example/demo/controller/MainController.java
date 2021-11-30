@@ -44,7 +44,7 @@ public class MainController {
                            @RequestParam String name,
                            @RequestParam String author,
                            @RequestParam(required = false) String description) {
-        bookService.update(id,name, author);
+        bookService.update(id, name, author);
     }
 
     @GetMapping("booksOfAuthor")
