@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Book;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MainController {
 
     private final BookService bookService;
@@ -20,8 +22,8 @@ public class MainController {
     }
 
     @GetMapping("books")
-    public List<Book> getBooks(Model model) {
-        return bookService.findAll();
+    public ResponseEntity<List<Book>> getBooks(Model model) {
+        return ResponseEntity.ok(bookService.findAll());
     }
 
     @PostMapping("saveBook")
