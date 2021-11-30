@@ -9,3 +9,19 @@ Accept: */*
 Content-Type: application/json
 
 ###
+
+DELETE http://localhost:8081/api/v1/deleteBook?id=0
+Accept: */*
+Content-Type: application/json
+
+###
+
+POST http://localhost:8081/api/v1/updateBook?id=0&name=some%20name&author=some%20author
+Accept: */*
+Content-Type: application/json
+
+###
+
+GET http://localhost:8081/api/v1/booksOfAuthor?author=some%20author
+Accept: */*
+Content-Type: application/json

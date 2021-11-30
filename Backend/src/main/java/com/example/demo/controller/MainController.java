@@ -33,4 +33,29 @@ public class MainController {
         bookService.save(new Book(name, author));
     }
 
+    @DeleteMapping("deleteBook")
+    public void deleteBook(@RequestParam int id) {
+        bookService.delete(id);
+    }
+
+
+    @PostMapping("updateBook")
+    public void updateBook(@RequestParam int id,
+                           @RequestParam String name,
+                           @RequestParam String author,
+                           @RequestParam(required = false) String description) {
+        bookService.update(id,name, author);
+    }
+
+    @GetMapping("booksOfAuthor")
+    public List<Book> getBooksOfAuthors(@RequestParam String author) {
+        return bookService.findByAuthor(author);
+    }
+
+    @GetMapping("book")
+    public Book getBook(@RequestParam String name) {
+        return bookService.findByName(name);
+    }
+
+
 }
