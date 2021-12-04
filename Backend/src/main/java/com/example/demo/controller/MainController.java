@@ -27,10 +27,11 @@ public class MainController {
     }
 
     @PostMapping("saveBook")
-    public void saveBook(@RequestParam String name,
+    public ResponseEntity<String> saveBook(@RequestParam String name,
                          @RequestParam String author,
                          @RequestParam(required = false) String description) {
         bookService.save(new Book(name, author));
+        return ResponseEntity.ok("Book saved");
     }
 
     @DeleteMapping("deleteBook")
