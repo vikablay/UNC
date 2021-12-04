@@ -18,10 +18,13 @@ public class Book {
     private int id;
 
     private String name;
-
+    //TODO move authors to the table
     private String author;
 
     private double averageRating;
+    
+    //TODO move genres to the table
+    //private List<Genre> genres;
 
     public Book(String name, String author) {
         this.name = name;
