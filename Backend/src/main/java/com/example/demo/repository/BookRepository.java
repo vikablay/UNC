@@ -12,4 +12,5 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findByAuthor(String author);
 
+    List<Book> findByAverageRatingBetween(double to,double from);
 }

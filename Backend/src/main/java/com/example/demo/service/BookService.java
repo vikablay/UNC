@@ -47,4 +47,8 @@ public class BookService {
     public List<Book> findByAuthor(String author) {
         return bookRepository.findByAuthor(author);
     }
+
+    public List<Book> findByAverageRatingBetween(double to,double from) {
+        return bookRepository.findByAverageRatingBetween(to,from);
+    }
 }
