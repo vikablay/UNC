@@ -4,9 +4,8 @@ import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -35,26 +34,17 @@ public class BookService {
 
     }
 
-    public void update(int id,String name, String author ) {
+    public void update(int id, String name, String author) {
         Book book = bookRepository.findById(id);
-        if(book!=null)
-        {
+        if (book != null) {
             book.setName(name);
             book.setAuthor(author);
+            bookRepository.save(book);
         }
-        bookRepository.save(book);
     }
 
 
-    public List<Book> findByAuthor(String author)
-    {
-        List<Book> books=bookRepository.findAll();
-        List<Book> result=new ArrayList<Book>();
-        for(int i=0;i<books.size();i++)
-        {
-            if(books.get(i).getAuthor().equals(author))
-                result.add(books.get(i));
-        }
-        return result;
+    public List<Book> findByAuthor(String author) {
+        return bookRepository.findByAuthor(author);
     }
 }
