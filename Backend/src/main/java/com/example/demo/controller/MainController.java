@@ -28,8 +28,8 @@ public class MainController {
 
     @PostMapping("saveBook")
     public ResponseEntity<String> saveBook(@RequestParam String name,
-                         @RequestParam String author,
-                         @RequestParam(required = false) String description) {
+                                           @RequestParam String author,
+                                           @RequestParam(required = false) String description) {
         bookService.save(new Book(name, author));
         return ResponseEntity.ok("Book saved");
     }
@@ -56,6 +56,12 @@ public class MainController {
     @GetMapping("book")
     public Book getBook(@RequestParam String name) {
         return bookService.findByName(name);
+    }
+
+    @GetMapping("booksAverageRating")
+    public List<Book> getBooks(@RequestParam double to,
+                               @RequestParam double from) {
+        return bookService.findByAverageRatingBetween(to, from);
     }
 
 
