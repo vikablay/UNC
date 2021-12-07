@@ -22,7 +22,7 @@ public class Book {
     private String author;
 
     private double averageRating;
-    
+
     //TODO move genres to the table
     //private List<Genre> genres;
 
