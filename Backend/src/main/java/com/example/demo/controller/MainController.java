@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Book;
 import com.example.demo.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class MainController {
 
     private final BookService bookService;
-
-    @Autowired
-    public MainController(BookService bookService) {
-        this.bookService = bookService;
-    }
 
     @GetMapping("books")
     public ResponseEntity<List<Book>> getBooks(Model model) {

@@ -14,7 +14,6 @@ const appRoutes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}
 ];
-
 @NgModule({
   declarations: [
     AppComponent,
