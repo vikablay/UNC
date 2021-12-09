@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,17 +19,20 @@ public class Book {
     private int id;
 
     private String name;
-    //TODO move authors to the table
-    private String author;
+
+    @ManyToMany
+    @JoinTable(name="book_author",
+            joinColumns=@JoinColumn(name="book_id"),
+            inverseJoinColumns=@JoinColumn(name="author_id"))
+    private List<Author> authors;
 
     private double averageRating;
     
     //TODO move genres to the table
     //private List<Genre> genres;
 
-    public Book(String name, String author) {
+    public Book(String name) {
         this.name = name;
-        this.author = author;
         this.averageRating = 0;
     }
 }

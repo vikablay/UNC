@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,10 @@ public class BookService {
 
     }
 
-    public void update(int id, String name, String author) {
+    public void update(int id, String name) {
         Book book = bookRepository.findById(id);
         if (book != null) {
             book.setName(name);
-            book.setAuthor(author);
             bookRepository.save(book);
         }
     }
@@ -48,7 +48,7 @@ public class BookService {
         return bookRepository.findByAuthor(author);
     }
 
-    public List<Book> findByAverageRatingBetween(double to,double from) {
-        return bookRepository.findByAverageRatingBetween(to,from);
+    public List<Book> findByAverageRatingBetween(double to, double from) {
+        return bookRepository.findByAverageRatingBetween(to, from);
     }
 }
