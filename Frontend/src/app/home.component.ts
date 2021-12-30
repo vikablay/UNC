@@ -4,9 +4,7 @@ import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'home-app',
-  template: `<h3>Главная</h3>
-  <div>{{books[0].name}}
-  </div>`
+  templateUrl: './home.component.html',
 })
 export class HomeComponent {
   title = 'Frontend';
