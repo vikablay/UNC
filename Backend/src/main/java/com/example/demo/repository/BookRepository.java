@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +11,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     Book findById(int id);
 
-    List<Book> findByAuthor(String author);
+    List<Book> findByAuthors(Author authors);
 
-    List<Book> findByAverageRatingBetween(double to,double from);
+    List<Book> findByAverageRatingBetween(double to, double from);
 }
