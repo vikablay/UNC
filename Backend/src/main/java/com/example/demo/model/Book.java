@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,17 +22,29 @@ public class Book {
     private int id;
 
     private String name;
-    //TODO move authors to the table
-    private String author;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Author> authors;
 
     private double averageRating;
 
-    //TODO move genres to the table
-    //private List<Genre> genres;
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Genre> genres;
 
-    public Book(String name, String author) {
-        this.name = name;
-        this.author = author;
-        this.averageRating = 0;
+    {
+        genres = new LinkedList<>();
+        authors = new LinkedList<>();
     }
+
+    public Book(String name, Author author) {
+        this.name = name;
+        authors = new LinkedList<>();
+        authors.add(author);
+    }
+
+    public void addAuthor(Author author) {
+        authors.add(author);
+    }
+
+
 }

@@ -14,7 +14,6 @@ export class HomeComponent {
   constructor(private http: HttpClient) {
     this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(result => {
       this.books = result;
-      console.log(this.books);
     })
   }
 }
