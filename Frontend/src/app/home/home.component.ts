@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Book} from "./entity/Book";
+import {Book} from "../entity/Book";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

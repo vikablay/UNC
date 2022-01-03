@@ -5,9 +5,9 @@ import {Routes, RouterModule} from "@angular/router";
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {HomeComponent} from './home.component';
+import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about.component';
-import {NotFoundComponent} from './not-found.component';
+import {NotFoundComponent} from './notFound/notFound.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
