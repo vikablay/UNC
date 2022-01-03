@@ -12,12 +12,12 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "books")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
     private String name;
 

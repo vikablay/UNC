@@ -14,11 +14,12 @@ public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Book> books;
 
     {
