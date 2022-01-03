@@ -3,7 +3,7 @@ import {Book} from "../entity/Book";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
-  selector: 'home-app',
+  selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
