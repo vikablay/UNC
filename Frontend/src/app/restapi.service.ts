@@ -13,4 +13,8 @@ export class RestapiService {
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ":" + password)})
     return this.http.get("http://localhost:8081/api/v1/auth/login", {headers, responseType: 'text' as 'json'})
   }
+
+  getBooks() {
+    return this.http.get("http://localhost:8081/api/v1/books")
+  }
 }
