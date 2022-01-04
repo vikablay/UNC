@@ -1,9 +1,10 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,10 +20,14 @@ public class Genre {
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Book> books;
+    @ManyToMany
+    @JoinTable(name = "books_genres",
+            joinColumns = @JoinColumn(name = "genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books = new ArrayList<>();
 
-    {
-        books = new LinkedList<>();
+    public void addBook(Book book){
+        books.add(book);
     }
+
 }

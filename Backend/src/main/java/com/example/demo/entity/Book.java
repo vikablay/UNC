@@ -1,10 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,28 +22,27 @@ public class Book {
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Author> authors;
+    @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
+    private List<Author> authors = new ArrayList<>();
 
     private double averageRating;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Genre> genres;
-
-    {
-        genres = new LinkedList<>();
-        authors = new LinkedList<>();
-    }
+    @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
+    private List<Genre> genres = new ArrayList<>();
 
     public Book(String name, Author author) {
         this.name = name;
-        authors = new LinkedList<>();
-        authors.add(author);
+        this.addAuthor(author);
     }
 
     public void addAuthor(Author author) {
+        author.addBook(this);
         authors.add(author);
     }
 
+    public void addGenre(Genre genre) {
+        genre.addBook(this);
+        genres.add(genre);
+    }
 
 }
