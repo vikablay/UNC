@@ -1,0 +1,17 @@
+<!--<button class="btn btn-secondary" (click)="getBooks()">Find books</button>-->
+<table class="table">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Author</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of books">
+    <td>{{book.id}}</td>
+    <td>{{book.name}}</td>
+    <td>{{book.authors[0].firstName}}</td>
+  </tr>
+  </tbody>
+</table>

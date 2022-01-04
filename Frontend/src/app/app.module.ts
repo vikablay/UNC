@@ -9,6 +9,7 @@ import {AboutComponent} from './about.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { LoginComponent } from './login/login.component';
+import { BooksComponent } from './books/books.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     AboutComponent,
     NotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
