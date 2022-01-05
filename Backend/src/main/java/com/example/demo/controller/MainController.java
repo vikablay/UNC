@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -20,7 +19,7 @@ public class MainController {
     private final BookService bookService;
 
     @GetMapping("books")
-    public ResponseEntity<List<Book>> getBooks(Model model) {
+    public ResponseEntity<List<Book>> getBooks() {
         return ResponseEntity.ok(bookService.findAll());
     }
 
@@ -33,13 +32,13 @@ public class MainController {
     }
 
     @DeleteMapping("deleteBook")
-    public void deleteBook(@RequestParam int id) {
+    public void deleteBook(@RequestParam Long id) {
         bookService.delete(id);
     }
 
 
     @PostMapping("updateBook")
-    public void updateBook(@RequestParam int id,
+    public void updateBook(@RequestParam Long id,
                            @RequestParam String name,
                            @RequestParam(required = false) String description) {
         bookService.update(id, name);

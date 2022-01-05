@@ -29,13 +29,13 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         bookRepository.deleteById(id);
 
     }
 
-    public void update(int id, String name) {
-        Book book = bookRepository.findById(id);
+    public void update(Long id, String name) {
+        Book book = bookRepository.findById(id).orElse(null);
         if (book != null) {
             book.setName(name);
             bookRepository.save(book);

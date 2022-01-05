@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -16,13 +14,17 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
     private String firstName;
 
     private String lastName;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
+//    @JoinTable(name = "books_authors",
+//            joinColumns = @JoinColumn(name = "author_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books;
 
     {
