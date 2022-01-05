@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class Author {
     private String lastName;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
