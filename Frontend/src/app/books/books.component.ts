@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
+import {Book} from "../entity/Book";
 
 @Component({
   selector: 'app-books',

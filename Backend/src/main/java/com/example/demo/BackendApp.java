@@ -17,10 +17,15 @@ import java.util.stream.Stream;
 @SpringBootApplication
 public class BackendApp {
 
+    private final UserRepository userRepository;
+
+    private final BookRepository bookRepository;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private BookRepository bookRepository;
+    public BackendApp(BookRepository bookRepository, UserRepository userRepository) {
+        this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
+    }
 
     @PostConstruct
     public void initUsers() {
