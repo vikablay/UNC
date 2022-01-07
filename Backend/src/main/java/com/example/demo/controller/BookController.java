@@ -12,12 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:4200")
-public class MainController {
-
+public class BookController {
     private final BookService bookService;
 
     @Autowired
-    public MainController(BookService bookService) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -38,7 +37,6 @@ public class MainController {
     public void deleteBook(@RequestParam Long id) {
         bookService.delete(id);
     }
-
 
     @PostMapping("updateBook")
     public void updateBook(@RequestParam Long id,

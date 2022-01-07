@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     @Autowired

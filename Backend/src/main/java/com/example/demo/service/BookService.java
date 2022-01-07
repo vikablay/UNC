@@ -11,9 +11,7 @@ import java.util.List;
 
 @Service
 public class BookService {
-
     private final BookRepository bookRepository;
-
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -47,7 +45,6 @@ public class BookService {
         }
     }
 
-
     public List<Book> findByAuthor(Author author) {
         return bookRepository.findByAuthors(author);
     }
@@ -59,5 +56,9 @@ public class BookService {
 
     public List<Book> findByAverageRatingBetween(double to, double from) {
         return bookRepository.findByAverageRatingBetween(to, from);
+    }
+
+    public void saveAll(List<Book> users) {
+        bookRepository.saveAll(users);
     }
 }

@@ -2,50 +2,39 @@ package com.example.demo;
 
 import com.example.demo.entity.Author;
 import com.example.demo.entity.Book;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
-import com.example.demo.repository.BookRepository;
-import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.BookService;
+import com.example.demo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SpringBootApplication
+@RequiredArgsConstructor
 public class BackendApp {
+    private final UserService userService;
+    private final BookService bookService;
 
-    private final UserRepository userRepository;
+    @PostConstruct
+    public void initUsersAndRolesData() {
+        userService.saveUser(new User(null, "user1", "pass1", "user1@email.com"));
+        userService.saveUser(new User(null, "user2", "pass2", "user2@email.com"));
 
-    private final BookRepository bookRepository;
+        userService.saveRole(new Role(null, "ROLE_CUSTOMER"));
+        userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-    @Autowired
-    public BackendApp(BookRepository bookRepository, UserRepository userRepository) {
-        this.bookRepository = bookRepository;
-        this.userRepository = userRepository;
+        userService.addRoleToUser("user1", "ROLE_ADMIN");
+        userService.addRoleToUser("user2", "ROLE_CUSTOMER");
     }
 
     @PostConstruct
-    public void initUsers() {
-        List<User> users = Stream.of(
-                new User(1L, "user1", "pass1", "user1@email.com"),
-                new User(2L, "user2", "pass2", "user2@email.com"),
-                new User(3L, "user3", "pass3", "user3@email.com")
-        ).collect(Collectors.toList());
-        userRepository.saveAll(users);
+    public void initBooksData() {
+        bookService.save(new Book("War and Peace", new Author("Lev", "Tolstoy")));
+        bookService.save(new Book("Crime and Punishment", new Author("Fedor", "Dostoevsky")));
     }
-
-    @PostConstruct
-    public void initBooks() {
-        List<Book> users = Stream.of(
-                new Book("War and Peace", new Author("Lev", "Tolstoy")),
-                new Book("Crime and Punishment", new Author("Fedor", "Dostoevsky"))
-        ).collect(Collectors.toList());
-        bookRepository.saveAll(users);
-    }
-
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApp.class, args);
