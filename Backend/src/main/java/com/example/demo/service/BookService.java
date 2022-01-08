@@ -1,21 +1,24 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Author;
-import com.example.demo.model.Book;
+import com.example.demo.entity.Author;
+import com.example.demo.entity.Book;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 public class BookService {
-
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+
+    @Autowired
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+        this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+    }
 
     public List<Book> findAll() {
         return bookRepository.findAll();
@@ -42,7 +45,6 @@ public class BookService {
         }
     }
 
-
     public List<Book> findByAuthor(Author author) {
         return bookRepository.findByAuthors(author);
     }
@@ -54,5 +56,9 @@ public class BookService {
 
     public List<Book> findByAverageRatingBetween(double to, double from) {
         return bookRepository.findByAverageRatingBetween(to, from);
+    }
+
+    public void saveAll(List<Book> users) {
+        bookRepository.saveAll(users);
     }
 }
