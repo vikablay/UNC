@@ -11,7 +11,7 @@
   <tr *ngFor="let book of books">
     <td>{{book.id}}</td>
     <td>{{book.name}}</td>
-    <td>{{book.authors[0].firstName}}</td>
+    <td>{{book.authors[0].firstName +" " +book.authors[0].lastName }} </td>
   </tr>
   </tbody>
 </table>
