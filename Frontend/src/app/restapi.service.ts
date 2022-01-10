@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 
-const API_SOURCE: string = environment.backendAPISource
+const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
-const API_URL: string = API_SOURCE + ":" + API_PORT
+const API_URL: string = 'http://' + API_HOST + ':' + API_PORT
 
 @Injectable({
   providedIn: 'root'

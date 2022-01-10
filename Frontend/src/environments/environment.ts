@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendAPISource: 'http://localhost',
+  backendAPIHost: 'localhost',
   backendAPIPort: '8081'
 };
 

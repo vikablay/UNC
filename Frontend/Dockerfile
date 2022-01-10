@@ -1,6 +1,6 @@
-FROM node:17-alpine AS build
+FROM node:alpine AS build
 WORKDIR /usr/local/app
-COPY ./ /usr/local/app
+COPY . .
 
 RUN npm install 
 RUN npm run build
