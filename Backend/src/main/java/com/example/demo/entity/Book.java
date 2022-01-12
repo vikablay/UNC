@@ -30,8 +30,12 @@ public class Book {
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Genre> genres = new ArrayList<>();
 
-    public Book(String name, Author author) {
+    @Lob
+    private byte[] image;
+
+    public Book(String name, byte[] image, Author author) {
         this.name = name;
+        this.image=image;
         this.addAuthor(author);
     }
 

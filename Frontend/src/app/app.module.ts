@@ -10,6 +10,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { LoginComponent } from './login/login.component';
 import { BooksComponent } from './books/books.component';
+import { AddbookComponent } from './addbook/addbook.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BooksComponent } from './books/books.component';
     AboutComponent,
     NotFoundComponent,
     LoginComponent,
-    BooksComponent
+    BooksComponent,
+    AddbookComponent
   ],
   imports: [
     BrowserModule,
