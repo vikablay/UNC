@@ -22,4 +22,10 @@ export class RestapiService {
   getBooks() {
     return this.http.get(API_URL + '/api/v1/books')
   }
+
+  saveBook(name: string,authorFirstName:string,image: object,description:string){
+    return this.http.get(API_URL + '/api/v1/saveBook')
+  }
+
+
 }

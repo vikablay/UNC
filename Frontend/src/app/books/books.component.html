@@ -3,14 +3,16 @@
   <thead>
   <tr>
     <th>Id</th>
-    <th>Title</th>
-    <th>Author</th>
+    <th>Название</th>
+    <th>Автор</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let book of books">
     <td>{{book.id}}</td>
-    <td>{{book.name}}</td>
+    <td>{{book.name}}<br>
+      <img src="http://localhost:8081/api/v1/image/{{book.id}}" alt="" width="23%">
+    </td>
     <td>{{book.authors[0].firstName +" " +book.authors[0].lastName }} </td>
   </tr>
   </tbody>
