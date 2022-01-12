@@ -40,20 +40,17 @@ public class BackendApp {
             userService.addRoleToUser("user1", "ROLE_ADMIN");
             userService.addRoleToUser("user2", "ROLE_CUSTOMER");
 
-
-            bookService.save(new Book("Война и мир",getImg("/images/warAndPeace.jpg"),
+            bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
                     new Author("Лев", "Толстой")));
-           bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
-                   new Author("Федор", "Достоевский")));
+            bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
+                    new Author("Федор", "Достоевский")));
             bookService.save(new Book("Вишневый сад", getImg("/images/cherryOrchard.jpg"),
                     new Author("Антон", "Чехов")));
         };
     }
 
-    private byte[] getImg(String name)
-    {
+    private byte[] getImg(String name) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-
         try (InputStream in = getClass().getResourceAsStream(name)) {
             int length;
             byte[] buffer = new byte[1024];
@@ -62,7 +59,6 @@ public class BackendApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return out.toByteArray();
     }
 }

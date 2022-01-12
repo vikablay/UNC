@@ -1,6 +1,6 @@
 export class Book {
   id: number;
   name: string;
-  author: string;
+  author: string[];
   averageRating: number;
 }

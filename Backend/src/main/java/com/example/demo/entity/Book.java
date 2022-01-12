@@ -35,7 +35,7 @@ public class Book {
 
     public Book(String name, byte[] image, Author author) {
         this.name = name;
-        this.image=image;
+        this.image = image;
         this.addAuthor(author);
     }
 

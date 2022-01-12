@@ -10,8 +10,8 @@
       <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value=""></textarea>
     </p>
     <p>Выберите изображение обложки<br>
-      <input type="file" [(ngModel)]="image" placeholder="" required="required">
+      <input type="file" [(ngModel)]="image" placeholder="" required="required"/>
     </p>
-    <input type="submit" value="Добавить" name="addButton" (click)="onAddClick()">
+    <input type="submit" value="Добавить" name="addButton" (click)="saveBook()"/>
   </form>
 </div>
