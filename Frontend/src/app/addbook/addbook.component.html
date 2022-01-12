@@ -1,1 +1,17 @@
-<p>addbook works!</p>
+<div class="container addbook-container">
+  <form action="addbook.component.ts" method="post">
+    <p>Введите название книги<br>
+      <input type="text" [(ngModel)]="bookName" placeholder="Название книги" value=""/>
+    </p>
+    <p>Введите фамилию и имя автора<br>
+      <input type="text" [(ngModel)]="authorFirstName" placeholder="Фамилия и имя автора" value=""/>
+    </p>
+    <p>Введите описание<br>
+      <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value=""></textarea>
+    </p>
+    <p>Выберите изображение обложки<br>
+      <input type="file" [(ngModel)]="image" placeholder="" required="required">
+    </p>
+    <input type="submit" value="Добавить" name="addButton" (click)="onAddClick()">
+  </form>
+</div>

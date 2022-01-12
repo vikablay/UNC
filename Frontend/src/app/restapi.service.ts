@@ -22,4 +22,6 @@ export class RestapiService {
   getBooks() {
     return this.http.get(API_URL + '/api/v1/books')
   }
+
+
 }
