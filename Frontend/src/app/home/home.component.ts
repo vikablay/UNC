@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Book} from "../entity/Book";
 import {HttpClient} from "@angular/common/http";
+import {RestapiService} from "../restapi.service";
 
 @Component({
   selector: 'app-home',
@@ -9,11 +9,9 @@ import {HttpClient} from "@angular/common/http";
 })
 export class HomeComponent {
 
-  books: Book[];
+  books: any;
 
-  constructor(private http: HttpClient) {
-    this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(result => {
-      this.books = result;
-    })
+  constructor(private http: HttpClient, private service: RestapiService) {
+      this.books = service.getBooks();
   }
 }

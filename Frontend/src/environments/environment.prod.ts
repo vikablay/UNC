@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  backendAPIHost: $ENV.BackendAPIHost,
+  backendAPIPort: $ENV.BackendAPIPort
 };
