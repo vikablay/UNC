@@ -1,21 +1,30 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Book} from "./entity/Book";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Frontend';
+  title: 'Frontend'
 
-  books: Book[];
+  constructor(private router: Router) {
+  }
 
-  constructor(private http: HttpClient) {
-    this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(result => {
-      this.books = result;
-      console.log(this.books);
-    })
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
+
+  goToAbout() {
+    this.router.navigate(['/about']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  goToBooks() {
+    this.router.navigate(['/books']);
   }
 }

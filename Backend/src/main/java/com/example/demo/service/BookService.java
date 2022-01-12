@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Author;
-import com.example.demo.model.Book;
+import com.example.demo.entity.Author;
+import com.example.demo.entity.Book;
+import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +11,13 @@ import java.util.List;
 
 @Service
 public class BookService {
-
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     public List<Book> findAll() {
@@ -30,25 +32,33 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         bookRepository.deleteById(id);
 
     }
 
-    public void update(int id, String name) {
-        Book book = bookRepository.findById(id);
+    public void update(Long id, String name) {
+        Book book = bookRepository.findById(id).orElse(null);
         if (book != null) {
             book.setName(name);
             bookRepository.save(book);
         }
     }
 
+    public List<Book> findByAuthor(Author author) {
+        return bookRepository.findByAuthors(author);
+    }
 
-    public List<Book> findByAuthor(String author) {
-        return bookRepository.findByAuthor(author);
+    public List<Book> findByAuthorFirstName(String authorFirstName) {
+        return authorRepository.findByFirstName(authorFirstName).getBooks();
+
     }
 
     public List<Book> findByAverageRatingBetween(double to, double from) {
         return bookRepository.findByAverageRatingBetween(to, from);
+    }
+
+    public void saveAll(List<Book> users) {
+        bookRepository.saveAll(users);
     }
 }

@@ -1,0 +1,18 @@
+POST http://localhost:8081/api/v1/saveBook?name=bookName1&authorFirstName=authorName1
+Accept: */*
+Content-Type: application/json
+
+###
+
+POST http://localhost:8081/api/v1/saveBook?name=bookName2&authorFirstName=authorName3
+Accept: */*
+Content-Type: application/json
+
+###
+
+POST http://localhost:8081/api/v1/saveBook?name=bookName3&authorFirstName=authorName3
+Accept: */*
+Content-Type: application/json
+
+###
+

@@ -1,16 +1,18 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Book;
+import com.example.demo.entity.Author;
+import com.example.demo.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Integer> {
+@Repository
+public interface BookRepository extends JpaRepository<Book, Long> {
+
     Book findByName(String name);
 
-    Book findById(int id);
+    List<Book> findByAuthors(Author authors);
 
-    List<Book> findByAuthor(String author);
-
-    List<Book> findByAverageRatingBetween(double to,double from);
+    List<Book> findByAverageRatingBetween(double to, double from);
 }
