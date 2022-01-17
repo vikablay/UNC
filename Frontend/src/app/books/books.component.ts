@@ -16,13 +16,13 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   // let resp =this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(data => this.books = data);
+  //let resp =this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(data => this.books = data);
    let resp = this.service.getBooks();
+   resp.subscribe(data => this.books = data);
+  }
+
+  /*getBooks() {
+    let resp = this.service.getBooks();
     resp.subscribe(data => this.books = data);
-  }
-
-  getBooks() {
-    let resp =this.http.get<Book[]>('http://localhost:8081/api/v1/books').subscribe(data => this.books = data);
-
-  }
+  }*/
 }

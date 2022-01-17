@@ -8,11 +8,13 @@ import {RestapiService} from "../restapi.service";
 })
 export class AddbookComponent {
 
-  books: any;
+  book: any;
   bookName: string;
   authorFirstName: string;
   description: string;
   image: object;
+
+  title="NOTHING"
 
   constructor(private service: RestapiService) {
   }
@@ -22,10 +24,8 @@ export class AddbookComponent {
   }
 
   saveBook() {
-    let resp = this.service.saveBook(this.bookName, this.authorFirstName, this.image, this.description);
-    resp.subscribe(data => this.books = data);
-    this.bookName = '';
-    this.authorFirstName = '';
-    this.description = '';
+    this.title="book saved ";
+    let resp = this.service.saveBook(this.bookName, this.authorFirstName,this.image, 5);
+    resp.subscribe((data: any) => this.book = data);
   }
 }

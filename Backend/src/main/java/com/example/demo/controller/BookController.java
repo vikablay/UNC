@@ -37,13 +37,19 @@ public class BookController {
         response.getOutputStream().close();
     }
 
-    @PostMapping("saveBook")
+    /*@PostMapping("saveBook")
     @ResponseBody
     public ResponseEntity<String> saveBook(@RequestParam String name,
                                            @RequestParam String authorFirstName,
-                                           @RequestParam("image") MultipartFile image,
+                                           @RequestParam(name="image",required = false) MultipartFile image,
                                            @RequestParam(required = false) String description) throws IOException {
         bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
+        return ResponseEntity.ok("Book saved");
+    }*/
+    @PostMapping("saveBook")
+    @ResponseBody
+    public ResponseEntity<String> saveBook(@RequestBody Book book) throws IOException {
+        bookService.save(book);
         return ResponseEntity.ok("Book saved");
     }
 

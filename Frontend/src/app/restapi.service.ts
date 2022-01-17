@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
+import { Book } from "./entity/Book";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
@@ -22,9 +23,9 @@ export class RestapiService {
   getBooks() {
     return this.http.get(API_URL + '/api/v1/books')
   }
-
-  saveBook(name: string,authorFirstName:string,image: object,description:string){
-    return this.http.get(API_URL + '/api/v1/saveBook')
+  public saveBook(name: String, authorFirstName: String, image: Object, averageRating: number){
+    const body = {name, authorFirstName};
+    return this.http.post(API_URL + '/api/v1/saveBook', body);
   }
 
 
