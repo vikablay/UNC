@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,13 +22,23 @@ import java.io.InputStream;
 @SpringBootApplication
 public class BackendApp {
 
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApp.class, args);
+    }
+
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(BackendApp.class, args);
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200", "http://localhost:4210");
+            }
+        };
     }
 
     @Bean
