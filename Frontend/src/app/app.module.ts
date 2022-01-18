@@ -12,6 +12,7 @@ import {LoginComponent} from './login/login.component';
 import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
 import { AddbookComponent } from './addbook/addbook.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddbookComponent } from './addbook/addbook.component';
     NotFoundComponent,
     LoginComponent,
     BooksComponent,
-    AddbookComponent
+    AddbookComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

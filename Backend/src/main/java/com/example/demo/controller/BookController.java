@@ -5,6 +5,7 @@ import com.example.demo.entity.Book;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,20 +28,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
-    @GetMapping("image/{id}")
-    @ResponseBody
-    public void getImage(@PathVariable("id") Long id,
-                         HttpServletResponse response) throws IOException {
-        Book book = bookService.findById(id);
-        response.getOutputStream().write(book.getImage());
-        response.getOutputStream().close();
-    }
-
     @PostMapping("saveBook")
     @ResponseBody
     public ResponseEntity<String> saveBook(@RequestParam String name,
                                            @RequestParam String authorFirstName,
-                                           @RequestParam(name="image",required = false) MultipartFile image,
+                                           @RequestParam(name = "image", required = false) MultipartFile image,
                                            @RequestParam(required = false) String description) throws IOException {
         bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
         return ResponseEntity.ok("Book saved");
@@ -70,8 +62,15 @@ public class BookController {
     }
 
     @GetMapping("book")
-    public Book getBook(@RequestParam String name) {
-        return bookService.findByName(name);
+    @Transactional
+    public ResponseEntity<Book> getBook(@RequestParam String name) {
+        return ResponseEntity.ok(bookService.findByName(name));
+    }
+
+    @GetMapping("book1")
+    @Transactional
+    public Long getBook1(@RequestParam String name) {
+        return bookService.findByName1(name);
     }
 
     @GetMapping("booksAverageRating")

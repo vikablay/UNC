@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {RestapiService} from "../restapi.service";
+import {Byte} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-addbook',
@@ -25,12 +26,15 @@ export class AddbookComponent {
 
   onFileSelected(event: any) {
     this.image=<File>event.target.files[0];
+    console.log(event);
+    console.log(this.image.type);
   }
   saveBook() {
     this.title="book saved ";
-    const fd = new FormData();
-    fd.append('image',this.image,this.image.name);
-    let resp = this.service.saveBook(this.bookName, this.authorFirstName,fd, 5);
-    resp.subscribe((data: any) => this.book = data);
+    let formData = new FormData();
+    formData.append("file", this.image);
+    console.log(formData);
+    let resp = this.service.saveBook(this.bookName, this.authorFirstName,formData, 5);
+    resp.subscribe((data: any) => {this.book = data;});
   }
 }

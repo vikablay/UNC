@@ -8,13 +8,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let book of books">
+    <tr *ngFor="let book of books" (click)="toDetails(book.name)">
     <td>{{book.id}}</td>
     <td>{{book.name}}<br>
-      <img src="http://localhost:8081/api/v1/image/{{book.id}}" alt="" width="23%">
+<!--      <img src="http://localhost:8081/api/v1/image/{{book.id}}" alt="" width="23%">-->
+      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="23%">
     </td>
-    <!--    <td>{{book.author}} </td>-->
-    <td>{{book.authors[0].firstName + " " + book.authors[0].lastName }} </td>
+        <td>{{book.author}} </td>
+    <!--    <td>{{book.authors[0].firstName + " " + book.authors[0].lastName }} </td>-->
   </tr>
   </tbody>
 </table>

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { environment } from 'src/environments/environment';
-import { Book } from "./entity/Book";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from 'src/environments/environment';
+import {Book} from "./entity/Book";
 import {CookieService} from "ngx-cookie-service";
+import {Byte} from "@angular/compiler/src/util";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
@@ -34,9 +35,24 @@ export class RestapiService {
     return this.http.get(API_URL + '/api/v1/books', {headers: headers});
   }
 
-  saveBook(name: String, authorFirstName: String, image: Object, averageRating: number){
-    const body = {name, authorFirstName,image};
-    return this.http.post(API_URL + '/api/v1/saveBook', body);
+  getBookForDetails(name: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const params = {
+      'name': name
+    }
+    return this.http.get(API_URL + '/api/v1/book', {headers: headers, params: params, responseType: 'text' as 'json', observe: 'response'});
+  }
+
+  saveBook(name: String, authorFirstName: String, image: FormData, averageRating: number) {
+    const body = {
+      'name': name,
+      'authorFirstName': authorFirstName,
+      'image': image
+    };
+    return this.http.post(API_URL + '/api/v1/saveBook', {headers: {"Content-Type": "application/json"}, params: body});
   }
 
 

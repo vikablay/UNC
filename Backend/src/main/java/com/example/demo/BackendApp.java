@@ -54,7 +54,7 @@ public class BackendApp {
             userService.addRoleToUser("user1", "ROLE_ADMIN");
             userService.addRoleToUser("user2", "ROLE_CUSTOMER");
 
-            bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
+            bookService.save(new Book("War", getImg("/images/warAndPeace.jpg"),
                     new Author("Лев", "Толстой")));
             bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
                     new Author("Федор", "Достоевский")));

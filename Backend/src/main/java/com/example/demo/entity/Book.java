@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Book {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
