@@ -75,4 +75,8 @@ public class BackendApp {
         }
         return out.toByteArray();
     }
+
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApp.class, args);
+    }
 }
