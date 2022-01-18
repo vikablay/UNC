@@ -17,10 +17,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 public class BackendApp {
-
-    public static void main(String[] args) {
-        SpringApplication.run(BackendApp.class, args);
-    }
+    private static final String[] ALLOWED_CORS_SOURCES =
+            {
+                    "http://localhost:4200",
+                    "http://localhost:4210"
+            };
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -32,7 +33,7 @@ public class BackendApp {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200", "http://localhost:4210");
+                registry.addMapping("/**").allowedOrigins(ALLOWED_CORS_SOURCES);
             }
         };
     }
@@ -52,5 +53,9 @@ public class BackendApp {
             bookService.save(new Book("War and Peace", new Author("Lev", "Tolstoy")));
             bookService.save(new Book("Crime and Punishment", new Author("Fedor", "Dostoevsky")));
         };
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApp.class, args);
     }
 }
