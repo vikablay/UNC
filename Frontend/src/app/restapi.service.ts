@@ -33,8 +33,9 @@ export class RestapiService {
     });
     return this.http.get(API_URL + '/api/v1/books', {headers: headers});
   }
-  public saveBook(name: String, authorFirstName: String, image: Object, averageRating: number){
-    const body = {name, authorFirstName};
+
+  saveBook(name: String, authorFirstName: String, image: Object, averageRating: number){
+    const body = {name, authorFirstName,image};
     return this.http.post(API_URL + '/api/v1/saveBook', body);
   }
 

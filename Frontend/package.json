@@ -21,8 +21,8 @@
     "class-transformer": "^0.5.1",
     "es6-shim": "^0.35.6",
     "ngx-cookie-service": "^13.1.2",
-    "reflect-metadata": "^0.1.13",
     "readline-sync": "^1.4.10",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -12,7 +12,7 @@ export class AddbookComponent {
   bookName: string;
   authorFirstName: string;
   description: string;
-  image: object;
+  image: File;
 
   title="NOTHING"
 
@@ -23,9 +23,14 @@ export class AddbookComponent {
 
   }
 
+  onFileSelected(event: any) {
+    this.image=<File>event.target.files[0];
+  }
   saveBook() {
     this.title="book saved ";
-    let resp = this.service.saveBook(this.bookName, this.authorFirstName,this.image, 5);
+    const fd = new FormData();
+    fd.append('image',this.image,this.image.name);
+    let resp = this.service.saveBook(this.bookName, this.authorFirstName,fd, 5);
     resp.subscribe((data: any) => this.book = data);
   }
 }
