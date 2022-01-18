@@ -21,10 +21,11 @@ import java.io.InputStream;
 
 @SpringBootApplication
 public class BackendApp {
-
-    public static void main(String[] args) {
-        SpringApplication.run(BackendApp.class, args);
-    }
+    private static final String[] ALLOWED_CORS_SOURCES =
+            {
+                    "http://localhost:4200",
+                    "http://localhost:4210"
+            };
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -36,7 +37,7 @@ public class BackendApp {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200", "http://localhost:4210");
+                registry.addMapping("/**").allowedOrigins(ALLOWED_CORS_SOURCES);
             }
         };
     }
@@ -73,5 +74,9 @@ public class BackendApp {
             e.printStackTrace();
         }
         return out.toByteArray();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApp.class, args);
     }
 }
