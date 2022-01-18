@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
+import { Book } from "./entity/Book";
 import {CookieService} from "ngx-cookie-service";
 
 const API_HOST: string = environment.backendAPIHost
@@ -33,8 +34,9 @@ export class RestapiService {
     return this.http.get(API_URL + '/api/v1/books', {headers: headers});
   }
 
-  saveBook(name: string,authorFirstName:string,image: object,description:string){
-    return this.http.get(API_URL + '/api/v1/saveBook')
+  saveBook(name: String, authorFirstName: String, image: Object, averageRating: number){
+    const body = {name, authorFirstName,image};
+    return this.http.post(API_URL + '/api/v1/saveBook', body);
   }
 
 

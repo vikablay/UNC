@@ -1,17 +1,18 @@
 <div class="container addbook-container">
+  <h3>{{title}}</h3>
   <form action="addbook.component.ts" method="post">
-    <p>Введите название книги<br>
-      <input type="text" [(ngModel)]="bookName" placeholder="Название книги" value=""/>
-    </p>
+      <p>Введите название книги<br>
+        <input type="text" [(ngModel)]="bookName" [ngModelOptions]="{ standalone: true }" placeholder="Название книги" value=""/>
+      </p>
     <p>Введите фамилию и имя автора<br>
-      <input type="text" [(ngModel)]="authorFirstName" placeholder="Фамилия и имя автора" value=""/>
+      <input type="text" [(ngModel)]="authorFirstName" placeholder="Фамилия и имя автора" value="" [ngModelOptions]="{ standalone: true }"/>
     </p>
     <p>Введите описание<br>
-      <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value=""></textarea>
+      <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value="" [ngModelOptions]="{ standalone: true }"></textarea>
     </p>
     <p>Выберите изображение обложки<br>
-      <input type="file" [(ngModel)]="image" placeholder="" required="required"/>
+      <input type="file" placeholder="" required="required" (change)="(onFileSelected($event))"/>
     </p>
-    <input type="submit" value="Добавить" name="addButton" (click)="saveBook()"/>
+    <input type="submit" value="Добавить" (click)="saveBook()"/>
   </form>
 </div>
