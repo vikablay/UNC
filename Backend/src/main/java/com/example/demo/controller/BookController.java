@@ -6,7 +6,10 @@ import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,11 +27,22 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
+    @GetMapping("image/{id}")
+    @ResponseBody
+    public void getImage(@PathVariable("id") Long id,
+                         HttpServletResponse response) throws IOException {
+        Book book = bookService.findById(id);
+        response.getOutputStream().write(book.getImage());
+        response.getOutputStream().close();
+    }
+
     @PostMapping("saveBook")
+    @ResponseBody
     public ResponseEntity<String> saveBook(@RequestParam String name,
                                            @RequestParam String authorFirstName,
-                                           @RequestParam(required = false) String description) {
-        bookService.save(new Book(name, new Author(authorFirstName)));
+                                           @RequestParam("image") MultipartFile image,
+                                           @RequestParam(required = false) String description) throws IOException {
+        bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
         return ResponseEntity.ok("Book saved");
     }
 

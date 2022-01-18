@@ -32,6 +32,10 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
+    public Book findById(Long id) {
+        return bookRepository.findById(id).orElse(null);
+    }
+
     public void delete(Long id) {
         bookRepository.deleteById(id);
 

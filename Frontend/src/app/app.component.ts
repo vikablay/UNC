@@ -27,4 +27,7 @@ export class AppComponent {
   goToBooks() {
     this.router.navigate(['/books']);
   }
+  goToAddBook() {
+    this.router.navigate(['/addbook']);
+  }
 }
