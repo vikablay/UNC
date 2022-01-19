@@ -28,21 +28,24 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
-    @PostMapping("saveBook")
+    @PostMapping("saveBook1")
     @ResponseBody
-    public ResponseEntity<String> saveBook(@RequestParam String name,
+    public ResponseEntity<String> saveBook1(@RequestParam String name,
                                            @RequestParam String authorFirstName,
                                            @RequestParam(name = "image", required = false) MultipartFile image,
                                            @RequestParam(required = false) String description) throws IOException {
-        bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
+       // bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
+        bookService.save(new Book(name, image.getBytes(), authorFirstName));
         return ResponseEntity.ok("Book saved");
     }
-    /*@PostMapping("saveBook")
+
+    @PostMapping("saveBook")
     @ResponseBody
-    public ResponseEntity<String> saveBook(@RequestBody Book book) throws IOException {
+    public void saveBook(@RequestBody Book book) throws IOException {
         bookService.save(book);
-        return ResponseEntity.ok("Book saved");
-    }*/
+        //return ResponseEntity.ok();
+    }
+
 
     @DeleteMapping("deleteBook")
     public void deleteBook(@RequestParam Long id) {

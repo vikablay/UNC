@@ -5,13 +5,13 @@
         <input type="text" [(ngModel)]="bookName" [ngModelOptions]="{ standalone: true }" placeholder="Название книги" value=""/>
       </p>
     <p>Введите фамилию и имя автора<br>
-      <input type="text" [(ngModel)]="authorFirstName" placeholder="Фамилия и имя автора" value="" [ngModelOptions]="{ standalone: true }"/>
+      <input type="text" [(ngModel)]="authorName" placeholder="Фамилия и имя автора" value="" [ngModelOptions]="{ standalone: true }"/>
     </p>
     <p>Введите описание<br>
       <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value="" [ngModelOptions]="{ standalone: true }"></textarea>
     </p>
     <p>Выберите изображение обложки<br>
-      <input type="file" placeholder="" required="required" (change)="(onFileSelected($event))"/>
+      <input type="file" placeholder="" required="required" (change)="onFileSelected($event)"/>
     </p>
     <input type="submit" value="Добавить" (click)="saveBook()"/>
   </form>

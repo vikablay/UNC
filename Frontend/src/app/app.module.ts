@@ -13,6 +13,7 @@ import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
 import { AddbookComponent } from './addbook/addbook.component';
 import { DetailsComponent } from './details/details.component';
+import {RestapiService} from "./restapi.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { DetailsComponent } from './details/details.component';
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, RestapiService, BooksComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

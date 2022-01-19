@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Byte} from "@angular/compiler/src/util";
+import {Book} from "../entity/Book";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-addbook',
@@ -9,32 +11,33 @@ import {Byte} from "@angular/compiler/src/util";
 })
 export class AddbookComponent {
 
-  book: any;
+  book: Book;
   bookName: string;
-  authorFirstName: string;
+  authorName: string;
   description: string;
   image: File;
 
-  title="NOTHING"
+
+  title = "NOTHING"
 
   constructor(private service: RestapiService) {
   }
 
-  onAddClick() {
-
-  }
-
   onFileSelected(event: any) {
-    this.image=<File>event.target.files[0];
-    console.log(event);
-    console.log(this.image.type);
+    console.log("IMG:  " + this.image);
+    this.image = <File>event.target.files[0];
+    console.log("IMG2:  " + this.image);
   }
+
   saveBook() {
-    this.title="book saved ";
-    let formData = new FormData();
-    formData.append("file", this.image);
-    console.log(formData);
-    let resp = this.service.saveBook(this.bookName, this.authorFirstName,formData, 5);
-    resp.subscribe((data: any) => {this.book = data;});
+    this.title = "book saved ";
+
+    /*let formData = new FormData();
+    formData.append("file", this.image, this.image.name);
+    console.log("FOrmData:  " + formData);*/
+
+    let resp = this.service.saveBook(this.bookName, this.authorName, this.image);
+    resp.subscribe((data: any) => console.log("DATA:  " + data));
   }
+
 }

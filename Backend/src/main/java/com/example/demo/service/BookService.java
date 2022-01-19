@@ -32,9 +32,6 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
-    public Long findByName1(String name) {
-        return bookRepository.findByName(name).getId();
-    }
 
     public Book findById(Long id) {
         return bookRepository.findById(id).orElse(null);

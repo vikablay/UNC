@@ -3,8 +3,11 @@ package com.example.demo.entity;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,13 +37,19 @@ public class Book {
     @Lob
     private byte[] image;
 
-    public Book(String name, byte[] image, Author author) {
+    public Book(String name, byte[] image, String authorName) {
         this.name = name;
         this.image = image;
-        this.addAuthor(author);
+        this.addAuthor(authorName);
+    }
+    public Book(String name, String authorName) {
+        this.name = name;
+        this.addAuthor(authorName);
     }
 
-    public void addAuthor(Author author) {
+    public void addAuthor(String authorName) {
+        String[] names = authorName.split(" ");
+        Author author=new Author(names[0],names[1]);
         author.addBook(this);
         authors.add(author);
     }
