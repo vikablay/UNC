@@ -7,12 +7,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: 'Frontend'
+  title: 'Frontend';
+  isAuthenticated: boolean = false;
 
   constructor(private router: Router) {
   }
 
-  goToHome(){
+  goToHome() {
     this.router.navigate(['/home']);
   }
 
@@ -27,7 +28,13 @@ export class AppComponent {
   goToBooks() {
     this.router.navigate(['/books']);
   }
+
   goToAddBook() {
     this.router.navigate(['/addbook']);
+  }
+
+  goToRegistration() {
+    this.router.navigate(['/registration']);
+
   }
 }

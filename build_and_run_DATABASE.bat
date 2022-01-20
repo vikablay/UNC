@@ -1,0 +1,1 @@
+call docker run --name UNC_DATABASE -d -p 5444:5432 --restart=always -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=postgres -e POSTGRES_DB=test-api postgres:latest

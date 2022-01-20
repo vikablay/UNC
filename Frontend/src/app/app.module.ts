@@ -11,7 +11,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from './login/login.component';
 import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
-import { AddbookComponent } from './addbook/addbook.component';
+import {AddbookComponent} from './addbook/addbook.component';
+import {RegistrationComponent} from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import { AddbookComponent } from './addbook/addbook.component';
     NotFoundComponent,
     LoginComponent,
     BooksComponent,
-    AddbookComponent
+    AddbookComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

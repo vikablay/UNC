@@ -25,7 +25,9 @@ public class Book {
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
 
-    private double averageRating;
+    private Long sumRatingMarks = 0L;
+    private int ratingsQuantity = 0;
+    private double averageRating = 0;
 
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Genre> genres = new ArrayList<>();
@@ -41,12 +43,18 @@ public class Book {
 
     public void addAuthor(Author author) {
         author.addBook(this);
-        authors.add(author);
+        this.authors.add(author);
     }
 
     public void addGenre(Genre genre) {
         genre.addBook(this);
-        genres.add(genre);
+        this.genres.add(genre);
+    }
+
+    public void updateAverageRating(int newRatingMark) {
+        this.ratingsQuantity += 1;
+        this.sumRatingMarks += newRatingMark;
+        this.averageRating = (double) this.sumRatingMarks / this.ratingsQuantity;
     }
 
 }

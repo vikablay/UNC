@@ -1,7 +1,7 @@
-<div class="container login-container" *ngIf="!isAuthenticated; else loggedIn">
+<div class="container login-container">
   <div class="row">
     <div class="col-md-6 login-form-1">
-      <h3>Авторизация</h3>
+      <h3>Регистрация</h3>
       <div class="form-group">
         <label>
           <input type="text" [(ngModel)]="username" class="form-control" placeholder="Логин*" value=""/>
@@ -13,14 +13,15 @@
         </label>
       </div>
       <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Подтвердить" (click)="onLoginClick()"/>
+        <label>
+          <input type="password" [(ngModel)]="email" class="form-control" placeholder="Email*" value=""/>
+        </label>
       </div>
       <div class="form-group">
-        <a href="#" class="btnForgetPwd">Забыли пароль?</a>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Подтвердить" (click)="onLoginClick()"/>
       </div>
     </div>
   </div>
 </div>
-<ng-template #loggedIn>
-  <h3>Вы авторизованы</h3>
-</ng-template>

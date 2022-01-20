@@ -1,3 +1,4 @@
+# deprecated, use build_and_run_DATABASE instead
 version: '3'
 services:
   db-test-api:
