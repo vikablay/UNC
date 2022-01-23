@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'books', component: BooksComponent },
   { path: 'addbook', component: AddbookComponent },
-  { path: 'details', component: DetailsComponent },
+  { path: 'details/:bookName', component: DetailsComponent },
 
 
   { path: '**', component: NotFoundComponent }

@@ -66,14 +66,9 @@ public class BookController {
 
     @GetMapping("book")
     @Transactional
-    public ResponseEntity<Book> getBook(@RequestParam String name) {
-        return ResponseEntity.ok(bookService.findByName(name));
-    }
-
-    @GetMapping("book1")
-    @Transactional
-    public Long getBook1(@RequestParam String name) {
-        return bookService.findByName1(name);
+    public Book getBook(@RequestParam String name) {
+        return bookService.findByName(name);
+        //return ResponseEntity.ok();
     }
 
     @GetMapping("booksAverageRating")

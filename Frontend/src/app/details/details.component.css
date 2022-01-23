@@ -1,0 +1,31 @@
+.detailsBook {
+  min-height: 400px;
+}
+
+.image {
+  float: left; /* Выравнивание по левому краю */
+  margin: 5px 17px 17px 0; /* Отступы вокруг картинки */
+}
+
+.author{
+  display:inline-block;
+}
+
+.btn-primary {
+  margin: 0 auto;
+  background-color: lavender;
+  border: 2px solid lavender;
+  font-size: 16px;
+}
+
+.btn-primary:hover {
+  background-color: #c5c5f3;
+  border: 2px solid #c5c5f3;
+}
+
+.btn-primary:active {
+  background-color: #c5c5f3;
+  border: 2px solid #c5c5f3;
+  transform: translateY(0.5px);
+}
+

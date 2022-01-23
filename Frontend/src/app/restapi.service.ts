@@ -33,7 +33,7 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-    return this.http.get(API_URL + '/api/v1/books', {headers: headers});
+    return this.http.get(API_URL + '/api/v1/books', {headers: headers,responseType: 'text' as 'json', observe: 'response'});
   }
 
   getBookForDetails(name: string) {
@@ -44,7 +44,11 @@ export class RestapiService {
     const params = {
       'name': name
     }
-    return this.http.get(API_URL + '/api/v1/book', {headers: headers, params: params, responseType: 'text' as 'json', observe: 'response'});
+    return this.http.get(API_URL + '/api/v1/book', {
+      headers: headers,
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'});
   }
 
   saveBook(name: string, authorName: string, image: File) {
@@ -66,13 +70,6 @@ export class RestapiService {
     return this.http.post<Book>(API_URL + '/api/v1/saveBook1',body,{headers:headers});
 
     //return this.http.post<Book>(API_URL + '/api/v1/saveBook',body,{ headers: {"Content-Type": "multipart/form-data"}});
-  }
-
-
-  public name$ = new Subject<string>();
-
-  public changeName(name: string) {
-    this.name$.next(name);
   }
 
 }

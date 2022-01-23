@@ -8,8 +8,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let book of books" (click)="setAnyCount(book.name)">
-    <td (click)="toDetails(book.name)">{{book.id}}</td>
+  <tr *ngFor="let book of books" (click)="toDetails(book.name)">
+    <td>{{book.id}}</td>
     <td>{{book.name}}<br>
       <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="23%">
     </td>

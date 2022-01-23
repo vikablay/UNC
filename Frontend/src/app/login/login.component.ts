@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   onLoginClick() {
     this.restAPIService.login(this.username, this.password).subscribe(resp => {
-      this.tokens = deserialize(AuthResp, <string>resp.body)
+      this.tokens =deserialize(AuthResp, <string>resp.body)
       this.cookieService.set('access_token', this.tokens.access_token)
       console.log(this.cookieService.get('access_token'))
       this.cookieService.set('isAuthenticated', resp.statusText)
