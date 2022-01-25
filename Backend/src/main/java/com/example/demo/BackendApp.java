@@ -61,12 +61,15 @@ public class BackendApp {
                     new Author("Федор", "Достоевский")));
             bookService.save(new Book("Вишневый сад", getImg("/images/cherryOrchard.jpg"),
                     new Author("Антон", "Чехов")));*/
-            bookService.save(new Book("War",getImg("/images/warAndPeace.jpg"),
-                    "Лев Толстой"));
-            bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
-                    "Федор Достоевский"));
-            bookService.save(new Book("Вишневый сад", getImg("/images/cherryOrchard.jpg"),
-                    "Антон Чехов"));
+            bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
+                    new Author("Лев", "Толстой"), "«Война и мир» – одно из высших достижений художественного гения\n" +
+                    "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
+            bookService.save(new Book("Преступление и наказание",
+                    getImg("/images/crimeAndPunishment.jpg"),
+                    new Author("Федор", "Достоевский")));
+            bookService.save(new Book("Вишневый сад",
+                    getImg("/images/cherryOrchard.jpg"),
+                    new Author("Антон", "Чехов")));
         };
     }
 

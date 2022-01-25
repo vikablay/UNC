@@ -35,7 +35,7 @@ public class BookController {
                                            @RequestParam(name = "image", required = false) MultipartFile image,
                                            @RequestParam(required = false) String description) throws IOException {
        // bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
-        bookService.save(new Book(name, image.getBytes(), authorFirstName));
+        bookService.save(new Book(name, image.getBytes(),new Author(authorFirstName)));
         return ResponseEntity.ok("Book saved");
     }
 

@@ -11,4 +11,5 @@ export class Book {
   ];
   image: Byte[];
   averageRating: number;
+  description: string;
 }

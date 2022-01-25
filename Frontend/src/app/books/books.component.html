@@ -11,10 +11,13 @@
   <tr *ngFor="let book of books" (click)="toDetails(book.name)">
     <td>{{book.id}}</td>
     <td>{{book.name}}<br>
-      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="23%">
+      <img src="{{ImgUrl}}" alt="" width="23%">
+<!--      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="23%">-->
     </td>
-    <td *ngFor="let author of book.authors">
-      {{author.firstName + "  " + author.lastName}}
+    <td>
+      <span *ngFor="let author of book.authors">
+        {{author.firstName + "  " + author.lastName}}<br>
+      </span>
     </td>
   </tr>
   </tbody>

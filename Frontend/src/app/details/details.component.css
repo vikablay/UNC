@@ -1,14 +1,27 @@
 .detailsBook {
-  min-height: 400px;
+  min-height: 500px;
 }
 
 .image {
   float: left; /* Выравнивание по левому краю */
-  margin: 5px 17px 17px 0; /* Отступы вокруг картинки */
+  margin: 5px 27px 17px 0; /* Отступы вокруг картинки */
 }
 
-.author{
-  display:inline-block;
+.loopOfAuthors {
+  font-size: 20px;
+  font-family: "Times New Roman";
+}
+
+pre{
+  font-family: "Times New Roman";
+}
+.author {
+  display: inline-block;
+}
+
+.description{
+  font-size: 19px;
+  font-family: "Times New Roman";
 }
 
 .btn-primary {
