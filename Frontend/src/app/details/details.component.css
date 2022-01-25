@@ -1,0 +1,44 @@
+.detailsBook {
+  min-height: 500px;
+}
+
+.image {
+  float: left; /* Выравнивание по левому краю */
+  margin: 5px 27px 17px 0; /* Отступы вокруг картинки */
+}
+
+.loopOfAuthors {
+  font-size: 20px;
+  font-family: "Times New Roman";
+}
+
+pre{
+  font-family: "Times New Roman";
+}
+.author {
+  display: inline-block;
+}
+
+.description{
+  font-size: 19px;
+  font-family: "Times New Roman";
+}
+
+.btn-primary {
+  margin: 0 auto;
+  background-color: lavender;
+  border: 2px solid lavender;
+  font-size: 16px;
+}
+
+.btn-primary:hover {
+  background-color: #c5c5f3;
+  border: 2px solid #c5c5f3;
+}
+
+.btn-primary:active {
+  background-color: #c5c5f3;
+  border: 2px solid #c5c5f3;
+  transform: translateY(0.5px);
+}
+
