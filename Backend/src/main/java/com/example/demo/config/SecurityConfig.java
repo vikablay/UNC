@@ -3,7 +3,6 @@ package com.example.demo.config;
 import com.example.demo.filter.CustomAuthenticationFilter;
 import com.example.demo.filter.CustomAuthorizationFilter;
 import com.example.demo.service.CustomUserDetailService;
-import com.example.demo.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,19 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-       /* http.cors();
-        http.csrf().disable(); //CrossSiteRequestForgery
+        http.cors();
+        http.csrf().disable();
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+        http.addFilter(customAuthenticationFilter);
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/registration/**").permitAll();
         http.authorizeRequests().antMatchers("/authenticate", "/login").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);*/
-        http.authorizeRequests().anyRequest().permitAll();
-        http.csrf().disable();
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

@@ -7,12 +7,14 @@ import { LoginComponent } from "./login/login.component";
 import { BooksComponent } from "./books/books.component";
 import {AddbookComponent} from "./addbook/addbook.component";
 import {DetailsComponent} from "./details/details.component";
+import {RegistrationComponent} from "./registration/registration.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'books', component: BooksComponent },
   { path: 'addbook', component: AddbookComponent },
   { path: 'details/:bookName', component: DetailsComponent },

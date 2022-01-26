@@ -13,7 +13,10 @@ import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
 import { AddbookComponent } from './addbook/addbook.component';
 import { DetailsComponent } from './details/details.component';
-import {RestapiService} from "./restapi.service";
+import {RegistrationComponent} from './registration/registration.component';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {MaterialModule} from "./material/material.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -24,15 +27,20 @@ import {RestapiService} from "./restapi.service";
     LoginComponent,
     BooksComponent,
     AddbookComponent,
-    DetailsComponent
+    DetailsComponent,
+    AddbookComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    NgSelectModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
-  providers: [CookieService, RestapiService, BooksComponent],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

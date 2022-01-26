@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
               private cookieService: CookieService) {
   }
 
-
   ngOnInit(): void {
     if (this.cookieService.check('isAuthenticated')) {
       this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
@@ -29,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   onLoginClick() {
     this.restAPIService.login(this.username, this.password).subscribe(resp => {
-      this.tokens =deserialize(AuthResp, <string>resp.body)
-      this.cookieService.set('access_token', this.tokens.access_token)
+      this.tokens = deserialize(AuthResp, <string>resp.body)
+      this.cookieService.set('access_token', this.tokens.access_token, {expires: 1})
       console.log(this.cookieService.get('access_token'))
       this.cookieService.set('isAuthenticated', resp.statusText)
       this.isAuthenticated = (resp.statusText == 'OK')

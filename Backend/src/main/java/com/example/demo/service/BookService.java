@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -39,15 +40,13 @@ public class BookService {
 
     public void delete(Long id) {
         bookRepository.deleteById(id);
-
     }
 
-    public void update(Long id, String name) {
-        Book book = bookRepository.findById(id).orElse(null);
-        if (book != null) {
+    public void updateName(Long id, String name) {
+        bookRepository.findById(id).ifPresent(book -> {
             book.setName(name);
             bookRepository.save(book);
-        }
+        });
     }
 
     public List<Book> findByAuthor(Author author) {
@@ -65,5 +64,12 @@ public class BookService {
 
     public void saveAll(List<Book> users) {
         bookRepository.saveAll(users);
+    }
+
+    public void updateAverageRating(Long id, int newRatingMark) {
+        bookRepository.findById(id).ifPresent(book -> {
+            book.updateAverageRating(newRatingMark);
+            bookRepository.save(book);
+        });
     }
 }
