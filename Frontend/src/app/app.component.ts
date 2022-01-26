@@ -19,10 +19,6 @@ export class AppComponent implements OnInit {
     this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
   }
 
-  goToHome() {
-    this.router.navigate(['/home']);
-  }
-
   goToAbout() {
     this.router.navigate(['/about']);
   }
