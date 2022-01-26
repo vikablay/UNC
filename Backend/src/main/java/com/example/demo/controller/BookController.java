@@ -5,6 +5,7 @@ import com.example.demo.entity.Book;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,24 +28,24 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
-    @GetMapping("image/{id}")
+    @PostMapping("saveBook1")
     @ResponseBody
-    public void getImage(@PathVariable("id") Long id,
-                         HttpServletResponse response) throws IOException {
-        Book book = bookService.findById(id);
-        response.getOutputStream().write(book.getImage());
-        response.getOutputStream().close();
+    public ResponseEntity<String> saveBook1(@RequestParam String name,
+                                           @RequestParam String authorFirstName,
+                                           @RequestParam(name = "image", required = false) MultipartFile image,
+                                           @RequestParam(required = false) String description) throws IOException {
+       // bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
+        bookService.save(new Book(name, image.getBytes(),new Author(authorFirstName)));
+        return ResponseEntity.ok("Book saved");
     }
 
     @PostMapping("saveBook")
     @ResponseBody
-    public ResponseEntity<String> saveBook(@RequestParam String name,
-                                           @RequestParam String authorFirstName,
-                                           @RequestParam("image") MultipartFile image,
-                                           @RequestParam(required = false) String description) throws IOException {
-        bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
-        return ResponseEntity.ok("Book saved");
+    public void saveBook(@RequestBody Book book) throws IOException {
+        bookService.save(book);
+        //return ResponseEntity.ok();
     }
+
 
     @DeleteMapping("deleteBook")
     public void deleteBook(@RequestParam Long id) {
@@ -64,8 +65,10 @@ public class BookController {
     }
 
     @GetMapping("book")
+    @Transactional
     public Book getBook(@RequestParam String name) {
         return bookService.findByName(name);
+        //return ResponseEntity.ok();
     }
 
     @GetMapping("booksAverageRating")

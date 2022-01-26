@@ -11,7 +11,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from './login/login.component';
 import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
-import {AddbookComponent} from './addbook/addbook.component';
+import { AddbookComponent } from './addbook/addbook.component';
+import { DetailsComponent } from './details/details.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {MaterialModule} from "./material/material.module";
@@ -25,6 +26,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     NotFoundComponent,
     LoginComponent,
     BooksComponent,
+    AddbookComponent,
+    DetailsComponent,
     AddbookComponent,
     RegistrationComponent
   ],
