@@ -13,6 +13,9 @@ import {BooksComponent} from './books/books.component';
 import {CookieService} from 'ngx-cookie-service';
 import {AddbookComponent} from './addbook/addbook.component';
 import {RegistrationComponent} from './registration/registration.component';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {MaterialModule} from "./material/material.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import {RegistrationComponent} from './registration/registration.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgSelectModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<div *ngIf="isAuthenticated" else #Authenticated>
+<div *ngIf="isAuthenticated; else Authenticated">
   <div>
     <h1>Навигация</h1>
     <div>
@@ -16,9 +16,6 @@
       </button>
       <button class="btn btn-primary" (click)="goToAbout()">
         <span>О нас</span>
-      </button>
-      <button class="btn btn-primary" (click)="goToLogin()">
-        <span>Авторизация</span>
       </button>
       <button class="btn btn-primary" (click)="goToBooks()">
         <span>Список книг</span>
@@ -32,8 +29,9 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<div #Authenticated>
+<ng-template #Authenticated>
   <div>
+    <h3>Добро пожаловать</h3>
     <h3>Войдите или зарегистрируйтесь чтобы продолжить</h3>
   </div>
   <button class="btn btn-primary" (click)="goToRegistration()">
@@ -45,7 +43,7 @@
   <div>
     <router-outlet></router-outlet>
   </div>
-</div>
+</ng-template>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

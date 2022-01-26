@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {CookieService} from "ngx-cookie-service";
+import {NewUser} from "./entity/NewUser";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
@@ -25,6 +26,10 @@ export class RestapiService {
       {params: params, responseType: 'text' as 'json', observe: 'response'})
   }
 
+  register(newUser: NewUser) {
+    return this.http.post(API_URL + '/api/registration', newUser, {responseType: 'text', observe: 'body'})
+  }
+
   getBooks() {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -33,7 +38,7 @@ export class RestapiService {
     return this.http.get(API_URL + '/api/v1/books', {headers: headers});
   }
 
-  saveBook(name: string,authorFirstName:string,image: object,description:string){
+  saveBook(name: string, authorFirstName: string, image: object, description: string) {
     return this.http.get(API_URL + '/api/v1/saveBook')
   }
 
