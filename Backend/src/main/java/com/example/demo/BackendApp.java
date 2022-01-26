@@ -13,20 +13,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 @SpringBootApplication
 public class BackendApp {
-    private static final String[] ALLOWED_CORS_SOURCES =
-            {
-                    "http://localhost:4200",
-                    "http://localhost:4210"
-            };
+    private static final String[] ALLOWED_CORS_SOURCES = {
+            "http://localhost:4200",
+            "http://localhost:4210"
+    };
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -55,15 +52,10 @@ public class BackendApp {
             userService.addRoleToUser("user1", "ROLE_ADMIN");
             userService.addRoleToUser("user2", "ROLE_CUSTOMER");
 
-            /*bookService.save(new Book("War", getImg("/images/warAndPeace.jpg"),
-                    new Author("Лев", "Толстой")));
-            bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
-                    new Author("Федор", "Достоевский")));
-            bookService.save(new Book("Вишневый сад", getImg("/images/cherryOrchard.jpg"),
-                    new Author("Антон", "Чехов")));*/
             bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
-                    new Author("Лев", "Толстой"), "«Война и мир» – одно из высших достижений художественного гения\n" +
-                    "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
+                    new Author("Лев", "Толстой"),
+                    "«Война и мир» – одно из высших достижений художественного гения\n" +
+                            "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
             bookService.save(new Book("Преступление и наказание",
                     getImg("/images/crimeAndPunishment.jpg"),
                     new Author("Федор", "Достоевский")));

@@ -70,7 +70,6 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-
     const body = new Book();
     body.name = name;
     body.authors = [{firstName, lastName}];
