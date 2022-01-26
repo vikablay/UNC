@@ -1,16 +1,12 @@
 package com.example.demo.entity;
 
-import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -25,36 +21,43 @@ public class Book {
     @Column(nullable = false, updatable = false)
     private Long id;
 
+
     private String name;
+
+
     private String description;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
 
+
     private double averageRating;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Genre> genres = new ArrayList<>();
 
-    @Lob
-    private byte[] image;
 
-    public Book(String name, byte[] image, Author author) {
+    @Lob
+    private String image;
+
+    public Book(String name, String image, Author author) {
         this.name = name;
         this.image = image;
-        this.addAuthor(author);
+        addAuthor(author);
     }
 
-    public Book(String name, byte[] image, Author author, String description) {
+    public Book(String name, String image, Author author, String description) {
         this.name = name;
         this.image = image;
         this.description = description;
-        this.addAuthor(author);
+        addAuthor(author);
     }
 
     public Book(String name, Author author) {
         this.name = name;
-        this.addAuthor(author);
+        addAuthor(author);
     }
 
 

@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.Base64;
 
 @SpringBootApplication
 public class BackendApp {
@@ -55,27 +55,24 @@ public class BackendApp {
             userService.addRoleToUser("user1", "ROLE_ADMIN");
             userService.addRoleToUser("user2", "ROLE_CUSTOMER");
 
-            /*bookService.save(new Book("War", getImg("/images/warAndPeace.jpg"),
-                    new Author("Лев", "Толстой")));
-            bookService.save(new Book("Преступление и наказание", getImg("/images/crimeAndPunishment.jpg"),
-                    new Author("Федор", "Достоевский")));
-            bookService.save(new Book("Вишневый сад", getImg("/images/cherryOrchard.jpg"),
-                    new Author("Антон", "Чехов")));*/
-            bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
-                    new Author("Лев", "Толстой"), "«Война и мир» – одно из высших достижений художественного гения\n" +
+            bookService.save(new Book("Война и мир",
+                    Base64.getEncoder().encodeToString(getImg("/images/warAndPeace.jpg")),
+                    new Author("Лев", "Толстой"),
+                    "«Война и мир» – одно из высших достижений художественного гения\n" +
                     "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
             bookService.save(new Book("Преступление и наказание",
-                    getImg("/images/crimeAndPunishment.jpg"),
+                    Base64.getEncoder().encodeToString(getImg("/images/crimeAndPunishment.jpg")),
                     new Author("Федор", "Достоевский")));
             bookService.save(new Book("Вишневый сад",
-                    getImg("/images/cherryOrchard.jpg"),
+                    Base64.getEncoder().encodeToString(getImg("/images/cherryOrchard.jpg")),
                     new Author("Антон", "Чехов")));
         };
     }
 
-    private byte[] getImg(String name) {
+
+    private byte[] getImg(String name){
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (InputStream in = getClass().getResourceAsStream(name)) {
+        try (InputStream in = getClass().getResourceAsStream(name)){
             int length;
             byte[] buffer = new byte[1024];
             while ((length = in.read(buffer)) != -1)

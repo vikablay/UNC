@@ -1,15 +1,17 @@
-import {Byte} from "@angular/compiler/src/util";
-
 export class Book {
+
+  constructor(name: string, authors: [{ firstName: string, lastName: string }], image: string, description: string) {
+  }
+
   id: number;
   name: string;
   authors: [
     {
-    firstName: string,
-    lastName: string
+      firstName: string,
+      lastName: string
     }
   ];
-  image: Byte[];
+  image: string;
   averageRating: number;
   description: string;
 }

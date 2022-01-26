@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,22 +26,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
-    @PostMapping("saveBook1")
-    @ResponseBody
-    public ResponseEntity<String> saveBook1(@RequestParam String name,
-                                           @RequestParam String authorFirstName,
-                                           @RequestParam(name = "image", required = false) MultipartFile image,
-                                           @RequestParam(required = false) String description) throws IOException {
-       // bookService.save(new Book(name, image.getBytes(), new Author(authorFirstName)));
-        bookService.save(new Book(name, image.getBytes(),new Author(authorFirstName)));
-        return ResponseEntity.ok("Book saved");
-    }
-
     @PostMapping("saveBook")
     @ResponseBody
-    public void saveBook(@RequestBody Book book) throws IOException {
-        bookService.save(book);
-        //return ResponseEntity.ok();
+    public void saveBook(@RequestBody Book book) {
+        List<Author> auuths = book.getAuthors();
+        bookService.save(book,auuths.get(0));
     }
 
 
@@ -68,7 +55,6 @@ public class BookController {
     @Transactional
     public Book getBook(@RequestParam String name) {
         return bookService.findByName(name);
-        //return ResponseEntity.ok();
     }
 
     @GetMapping("booksAverageRating")

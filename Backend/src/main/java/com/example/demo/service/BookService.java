@@ -28,6 +28,11 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public void save(Book book, Author author) {
+        author.addBook(book);
+        bookRepository.save(book);
+    }
+
     public Book findByName(String name) {
         return bookRepository.findByName(name);
     }

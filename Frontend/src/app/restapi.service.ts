@@ -3,8 +3,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {Book} from "./entity/Book";
 import {CookieService} from "ngx-cookie-service";
-import {Byte} from "@angular/compiler/src/util";
-import {Subject} from "rxjs";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
@@ -33,7 +31,11 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-    return this.http.get(API_URL + '/api/v1/books', {headers: headers,responseType: 'text' as 'json', observe: 'response'});
+    return this.http.get(API_URL + '/api/v1/books', {
+      headers: headers,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
   }
 
   getBookForDetails(name: string) {
@@ -48,33 +50,24 @@ export class RestapiService {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
-      observe: 'response'});
+      observe: 'response'
+    });
   }
 
-  saveBook(name: string, firstName: string, lastName:string, image: Uint8Array) {
+  saveBook(name: string, firstName: string, lastName: string, image: string, description: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
 
-   /* let formData = new FormData();
-    formData.append("file", image);*/
+    const body = new Book(name, [{firstName, lastName}], image, description);
+    /*body.name = name;
+    body.image = image;
+    body.authors = [{firstName, lastName}];
+    body.description = description;*/
 
-    /*const body = {
-      "name": name,
-      //"image": image,
-      "authors": authorName
-    };*/
-
-
-    const body = new Book();
-      body.name=name;
-      body.authors= [{firstName,lastName}];
-    //const body = {"name": name,"authorName": authorName};
-    console.log("IMG RESTAPI",image);
-    return this.http.post<Book>(API_URL + '/api/v1/saveBook',body, {headers: headers});
-
-    //return this.http.post<Book>(API_URL + '/api/v1/saveBook',body,{ headers: {"Content-Type": "multipart/form-data"}});
+    console.log("IMG RESTAPI", image);
+    return this.http.post<Book>(API_URL + '/api/v1/saveBook', body, {headers: headers});
   }
 
 }

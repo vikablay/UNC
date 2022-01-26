@@ -8,27 +8,22 @@
 </head>
 <body>
 <div>
-  <div>
-    <h1>Навигация</h1>
-    <div>
-      <button class="btn btn-primary" (click)="goToHome()">
-        <span>Домашняя страница</span>
-      </button>
-      <button class="btn btn-primary" (click)="goToAbout()">
-        <span>О нас</span>
-      </button>
-      <button class="btn btn-primary" (click)="goToLogin()">
-        <span>Авторизация</span>
-      </button>
-      <button class="btn btn-primary" (click)="goToBooks()">
-        <span>Список книг</span>
-      </button>
-      <button class="btn btn-primary" (click)="goToAddBook()">
-        <span>Добавить книгу</span>
-      </button>
+  <header>
+    <div class="container">
+      <div class="homePage"><a href="/home">Домашняя страница</a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="/about">О нас</a></li>
+          <li><a href="/books">Список книг</a></li>
+          <li><a href="/addbook">Добавить книгу</a></li>
+        </ul>
+      </div>
+      <div class="loginn">
+        <a href="/login">Авторизация </a>
+        <a href="/login">Регистрация </a>
+      </div>
     </div>
-  </div>
-
+  </header>
   <div>
     <router-outlet></router-outlet>
   </div>
