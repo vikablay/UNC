@@ -43,7 +43,7 @@ public class BookController {
     public void updateBook(@RequestParam Long id,
                            @RequestParam String name,
                            @RequestParam(required = false) String description) {
-        bookService.update(id, name);
+        bookService.updateName(id, name);
     }
 
     @GetMapping("booksOfAuthor")
@@ -61,6 +61,13 @@ public class BookController {
     public List<Book> getBooks(@RequestParam double to,
                                @RequestParam double from) {
         return bookService.findByAverageRatingBetween(to, from);
+    }
+
+    @PostMapping("/updateBookRating")
+    public Book updateBookRating(@RequestParam Long id,
+                                 @RequestParam int newRatingMark) {
+        bookService.updateAverageRating(id, newRatingMark);
+        return bookService.findById(id);
     }
 
 

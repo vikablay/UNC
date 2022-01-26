@@ -11,17 +11,19 @@
   <header>
     <div class="container">
       <div class="homePage"><a href="/home">Домашняя страница</a></div>
-      <div class="menu">
+      <div class="menu" *ngIf="isAuthenticated; else Authenticated">
         <ul>
           <li><a href="/about">О нас</a></li>
           <li><a href="/books">Список книг</a></li>
           <li><a href="/addbook">Добавить книгу</a></li>
         </ul>
       </div>
-      <div class="loginn">
-        <a href="/login">Авторизация </a>
-        <a href="/login">Регистрация </a>
-      </div>
+      <ng-template #Authenticated>
+        <div class="loginn">
+          <a href="/login">Авторизация </a>
+          <a href="/login">Регистрация </a>
+        </div>
+      </ng-template>
     </div>
   </header>
   <div>

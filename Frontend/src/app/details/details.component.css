@@ -24,21 +24,21 @@ pre{
   font-family: "Times New Roman";
 }
 
-.btn-primary {
-  margin: 0 auto;
-  background-color: lavender;
-  border: 2px solid lavender;
-  font-size: 16px;
-}
+/*.btn-primary {*/
+/*  margin: 0 auto;*/
+/*  background-color: lavender;*/
+/*  border: 2px solid lavender;*/
+/*  font-size: 16px;*/
+/*}*/
 
-.btn-primary:hover {
-  background-color: #c5c5f3;
-  border: 2px solid #c5c5f3;
-}
+/*.btn-primary:hover {*/
+/*  background-color: #c5c5f3;*/
+/*  border: 2px solid #c5c5f3;*/
+/*}*/
 
-.btn-primary:active {
-  background-color: #c5c5f3;
-  border: 2px solid #c5c5f3;
-  transform: translateY(0.5px);
-}
+/*.btn-primary:active {*/
+/*  background-color: #c5c5f3;*/
+/*  border: 2px solid #c5c5f3;*/
+/*  transform: translateY(0.5px);*/
+/*}*/
 

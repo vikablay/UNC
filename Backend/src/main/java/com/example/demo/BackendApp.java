@@ -17,16 +17,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.Base64;
 
 @SpringBootApplication
 public class BackendApp {
-    private static final String[] ALLOWED_CORS_SOURCES =
-            {
-                    "http://localhost:4200",
-                    "http://localhost:4210"
-            };
+    private static final String[] ALLOWED_CORS_SOURCES = {
+            "http://localhost:4200",
+            "http://localhost:4210"
+    };
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -69,10 +67,9 @@ public class BackendApp {
         };
     }
 
-
-    private byte[] getImg(String name){
+    private byte[] getImg(String name) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (InputStream in = getClass().getResourceAsStream(name)){
+        try (InputStream in = getClass().getResourceAsStream(name)) {
             int length;
             byte[] buffer = new byte[1024];
             while ((length = in.read(buffer)) != -1)

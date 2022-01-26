@@ -5,13 +5,18 @@ export class Book {
 
   id: number;
   name: string;
+  description: string;
   authors: [
     {
       firstName: string,
       lastName: string
     }
   ];
-  image: string;
+  sumRatingMarks: number;
+  ratingsQuantity: number;
   averageRating: number;
-  description: string;
+  genres: [
+    { name: string }
+  ]
+  image: string;
 }

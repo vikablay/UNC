@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {Book} from "./entity/Book";
 import {CookieService} from "ngx-cookie-service";
+import {NewUser} from "./entity/NewUser";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
@@ -22,8 +23,18 @@ export class RestapiService {
       'username': username,
       'password': password
     }
-    return this.http.get(API_URL + '/api/login',
-      {params: params, responseType: 'text' as 'json', observe: 'response'})
+    return this.http.get(API_URL + '/api/login', {
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    })
+  }
+
+  register(newUser: NewUser) {
+    return this.http.post(API_URL + '/api/registration', newUser, {
+      responseType: 'text',
+      observe: 'body'
+    })
   }
 
   getBooks() {
@@ -69,5 +80,4 @@ export class RestapiService {
     console.log("IMG RESTAPI", image);
     return this.http.post<Book>(API_URL + '/api/v1/saveBook', body, {headers: headers});
   }
-
 }
