@@ -1,24 +1,44 @@
-.btn-primary{
-  background-color: #72adf2;
-  font-size: 17px;
-  padding: 9px 20px;
-  max-width: 100%;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
+header {
+  width: 85%;
+  background: lightblue;
+  height: 70px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+a{
+  text-decoration: none; /* Отменяем подчеркивание у ссылки */
+  font-size: 24px;
+  color: whitesmoke;
+}
+
+a:hover{
   color: white;
-  border-radius: 4px;
-  margin-right: 20px;
-  border: 2px solid #72adf2 ;
 }
 
-.btn-primary:hover{
-  background-color: #4792f2;
-  border: 2px solid #4792f2 ;
+.container .homePage{
+  float: left;
+  padding-right: 25px;
+  font-size: 35px;
 }
 
-.btn-primary:active {
-  background-color: #4792f2;
-  border: 2px solid #4792f2 ;
-  transform: translateY(0.5px);
+.container .menu{
+  float: left;
 }
+
+.container .menu ul{
+  margin: 0;
+}
+
+.container .menu ul li{
+  display: inline-block;
+  padding-right: 18px;
+  float: left;
+}
+
+.container .loginn{
+  float: right;
+}
+

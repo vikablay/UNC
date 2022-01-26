@@ -13,7 +13,6 @@ import {deserializeArray} from "class-transformer";
 export class BooksComponent implements OnInit {
 
   books: Book[] = []
-  public ImgUrl = ' ';
 
   constructor(private service: RestapiService, private router: Router) {
   }
@@ -21,14 +20,9 @@ export class BooksComponent implements OnInit {
   ngOnInit(): void {
     this.service.getBooks().subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
-      for (var book in this.books) {
-        this.ImgUrl = 'data:image/png;base64,' + this.books[book].image;
-        console.log(this.books[book].image);
-        for (var author in this.books[book].authors)
-          console.log(this.books[book].authors[author].firstName);
-      }
     });
   }
+
 
   toDetails(name: string): void {
     this.router.navigate(['/details', name]);

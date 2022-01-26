@@ -17,49 +17,53 @@ public class Book {
     private Long id;
     private String name;
     private String description;
+
+    @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
     private Long sumRatingMarks = 0L;
     private int ratingsQuantity = 0;
     private double averageRating = 0;
+    @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Genre> genres = new ArrayList<>();
-    @Lob
-    private byte[] image;
 
-    public Book(String name, byte[] image, Author author) {
+    @Lob
+    private String image;
+
+    public Book(String name, String image, Author author) {
         this.name = name;
         this.image = image;
-        this.AddAuthor(author);
+        addAuthor(author);
     }
 
-    public Book(String name, byte[] image, Author author, String description) {
+    public Book(String name, String image, Author author, String description) {
         this.name = name;
         this.image = image;
         this.description = description;
-        this.AddAuthor(author);
+        addAuthor(author);
     }
 
     public Book(String name, Author author) {
         this.name = name;
-        this.AddAuthor(author);
+        addAuthor(author);
     }
 
 
-    public void AddAuthor(Author author) {
+    public void addAuthor(Author author) {
         author.addBook(this);
-        this.authors.add(author);
+        authors.add(author);
     }
 
     public void addGenre(Genre genre) {
         genre.addBook(this);
-        this.genres.add(genre);
+        genres.add(genre);
     }
 
     public void updateAverageRating(int newRatingMark) {
-        this.ratingsQuantity += 1;
-        this.sumRatingMarks += newRatingMark;
-        this.averageRating = (double) this.sumRatingMarks / this.ratingsQuantity;
+        ratingsQuantity += 1;
+        sumRatingMarks += newRatingMark;
+        averageRating = (double) sumRatingMarks / ratingsQuantity;
     }
 
 }

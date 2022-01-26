@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 @SpringBootApplication
 public class BackendApp {
@@ -52,15 +53,16 @@ public class BackendApp {
             userService.addRoleToUser("user1", "ROLE_ADMIN");
             userService.addRoleToUser("user2", "ROLE_CUSTOMER");
 
-            bookService.save(new Book("Война и мир", getImg("/images/warAndPeace.jpg"),
+            bookService.save(new Book("Война и мир",
+                    Base64.getEncoder().encodeToString(getImg("/images/warAndPeace.jpg")),
                     new Author("Лев", "Толстой"),
                     "«Война и мир» – одно из высших достижений художественного гения\n" +
-                            "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
+                    "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
             bookService.save(new Book("Преступление и наказание",
-                    getImg("/images/crimeAndPunishment.jpg"),
+                    Base64.getEncoder().encodeToString(getImg("/images/crimeAndPunishment.jpg")),
                     new Author("Федор", "Достоевский")));
             bookService.save(new Book("Вишневый сад",
-                    getImg("/images/cherryOrchard.jpg"),
+                    Base64.getEncoder().encodeToString(getImg("/images/cherryOrchard.jpg")),
                     new Author("Антон", "Чехов")));
         };
     }
