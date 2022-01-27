@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {RestapiService} from "./restapi.service";
 
 @Component({
   selector: 'my-app',
@@ -12,30 +13,23 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
 
   constructor(private router: Router,
-              private cookieService: CookieService) {
+              private cookieService: CookieService,
+              private restAPIService: RestapiService) {
   }
 
   ngOnInit(): void {
     this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
   }
 
-  goToAbout() {
-    this.router.navigate(['/about']);
-  }
-
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
-
-  goToBooks() {
-    this.router.navigate(['/books']);
-  }
-
-  goToAddBook() {
-    this.router.navigate(['/addbook']);
-  }
-
-  goToRegistration() {
-    this.router.navigate(['/registration']);
+  onLogoutClick() {
+    this.restAPIService.logout().subscribe(data => {
+        console.log(data)
+      },
+      error => {
+        console.log(error)
+      });
+    this.cookieService.delete("isAuthenticated");
+    this.cookieService.delete("access_token");
+    this.isAuthenticated = false;
   }
 }
