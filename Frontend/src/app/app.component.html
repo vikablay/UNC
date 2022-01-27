@@ -10,18 +10,25 @@
 <div>
   <header>
     <div class="container">
-      <div class="homePage"><a href="/home">Домашняя страница</a></div>
-      <div class="menu" *ngIf="isAuthenticated; else Authenticated">
-        <ul>
-          <li><a href="/about">О нас</a></li>
-          <li><a href="/books">Список книг</a></li>
-          <li><a href="/addbook">Добавить книгу</a></li>
-        </ul>
+      <div class="homePage"><a routerLink="about" routerLinkActive="active">Домашняя страница</a></div>
+      <div *ngIf="isAuthenticated; else Authenticated">
+        <div class="menu">
+          <ul>
+            <li><a routerLink="about" routerLinkActive="active">О нас</a></li>
+            <li><a routerLink="books" routerLinkActive="active">Список книг</a></li>
+            <li><a routerLink="addbook" routerLinkActive="active">Добавить книгу</a></li>
+          </ul>
+        </div>
+        <div>
+          <a class="loginn">
+            <a routerLink="about" routerLinkActive="active" (click)="onLogoutClick()">Выйти</a>
+          </a>
+        </div>
       </div>
       <ng-template #Authenticated>
         <div class="loginn">
-          <a href="/login">Авторизация </a>
-          <a href="/login">Регистрация </a>
+          <a routerLink="login" routerLinkActive="active">Авторизация </a>
+          <a routerLink="registration" routerLinkActive="active">Регистрация </a>
         </div>
       </ng-template>
     </div>

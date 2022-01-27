@@ -70,14 +70,12 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-
     const body = new Book(name, [{firstName, lastName}], image, description);
-    /*body.name = name;
-    body.image = image;
-    body.authors = [{firstName, lastName}];
-    body.description = description;*/
-
     console.log("IMG RESTAPI", image);
     return this.http.post<Book>(API_URL + '/api/v1/saveBook', body, {headers: headers});
+  }
+
+  logout() {
+    return this.http.post(API_URL + '/api/logout',{});
   }
 }
