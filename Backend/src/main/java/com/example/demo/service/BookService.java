@@ -7,8 +7,8 @@ import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -22,7 +22,12 @@ public class BookService {
     }
 
     public List<Book> findAll() {
-        return bookRepository.findAll();
+        List<Book> books = bookRepository.findAll();
+        Collections.sort(books, (d1, d2) -> {
+            return (int) (d1.getId() - d2.getId());
+        });
+        return books;
+        //return bookRepository.findAll();
     }
 
     public void save(Book book) {
@@ -47,9 +52,21 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public void updateName(Long id, String name) {
-        bookRepository.findById(id).ifPresent(book -> {
-            book.setName(name);
+    public void updateName(Book bookUpdate) {
+        bookRepository.findById(bookUpdate.getId()).ifPresent(book -> {
+            book.setName(bookUpdate.getName());
+            book.setDescription(bookUpdate.getDescription());
+            book.setImage(bookUpdate.getImage());
+            List<Author> auths = bookUpdate.getAuthors();
+            for (Author au : auths) {
+                au.addBook(bookUpdate);
+            }
+            List<Author> authors = book.getAuthors();
+            for (int i = 0; i < auths.size(); i++) {
+                authors.get(i).setFirstName(auths.get(i).getFirstName());
+                authors.get(i).setLastName(auths.get(i).getLastName());
+                authors.get(i).setBooks(auths.get(i).getBooks());
+            }
             bookRepository.save(book);
         });
     }
@@ -71,7 +88,7 @@ public class BookService {
         bookRepository.saveAll(users);
     }
 
-    public void updateAverageRating(Long id, int newRatingMark) {
+    public void updateAverageRating(Long id, Long newRatingMark) {
         bookRepository.findById(id).ifPresent(book -> {
             book.updateAverageRating(newRatingMark);
             bookRepository.save(book);

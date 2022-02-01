@@ -13,11 +13,15 @@ export class DetailsComponent implements OnInit {
 
   book: Book;
   bookN: string;
-  count: number = 0;
 
-  constructor(private service: RestapiService,
-              private router: Router,
-              private activateRoute: ActivatedRoute) {
+  authors: string;
+  image1: string;
+  image: File;
+
+  count: number = 0;
+  isUpdate: boolean = false;
+
+  constructor(private service: RestapiService, private router: Router, private activateRoute: ActivatedRoute) {
     this.bookN = this.activateRoute.snapshot.params['bookName'];
   }
 
@@ -29,6 +33,44 @@ export class DetailsComponent implements OnInit {
         this.count += 1;
     });
   }
+
+  update() {
+    console.log("UPDATE!!!!!!!!!!!!!!");
+    this.isUpdate = true;
+  }
+
+  onFileSelected(event: any) {
+    this.image = event.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener("loadend", () => {
+      // convert image file to base64 string
+      console.log('onFileSelected:', reader.result);
+      this.image1 = ((<string>reader.result).split(';')[1]).split(',')[1];
+      console.log('image1:', this.image1);
+    }, false);
+
+    if (this.image) {
+      reader.readAsDataURL(this.image);
+    }
+  }
+
+// сохраняем изменения
+  saveChange() {
+    if (this.authors != null) {
+      for (let au in this.book.authors) {
+        this.book.authors[au].firstName = this.authors.split(' ')[0];
+        this.book.authors[au].lastName = this.authors.split(' ')[1];
+        console.log(this.book.authors[au]);
+      }
+    }
+    this.book.image = this.image1;
+    console.log("name:",this.book.name);
+    console.log("author:",this.book.authors);
+    console.log("img:",this.book.image);
+    this.isUpdate = false;
+    this.service.updateBook(this.book).subscribe(data => console.log("DATA:  " + data));
+  }
+
 
   toBooks() {
     this.router.navigate(['/books']);

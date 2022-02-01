@@ -1,26 +1,78 @@
-<div class="detailsBook">
-  <div class="image">
-    <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="315px" height="465px">
-  </div>
-  <div class="title">
-    <h1>{{book.name}}</h1>
-  </div>
-  <div class="authors container">
-    <div class="author" *ngIf="count==1">
-      <pre>Автор: </pre>
+<div *ngIf="!isUpdate; else editTemplate">
+  <div class="detailsBook" id="detailsBook">
+    <div class="image" id="image">
+      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="315px" height="465px">
     </div>
-    <div class="authors" *ngIf="count>1">
-      <span>Авторы:</span>
+    <div class="title" id="title">
+      <h1>{{book.name}}</h1>
     </div>
-    <div class="loopOfAuthors" *ngFor="let author of book.authors">
-      <span>{{author.firstName + "  " + author.lastName}}</span>
+    <div class="authors container">
+      <div class="author" *ngIf="count==1">
+        <pre>Автор: </pre>
+      </div>
+      <div class="authors" *ngIf="count>1">
+        <span>Авторы:</span>
+      </div>
+      <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">
+        <span *ngFor="let author of book.authors">
+        <div class="if" *ngIf="author.firstName==null">
+          {{author.lastName}}<br>
+          </div>
+        <div class="if" *ngIf="author.lastName==null">
+          {{author.firstName}}<br>
+          </div>
+        <div class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+          {{author.firstName + "  " + author.lastName}}<br>
+          </div>
+      </span>
+      </div>
+    </div>
+    <div class="description" id="description">
+      <p>{{book.description}}</p>
     </div>
   </div>
-  <div class="description">
-    <p>{{book.description}}</p>
-  </div>
+  <button class="btn btn-primary" (click)="toBooks()">
+    <span>К списку книг</span>
+  </button>
+  <button class="update" id="update" (click)="update()">
+    <span>Редактировать</span>
+  </button>
 </div>
-<button class="btn btn-primary" (click)="toBooks()">
-  <span>К списку книг</span>
-</button>
 
+<!--шаблон для редактирования-->
+<ng-template #editTemplate>
+  <div class="detailsBook">
+    <div class="image">
+      <img src="data:image/jpeg;base64,{{book.image}}" id="img" alt="" width="315px" height="465px"><br>
+      <input type="file" placeholder="" required="required" (change)="onFileSelected($event)"/>
+    </div>
+    <div class="title">
+      <h1>{{book.name}}</h1>
+      <input type="text" [ngModelOptions]="{standalone: true}"
+             placeholder="Название книги" [(ngModel)]="book.name"/>
+    </div>
+    <div class="authors container">
+      <div class="author" *ngIf="count==1">
+        <pre>Автор: </pre>
+      </div>
+      <div class="authors" *ngIf="count>1">
+        <span>Авторы:</span>
+      </div>
+      <div class="loopOfAuthors" *ngFor="let author of book.authors">
+        <span>{{author.firstName + "  " + author.lastName}}</span><br>
+        <input type="text" [(ngModel)]="authors" [ngModelOptions]="{standalone:true}"
+               placeholder="Фамилия и имя автора"/>
+      </div>
+    </div>
+    <div class="description">
+      {{book.description}}
+      <p>Введите описание<br>
+        <textarea cols="45" [(ngModel)]="book.description" [ngModelOptions]="{standalone:true}"
+                  placeholder="Описание"></textarea>
+      </p>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="saveChange()">
+    <span>Cохранить</span>
+  </button>
+</ng-template>

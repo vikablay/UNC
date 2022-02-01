@@ -5,19 +5,45 @@
     <th>ID</th>
     <th>Название</th>
     <th>Авторы</th>
+    <th>Оценка</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let book of books" (click)="toDetails(book.name)">
-    <td>{{book.id}}</td>
-    <td>{{book.name}}<br>
+  <tr *ngFor="let book of books">
+    <td (click)="toDetails(book.name)">{{book.id}}</td>
+    <td (click)="toDetails(book.name)">{{book.name}}<br>
       <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="23%">
     </td>
+    <td (click)="toDetails(book.name)">
+      <div *ngFor="let author of book.authors">
+        <span class="if" *ngIf="author.firstName==null">
+            {{author.lastName}}<br>
+        </span>
+        <span class="if" *ngIf="author.lastName==null">
+          {{author.firstName}}<br>
+        </span>
+        <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+          <p>{{author.firstName + "  " + author.lastName}}</p>
+        </span>
+      </div>
+    </td>
     <td>
-      <span *ngFor="let author of book.authors">
-        {{author.firstName + "  " + author.lastName}}<br>
-      </span>
+      <p>{{book.averageRating}}</p>
+        <input type="radio" id="star-5" name="rating" value="1" (click)="changeRating(1,book.id)">
+        <input type="radio" id="star-4" name="rating" value="2" (click)="changeRating(2,book.id)">
+        <input type="radio" id="star-3" name="rating" value="3" (click)="changeRating(3,book.id)">
+        <input type="radio" id="star-2" name="rating" value="4" (click)="changeRating(4,book.id)">
+        <input type="radio" id="star-1" name="rating" value="5" (click)="changeRating(5,book.id)">
     </td>
   </tr>
   </tbody>
 </table>
+
+<!--<div class="form" *ngFor="let book of books" (click)="toDetails(book.name)">-->
+<!--  <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="13%">-->
+<!--  {{book.name}}-->
+<!--  <span *ngFor="let author of book.authors">-->
+<!--          {{author.firstName + "  " + author.lastName}}<br>-->
+<!--        </span>-->
+
+<!--</div>-->
