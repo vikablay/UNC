@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('isAuthenticated', resp.statusText)
         this.isAuthenticated = (resp.statusText == 'OK')
         let role = this.authResp.roles.substring(1, this.authResp.roles.length - 1)
-        window.open('/books','_self')
+        this.cookieService.set('role', role)
+        window.open('/books', '_self')
       },
       error => {
         this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 10})
