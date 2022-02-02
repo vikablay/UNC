@@ -63,7 +63,8 @@ export class DetailsComponent implements OnInit {
         console.log(this.book.authors[au]);
       }
     }
-    this.book.image = this.image1;
+    if(this.image1!=null)
+      this.book.image = this.image1;
     console.log("name:",this.book.name);
     console.log("author:",this.book.authors);
     console.log("img:",this.book.image);

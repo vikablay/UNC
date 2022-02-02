@@ -64,6 +64,9 @@ public class BackendApp {
             bookService.save(new Book("Вишневый сад",
                     Base64.getEncoder().encodeToString(getImg("/images/cherryOrchard.jpg")),
                     new Author("Антон", "Чехов")));
+            bookService.save(new Book("Отцы и дети",
+                    Base64.getEncoder().encodeToString(getImg("/images/61779469_ottsyi-i-deti-ast.jpg")),
+                    new Author("Иван", "Тургенев")));
         };
     }
 

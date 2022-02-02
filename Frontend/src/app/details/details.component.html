@@ -14,17 +14,17 @@
         <span>Авторы:</span>
       </div>
       <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">
-        <span *ngFor="let author of book.authors">
-        <div class="if" *ngIf="author.firstName==null">
-          {{author.lastName}}<br>
-          </div>
-        <div class="if" *ngIf="author.lastName==null">
-          {{author.firstName}}<br>
-          </div>
-        <div class="if" *ngIf="author.lastName!=null && author.firstName!=null">
-          {{author.firstName + "  " + author.lastName}}<br>
-          </div>
-      </span>
+        <div *ngFor="let author of book.authors">
+          <span class="if" *ngIf="author.firstName==null">
+            {{author.lastName}}<br>
+          </span>
+          <span class="if" *ngIf="author.lastName==null">
+            {{author.firstName}}<br>
+          </span>
+          <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+            {{author.firstName + "  " + author.lastName}}<br>
+          </span>
+        </div>
       </div>
     </div>
     <div class="description" id="description">
@@ -34,7 +34,7 @@
   <button class="btn btn-primary" (click)="toBooks()">
     <span>К списку книг</span>
   </button>
-  <button class="update" id="update" (click)="update()">
+  <button class="btn btn-primary" (click)="update()">
     <span>Редактировать</span>
   </button>
 </div>
