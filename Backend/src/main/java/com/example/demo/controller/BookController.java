@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,8 +28,8 @@ public class BookController {
     @PostMapping("saveBook")
     @ResponseBody
     public void saveBook(@RequestBody Book book) {
-        List<Author> auuths = book.getAuthors();
-        bookService.save(book,auuths.get(0));
+        List<Author> auths = book.getAuthors();
+        bookService.save(book, auths.get(0));
     }
 
 
@@ -40,10 +39,9 @@ public class BookController {
     }
 
     @PostMapping("updateBook")
-    public void updateBook(@RequestParam Long id,
-                           @RequestParam String name,
-                           @RequestParam(required = false) String description) {
-        bookService.updateName(id, name);
+    @ResponseBody
+    public void updateBook(@RequestBody Book book) {
+        bookService.updateName(book);
     }
 
     @GetMapping("booksOfAuthor")
@@ -63,10 +61,10 @@ public class BookController {
         return bookService.findByAverageRatingBetween(to, from);
     }
 
-    @PostMapping("/updateBookRating")
+    @PostMapping("updateBookRating")
     public Book updateBookRating(@RequestParam Long id,
-                                 @RequestParam int newRatingMark) {
-        bookService.updateAverageRating(id, newRatingMark);
+                                 @RequestParam Long rating) {
+        bookService.updateAverageRating(id, rating);
         return bookService.findById(id);
     }
 

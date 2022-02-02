@@ -57,13 +57,16 @@ public class BackendApp {
                     Base64.getEncoder().encodeToString(getImg("/images/warAndPeace.jpg")),
                     new Author("Лев", "Толстой"),
                     "«Война и мир» – одно из высших достижений художественного гения\n" +
-                    "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
+                            "Л.Н. Толстого. Книга потребовала от писателя громадных усилий."));
             bookService.save(new Book("Преступление и наказание",
                     Base64.getEncoder().encodeToString(getImg("/images/crimeAndPunishment.jpg")),
                     new Author("Федор", "Достоевский")));
             bookService.save(new Book("Вишневый сад",
                     Base64.getEncoder().encodeToString(getImg("/images/cherryOrchard.jpg")),
                     new Author("Антон", "Чехов")));
+            bookService.save(new Book("Отцы и дети",
+                    Base64.getEncoder().encodeToString(getImg("/images/61779469_ottsyi-i-deti-ast.jpg")),
+                    new Author("Иван", "Тургенев")));
         };
     }
 

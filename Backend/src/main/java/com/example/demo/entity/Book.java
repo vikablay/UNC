@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,15 +18,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
     private Long id;
+
     private String name;
     private String description;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
+
     private Long sumRatingMarks = 0L;
     private int ratingsQuantity = 0;
     private double averageRating = 0;
+
     @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<Genre> genres = new ArrayList<>();
@@ -60,10 +66,9 @@ public class Book {
         genres.add(genre);
     }
 
-    public void updateAverageRating(int newRatingMark) {
+    public void updateAverageRating(Long newRatingMark) {
         ratingsQuantity += 1;
         sumRatingMarks += newRatingMark;
         averageRating = (double) sumRatingMarks / ratingsQuantity;
     }
-
 }
