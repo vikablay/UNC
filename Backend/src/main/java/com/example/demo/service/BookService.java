@@ -80,8 +80,9 @@ public class BookService {
 
     }
 
-    public List<Book> findByAverageRatingBetween(double to, double from) {
-        return bookRepository.findByAverageRatingBetween(to, from);
+    public List<Book> findByAverageRatingBetween(double from, double to) {
+        List<Book> books = bookRepository.findByAverageRatingBetween(from, to);
+        return books;
     }
 
     public void saveAll(List<Book> users) {

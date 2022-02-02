@@ -92,7 +92,26 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
+    const body = {};
     return this.http.post<Book>(API_URL + '/api/v1/updateBookRating?id=' + id + "&rating=" + rating,
+      body,
       {headers: headers});
+  }
+
+  getBooksAverageRating(from: number, to: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const params = {
+      'from': from,
+      'to': to
+    };
+    return this.http.get(API_URL + '/api/v1/booksAverageRating', {
+      headers: headers,
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
   }
 }

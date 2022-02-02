@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {Router} from "@angular/router";
-import {deserialize,deserializeArray} from "class-transformer";
+import {deserialize, deserializeArray} from "class-transformer";
+import {NewUser} from "../entity/NewUser";
 
 
 @Component({
@@ -14,6 +15,12 @@ export class BooksComponent implements OnInit {
 
   books: Book[] = []
   rating: number;
+  thanks: string;
+
+  from: number;
+  to: number;
+
+  author: string;
 
   constructor(private service: RestapiService, private router: Router) {
   }
@@ -22,22 +29,32 @@ export class BooksComponent implements OnInit {
     this.service.getBooks().subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
       console.log(this.books);
-      /*for (let au in this.books.au) {
-        console.log(this.book.authors[au]);
-      }*/
     });
   }
 
-  changeRating(rating: number,id: number) {
+  changeRating(rating: number, id: number) {
     this.rating = rating;
     console.log(id, this.rating);
     let resp = this.service.updateBookRating(this.rating, id);
     resp.subscribe(data => {
-      for(let b in this.books) {
-        if(this.books[b].id==id)
+      for (let b in this.books) {
+        if (this.books[b].id == id)
           this.books[b].averageRating = deserialize(Book, data.averageRating.toString()).averageRating;
       }
-      console.log("DATA:  " + data)});
+      console.log("DATA:  " + data)
+    });
+  }
+
+  chooseRating() {
+    console.log(this.from, this.to);
+    this.service.getBooksAverageRating(this.from, this.to).subscribe(data => {
+      this.books = deserializeArray(Book, <string>data.body);
+      console.log(this.books);
+    });
+  }
+
+  findBookOfAuthor(){
+
   }
 
   toDetails(name: string): void {

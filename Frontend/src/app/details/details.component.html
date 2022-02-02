@@ -8,10 +8,10 @@
     </div>
     <div class="authors container">
       <div class="author" *ngIf="count==1">
-        <pre>Автор: </pre>
+        <h5 style="margin-bottom: -10px">Автор: </h5>
       </div>
       <div class="authors" *ngIf="count>1">
-        <span>Авторы:</span>
+        <h4>Авторы:</h4>
       </div>
       <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">
         <div *ngFor="let author of book.authors">
@@ -53,10 +53,10 @@
     </div>
     <div class="authors container">
       <div class="author" *ngIf="count==1">
-        <pre>Автор: </pre>
+        <h5 style="margin-bottom: -10px">Автор: </h5>
       </div>
       <div class="authors" *ngIf="count>1">
-        <span>Авторы:</span>
+        <h4>Авторы:</h4>
       </div>
       <div class="loopOfAuthors" *ngFor="let author of book.authors">
         <span>{{author.firstName + "  " + author.lastName}}</span><br>

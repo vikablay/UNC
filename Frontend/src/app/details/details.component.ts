@@ -29,8 +29,10 @@ export class DetailsComponent implements OnInit {
     this.service.getBookForDetails(this.bookN).subscribe(data => {
       this.book = deserialize(Book, <string>data.body);
       console.log("DETAILS2  " + this.book.name);
-      for (var au in this.book.authors)
+      for (var au in this.book.authors) {
         this.count += 1;
+        this.authors=this.book.authors[au].firstName+" "+this.book.authors[au].lastName
+      }
     });
   }
 

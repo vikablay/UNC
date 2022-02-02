@@ -56,9 +56,10 @@ public class BookController {
     }
 
     @GetMapping("booksAverageRating")
-    public List<Book> getBooks(@RequestParam double to,
-                               @RequestParam double from) {
-        return bookService.findByAverageRatingBetween(to, from);
+    @Transactional
+    public List<Book> getBooksAverageRating(@RequestParam double from,
+                                            @RequestParam double to) {
+        return bookService.findByAverageRatingBetween(from, to);
     }
 
     @PostMapping("updateBookRating")

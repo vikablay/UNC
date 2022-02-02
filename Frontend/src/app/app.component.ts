@@ -9,6 +9,7 @@ import {RestapiService} from "./restapi.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title: 'Frontend';
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
@@ -19,8 +20,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
-    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
+    this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK');
+    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN');
   }
 
   onLogoutClick() {
