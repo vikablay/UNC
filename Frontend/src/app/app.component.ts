@@ -11,6 +11,7 @@ import {RestapiService} from "./restapi.service";
 export class AppComponent implements OnInit {
   title: 'Frontend';
   isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private router: Router,
               private cookieService: CookieService,
@@ -19,17 +20,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
+    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
   }
 
   onLogoutClick() {
-    this.restAPIService.logout().subscribe(data => {
-        console.log(data)
-      },
-      error => {
-        console.log(error)
-      });
-    this.cookieService.delete("isAuthenticated");
-    this.cookieService.delete("access_token");
+    this.restAPIService.logout().subscribe({
+      next: (data) => console.log(data),
+      error: (error) => console.log(error),
+      complete: () => console.log('logout success')
+    });
+    this.cookieService.deleteAll();
     this.isAuthenticated = false;
+    this.isAdmin = false;
   }
 }

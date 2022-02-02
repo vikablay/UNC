@@ -20,7 +20,7 @@
             <a class="nav-link" routerLink="books" routerLinkActive="active">Список книг</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="addbook" routerLinkActive="active">Добавить книгу</a>
+            <a class="nav-link" routerLink="addbook" routerLinkActive="active" *ngIf="isAdmin">Добавить книгу</a>
           </li>
         </ul>
 
