@@ -24,7 +24,6 @@ export class AddbookComponent {
   onFileSelected(event: any) {
     this.image = event.target.files[0];
     const reader = new FileReader();
-
     reader.addEventListener("loadend", () => {
       // convert image file to base64 string
       console.log('onFileSelected:', reader.result);

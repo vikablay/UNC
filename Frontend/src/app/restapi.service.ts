@@ -76,6 +76,23 @@ export class RestapiService {
   }
 
   logout() {
-    return this.http.post(API_URL + '/api/logout',{});
+    return this.http.post(API_URL + '/api/logout', {});
+  }
+
+  updateBook(book: Book) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    return this.http.post<Book>(API_URL + '/api/v1/updateBook', book, {headers: headers});
+  }
+
+  updateBookRating(rating: number, id: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    return this.http.post<Book>(API_URL + '/api/v1/updateBookRating?id=' + id + "&rating=" + rating,
+      {headers: headers});
   }
 }

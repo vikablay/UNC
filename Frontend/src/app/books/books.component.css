@@ -1,4 +1,4 @@
-table {
+/*table {
   margin: 30px 20px;
   border-collapse: collapse;
   text-align: center;
@@ -13,4 +13,18 @@ tr:hover td {
 td {
   border-top: 1px solid #e8edff;
   padding: 10px 15px;
+}*/
+
+.card {
+  transition: all 0.2s ease;
+  cursor: pointer
+}
+
+.card:hover {
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+  transform: scale(1.1)
+}
+
+.card:focus {
+  transform: translateY(5px);
 }

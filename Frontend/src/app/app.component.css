@@ -1,4 +1,4 @@
-header {
+/*header {
   width: 85%;
   background: lightblue;
   height: 70px;
@@ -9,7 +9,7 @@ header {
 
 
 a{
-  text-decoration: none; /* Отменяем подчеркивание у ссылки */
+  text-decoration: none;  Отменяем подчеркивание у ссылки
   font-size: 24px;
   color: whitesmoke;
 }
@@ -40,5 +40,5 @@ a:hover{
 
 .container .loginn{
   float: right;
-}
+}*/
 
