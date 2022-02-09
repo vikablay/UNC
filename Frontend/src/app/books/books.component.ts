@@ -22,6 +22,8 @@ export class BooksComponent implements OnInit {
 
   author: string;
 
+  search:string;
+
   constructor(private service: RestapiService, private router: Router) {
   }
 
@@ -53,8 +55,32 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  findBookOfAuthor(){
+  findBooksOfAuthor(){
+    console.log(this.author);
+    this.service.getBooksOfAuthor(this.author).subscribe(data => {
+      this.books = deserializeArray(Book, <string>data.body);
+      console.log(this.books);
+    });
+  }
 
+  searchBooks(){
+    console.log(this.search);
+    this.service.getBooksOfSearch(this.search).subscribe(data => {
+      this.books = deserializeArray(Book, <string>data.body);
+      console.log(this.search);
+    });
+  }
+
+  sortBooksOfRating(){
+    this.service.getSortedBooksOfRating().subscribe(data => {
+      this.books = deserializeArray(Book, <string>data.body);
+    });
+  }
+
+  sortBooksOfAuthor(){
+    this.service.getSortedBooksOfAuthor().subscribe(data => {
+      this.books = deserializeArray(Book, <string>data.body);
+    });
   }
 
   toDetails(name: string): void {

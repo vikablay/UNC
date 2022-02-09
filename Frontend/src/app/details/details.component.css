@@ -7,22 +7,15 @@
   margin: 5px 27px 17px 0; /* Отступы вокруг картинки */
 }
 
-.loopOfAuthors {
-  font-size: 20px;
+.card-text {
+  font-size: 23px;
   font-family: "Times New Roman";
 }
 
-pre{
-  font-family: "Times New Roman";
-}
 .author {
   display: inline-block;
 }
 
-.description{
-  font-size: 19px;
-  font-family: "Times New Roman";
-}
 
 /*.btn-primary {*/
 /*  margin: 0 auto;*/

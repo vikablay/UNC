@@ -45,8 +45,8 @@ public class BookController {
     }
 
     @GetMapping("booksOfAuthor")
-    public List<Book> getBooksOfAuthors(@RequestParam String authorFirstName) {
-        return bookService.findByAuthorFirstName(authorFirstName);
+    public List<Book> getBooksOfAuthors(@RequestParam String author) {
+        return bookService.findByAuthor(author);
     }
 
     @GetMapping("book")
@@ -69,5 +69,20 @@ public class BookController {
         return bookService.findById(id);
     }
 
+    @GetMapping("searchBooks")
+    @Transactional
+    public List<Book> getSearchBooks(@RequestParam String search) {
+        return bookService.findLike(search);
+    }
+
+    @GetMapping("sortOfAverageRating")
+    public List<Book> getSortedBooksOfRating() {
+        return bookService.sortBooksOfRating();
+    }
+
+    @GetMapping("sortOfAuthor")
+    public List<Book> getSortedBooksOfAuthor() {
+        return bookService.sortBooksOfAuthor();
+    }
 
 }

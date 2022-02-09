@@ -31,13 +31,12 @@ export class DetailsComponent implements OnInit {
       console.log("DETAILS2  " + this.book.name);
       for (var au in this.book.authors) {
         this.count += 1;
-        this.authors=this.book.authors[au].firstName+" "+this.book.authors[au].lastName
+        this.authors = this.book.authors[au].firstName + " " + this.book.authors[au].lastName
       }
     });
   }
 
   update() {
-    console.log("UPDATE!!!!!!!!!!!!!!");
     this.isUpdate = true;
   }
 
@@ -46,14 +45,12 @@ export class DetailsComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener("loadend", () => {
       // convert image file to base64 string
-      console.log('onFileSelected:', reader.result);
       this.image1 = ((<string>reader.result).split(';')[1]).split(',')[1];
-      console.log('image1:', this.image1);
     }, false);
-
     if (this.image) {
       reader.readAsDataURL(this.image);
     }
+
   }
 
 // сохраняем изменения
@@ -65,11 +62,11 @@ export class DetailsComponent implements OnInit {
         console.log(this.book.authors[au]);
       }
     }
-    if(this.image1!=null)
+    if (this.image1 != null)
       this.book.image = this.image1;
-    console.log("name:",this.book.name);
-    console.log("author:",this.book.authors);
-    console.log("img:",this.book.image);
+    console.log("name:", this.book.name);
+    console.log("author:", this.book.authors);
+    console.log("img:", this.book.image);
     this.isUpdate = false;
     this.service.updateBook(this.book).subscribe(data => console.log("DATA:  " + data));
   }

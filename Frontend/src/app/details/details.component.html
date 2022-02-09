@@ -1,34 +1,73 @@
 <div *ngIf="!isUpdate; else editTemplate">
-  <div class="detailsBook" id="detailsBook">
-    <div class="image" id="image">
-      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="315px" height="465px">
-    </div>
-    <div class="title" id="title">
-      <h1>{{book.name}}</h1>
-    </div>
-    <div class="authors container">
-      <div class="author" *ngIf="count==1">
-        <h5 style="margin-bottom: -10px">Автор: </h5>
+  <!--  <div class="detailsBook" id="detailsBook">-->
+  <!--    <div class="image" id="image">-->
+  <!--      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="315px" height="465px">-->
+  <!--    </div>-->
+  <!--    <div class="title" id="title">-->
+  <!--      <h1>{{book.name}}</h1>-->
+  <!--    </div>-->
+  <!--    <div class="authors container">-->
+  <!--      <div class="author" *ngIf="count==1">-->
+  <!--        <h5 style="margin-bottom: -10px">Автор: </h5>-->
+  <!--      </div>-->
+  <!--      <div class="authors" *ngIf="count>1">-->
+  <!--        <h4>Авторы:</h4>-->
+  <!--      </div>-->
+  <!--      <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">-->
+  <!--        <div *ngFor="let author of book.authors">-->
+  <!--          <span class="if" *ngIf="author.firstName==null">-->
+  <!--            {{author.lastName}}<br>-->
+  <!--          </span>-->
+  <!--          <span class="if" *ngIf="author.lastName==null">-->
+  <!--            {{author.firstName}}<br>-->
+  <!--          </span>-->
+  <!--          <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">-->
+  <!--            {{author.firstName + "  " + author.lastName}}<br>-->
+  <!--          </span>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="description" id="description">-->
+  <!--      <p>{{book.description}}</p>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+
+  <!--  <div class="card mb-3" style="max-width: 540px;">-->
+  <div class="card border-info mb-3 mx-auto" style="width: 99%">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="data:image/jpeg;base64,{{book.image}}" class="img-fluid rounded-start" alt="..." width="315px"
+             height="465px">
       </div>
-      <div class="authors" *ngIf="count>1">
-        <h4>Авторы:</h4>
-      </div>
-      <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">
-        <div *ngFor="let author of book.authors">
-          <span class="if" *ngIf="author.firstName==null">
-            {{author.lastName}}<br>
-          </span>
-          <span class="if" *ngIf="author.lastName==null">
-            {{author.firstName}}<br>
-          </span>
-          <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
-            {{author.firstName + "  " + author.lastName}}<br>
-          </span>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h2 class="card-title">{{book.name}}</h2>
+          {{book.averageRating}}
+          <div class="card-text mb-2">
+            <div class="author" *ngIf="count==1">
+              <span>Автор:</span>
+            </div>
+            <div class="authors" *ngIf="count>1">
+              <span>Авторы:</span>
+            </div>
+            <div class="loopOfAuthors" id="loopOfAuthors" *ngFor="let author of book.authors">
+              <div *ngFor="let author of book.authors">
+                      <span class="if" *ngIf="author.firstName==null">
+                        {{author.lastName}}<br>
+                      </span>
+                <span class="if" *ngIf="author.lastName==null">
+                        {{author.firstName}}<br>
+                      </span>
+                <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+                        {{author.firstName + "  " + author.lastName}}<br>
+                      </span>
+              </div>
+            </div>
+          </div>
+          <p class="card-text" style="font-style: oblique">{{book.description}}</p>
         </div>
       </div>
-    </div>
-    <div class="description" id="description">
-      <p>{{book.description}}</p>
     </div>
   </div>
   <button class="btn btn-primary" (click)="toBooks()">
@@ -41,35 +80,48 @@
 
 <!--шаблон для редактирования-->
 <ng-template #editTemplate>
-  <div class="detailsBook">
-    <div class="image">
-      <img src="data:image/jpeg;base64,{{book.image}}" id="img" alt="" width="315px" height="465px"><br>
-      <input type="file" placeholder="" required="required" (change)="onFileSelected($event)"/>
-    </div>
-    <div class="title">
-      <h1>{{book.name}}</h1>
-      <input type="text" [ngModelOptions]="{standalone: true}"
-             placeholder="Название книги" [(ngModel)]="book.name"/>
-    </div>
-    <div class="authors container">
-      <div class="author" *ngIf="count==1">
-        <h5 style="margin-bottom: -10px">Автор: </h5>
+  <div class="card border-info mb-3 mx-auto" style="width: 99%">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="data:image/jpeg;base64,{{book.image}}" class="img-fluid rounded-start mb-2" alt="..." width="315px"
+             height="465px"><br>
+        <input type="file" class="form-control" placeholder="" required="required" (change)="onFileSelected($event)"/>
       </div>
-      <div class="authors" *ngIf="count>1">
-        <h4>Авторы:</h4>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h2 class="card-title">{{book.name}}</h2>
+          <input type="text" [ngModelOptions]="{standalone: true}"
+                 placeholder="Название книги" [(ngModel)]="book.name"/><br>
+          {{book.averageRating}}
+          <div class="card-text mb-2">
+            <div class="author" *ngIf="count==1">
+              <span>Автор:</span>
+            </div>
+            <div class="authors" *ngIf="count>1">
+              <span>Авторы:</span>
+            </div>
+            <div class="loopOfAuthors" *ngFor="let author of book.authors">
+              <div *ngFor="let author of book.authors">
+                      <span class="if" *ngIf="author.firstName==null">
+                        {{author.lastName}}<br>
+                      </span>
+                <span class="if" *ngIf="author.lastName==null">
+                        {{author.firstName}}<br>
+                      </span>
+                <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+                        {{author.firstName + "  " + author.lastName}}<br>
+                      </span>
+                <input type="text" [(ngModel)]="authors" [ngModelOptions]="{standalone:true}"
+                       placeholder="Фамилия и имя автора"/>
+              </div>
+            </div>
+          </div>
+          <p class="card-text" style="font-style: oblique">
+            <textarea cols="75" [(ngModel)]="book.description" [ngModelOptions]="{standalone:true}"
+                      placeholder="Описание"></textarea>
+          </p>
+        </div>
       </div>
-      <div class="loopOfAuthors" *ngFor="let author of book.authors">
-        <span>{{author.firstName + "  " + author.lastName}}</span><br>
-        <input type="text" [(ngModel)]="authors" [ngModelOptions]="{standalone:true}"
-               placeholder="Фамилия и имя автора"/>
-      </div>
-    </div>
-    <div class="description">
-      {{book.description}}
-      <p>Введите описание<br>
-        <textarea cols="45" [(ngModel)]="book.description" [ngModelOptions]="{standalone:true}"
-                  placeholder="Описание"></textarea>
-      </p>
     </div>
   </div>
   <button class="btn btn-primary" (click)="saveChange()">

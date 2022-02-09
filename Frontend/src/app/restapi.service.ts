@@ -114,4 +114,60 @@ export class RestapiService {
       observe: 'response'
     });
   }
+
+  getBooksOfAuthor(author: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const params = {
+      'author': author
+    };
+    return this.http.get(API_URL + '/api/v1/booksOfAuthor', {
+      headers: headers,
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
+  }
+
+  getBooksOfSearch(search: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const params = {
+      'search': search
+    };
+    return this.http.get(API_URL + '/api/v1/searchBooks', {
+      headers: headers,
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
+  }
+
+  getSortedBooksOfRating() {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    return this.http.get(API_URL + '/api/v1/sortOfAverageRating', {
+      headers: headers,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
+  }
+
+  getSortedBooksOfAuthor() {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    return this.http.get(API_URL + '/api/v1/sortOfAuthor', {
+      headers: headers,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
+  }
 }

@@ -1,7 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заголовок</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+<body>
 <div class="container my-4">
   <input class="btn btn-primary" type="reset" value="Reset" (click)="ngOnInit()">
   <div class="row mb-4">
-    <div class="col-md-8 dropdown">
+    <div class="col-md-2 dropdown">
       <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
               aria-expanded="false">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-funnel-fill" fill="currentColor"
@@ -9,11 +18,6 @@
           <path fill-rule="evenodd"
                 d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
         </svg>
-        <!--      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor"-->
-        <!--           xmlns="http://www.w3.org/2000/svg">-->
-        <!--        <path fill-rule="evenodd"-->
-        <!--              d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>-->
-        <!--      </svg>-->
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
@@ -25,14 +29,36 @@
           <button class="dropdown-item btn-light" data-bs-toggle="modal" data-bs-target="#authorModal">По автору
           </button>
         </li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+
+
+    <div class="col-md-6 dropdown">
+      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <!--        <li>-->
+        <!--          <button class="dropdown-item btn-light" (click)="sortBooksOfAuthor()">По автору-->
+        <!--          </button>-->
+        <!--        </li>-->
+        <li>
+          <button class="dropdown-item btn-light" (click)="sortBooksOfRating()">По рейтингу
+          </button>
+        </li>
       </ul>
     </div>
 
 
     <form class="col-md-4 d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="search"
+             [ngModelOptions]="{standalone:true}">
+      <button class="btn btn-outline-success" type="submit" (click)="searchBooks()">Search</button>
     </form>
   </div>
   <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
@@ -42,8 +68,8 @@
           <h5 class="modal-title" id="ratingModalLabel">Задайте диапазон</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="input-group mb-3" style="float: left; max-width: 150px">
+        <div class="modal-body mx-auto">
+          <div class="input-group mb-3" style="float: left; width: 150px; margin-right: 20px;">
             <label class="input-group-text" for="inputGroupSelect01">От</label>
             <select class="form-select" id="inputGroupSelect01" [(ngModel)]="from">
               <option value="0">0</option>
@@ -54,7 +80,7 @@
               <option value="5">5</option>
             </select>
           </div>
-          <div class="input-group mb-3" style="max-width: 150px">
+          <div class="input-group mb-3" style="width: 150px">
             <label class="input-group-text" for="inputGroupSelect02">До</label>
             <select class="form-select" id="inputGroupSelect02" [(ngModel)]="to">
               <option value="1">1</option>
@@ -80,10 +106,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="author">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="author"
+                 [ngModelOptions]="{standalone:true}">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="findBookOfAuthor()">Поиск</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="findBooksOfAuthor()">Поиск
+          </button>
         </div>
       </div>
     </div>
@@ -110,20 +138,24 @@
                 {{author.firstName + "  " + author.lastName}}<br>
               </span>
             </div>
-            <div class="mb-auto">
-              {{book.averageRating}}<br>
-              <input type="radio" id="star-1" class="star-rating_input" name="rating" value="1"
-                     (click)="changeRating(1,book.id)">
-              <label class="star-rating_ico fa fa-star-o fa-lg" for="star-1" title="Ужасно"></label>
-              <input type="radio" id="star-2" class="star-rating_input" name="rating" value="2"
-                     (click)="changeRating(2,book.id)">
-              <input type="radio" id="star-3" class="star-rating_input" name="rating" value="3"
-                     (click)="changeRating(3,book.id)">
-              <input type="radio" id="star-4" class="star-rating_input" name="rating" value="4"
-                     (click)="changeRating(4,book.id)">
-              <input type="radio" id="star-5" class="star-rating_input" name="rating" value="5"
-                     (click)="changeRating(5,book.id)">
-              <label class="star-rating_ico fa fa-star-o fa-lg" for="star-5" title="Отлично"></label>
+            <div class="simple-rating">
+              <div class="simple-rating__items">
+                <input type="radio" class="simple-rating__item" id="simple-rating__5" name="simple-rating" value="5"
+                       (click)="changeRating(5,book.id)">
+                <label class="simple-rating__label" for="simple-rating__5"></label>
+                <input type="radio" class="simple-rating__item" id="simple-rating__4" name="simple-rating" value="4"
+                       (click)="changeRating(5,book.id)">
+                <label class="simple-rating__label" for="simple-rating__4"></label>
+                <input type="radio" class="simple-rating__item" id="simple-rating__3" name="simple-rating" value="3"
+                       (click)="changeRating(3,book.id)">
+                <label class="simple-rating__label" for="simple-rating__3"></label>
+                <input type="radio" class="simple-rating__item" id="simple-rating__2" name="simple-rating" value="2"
+                       (click)="changeRating(2,book.id)">
+                <label class="simple-rating__label" for="simple-rating__2"></label>
+                <input type="radio" class="simple-rating__item" id="simple-rating__1" name="simple-rating" value="1"
+                       (click)="changeRating(1,book.id)">
+                <label class="simple-rating__label" for="simple-rating__1"></label>
+              </div>
             </div>
             <h5>{{thanks}}</h5>
           </div>
@@ -132,3 +164,4 @@
     </div>
   </div>
 </div>
+</body>
