@@ -42,3 +42,8 @@ a:hover{
   float: right;
 }*/
 
+.navbar-nav .dropdown-menu{
+  right: -55px;
+  left: auto;
+}
+
