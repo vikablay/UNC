@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service # https://kubernetes.io/docs/concepts/services-networking/service/
+metadata:
+  name: unc-backend-service
+spec:
+  selector:
+    app: unc-backend-pod # какие поды обслуживает сервис
+  ports:
+    - protocol: TCP
+      port: 80 # порт сервиса
+      targetPort: 8081 # порт отправки трафика

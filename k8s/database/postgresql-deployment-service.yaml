@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres-db-container
+          image: postgres:14
+          volumeMounts:
+            - name: postgres # к какому хранилищу привязать
+              mountPath: /data # путь до папки с хранимыми в БД данными в контейнере
+          envFrom:
+            - configMapRef:
+                name: postgres-config # метка конфига для считывания учетных данных БД
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 500M

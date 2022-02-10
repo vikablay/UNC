@@ -93,6 +93,6 @@ export class RestapiService {
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
     return this.http.post<Book>(API_URL + '/api/v1/updateBookRating?id=' + id + "&rating=" + rating,
-      {headers: headers});
+      {}, {headers: headers});
   }
 }

@@ -1,0 +1,17 @@
+# don't forget to run before
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress # https://kubernetes.io/docs/concepts/services-networking/ingress/
+metadata:
+  name: unc-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/api"  # URL префикс для входа в нижеуказанный сервис
+            backend:
+              service:
+                name: unc-backend-service
+                port:
+                  number: 80

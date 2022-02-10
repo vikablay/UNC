@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: unc-frontend-service
+  labels:
+    name: unc-frontend-deployment
+spec:
+selector:           
+    app: unc-frontend-pod # какие поды обслуживает сервис
+  ports:
+    - nodePort: 30170 # порт приёма трафика
+      port: 80        # порт сервиса внутри кластера
+      targetPort: 80  # порт отправки трафика
+      protocol: TCP   
+  type: NodePort # к указанному типу сервиса можно получить доступ извне кластера по nodePort

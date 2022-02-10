@@ -3,6 +3,7 @@ import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {deserialize} from "class-transformer";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-details',
@@ -21,7 +22,12 @@ export class DetailsComponent implements OnInit {
   count: number = 0;
   isUpdate: boolean = false;
 
-  constructor(private service: RestapiService, private router: Router, private activateRoute: ActivatedRoute) {
+  isAdmin: boolean = false;
+
+  constructor(private service: RestapiService,
+              private router: Router,
+              private activateRoute: ActivatedRoute,
+              private cookieService: CookieService) {
     this.bookN = this.activateRoute.snapshot.params['bookName'];
   }
 
@@ -32,6 +38,8 @@ export class DetailsComponent implements OnInit {
       for (var au in this.book.authors)
         this.count += 1;
     });
+
+    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
   }
 
   update() {
@@ -63,11 +71,11 @@ export class DetailsComponent implements OnInit {
         console.log(this.book.authors[au]);
       }
     }
-    if(this.image1!=null)
+    if (this.image1 != null)
       this.book.image = this.image1;
-    console.log("name:",this.book.name);
-    console.log("author:",this.book.authors);
-    console.log("img:",this.book.image);
+    console.log("name:", this.book.name);
+    console.log("author:", this.book.authors);
+    console.log("img:", this.book.image);
     this.isUpdate = false;
     this.service.updateBook(this.book).subscribe(data => console.log("DATA:  " + data));
   }

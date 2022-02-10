@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+metadata:
+  name: unc-backend-deployment
+  labels:
+    app: unc-backend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: unc-backend-pod # по какой метке искать поды для обслуживания
+  template:
+    metadata:
+      labels:
+        app: unc-backend-pod # метка пода # https://kubernetes.io/docs/concepts/workloads/pods/
+    spec:
+      containers:
+        - name: unc-backend-container
+          image: afler/backend:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: DATASOURCE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-db-config
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-db-config
+                  key: DB_NAME
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-db-config
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-db-config
+                  key: DB_PASSWORD
