@@ -35,15 +35,16 @@ export class DetailsComponent implements OnInit {
     this.service.getBookForDetails(this.bookN).subscribe(data => {
       this.book = deserialize(Book, <string>data.body);
       console.log("DETAILS2  " + this.book.name);
-      for (var au in this.book.authors)
+      for (var au in this.book.authors) {
         this.count += 1;
+        this.authors = this.book.authors[au].firstName + " " + this.book.authors[au].lastName
+      }
     });
 
     this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
   }
 
   update() {
-    console.log("UPDATE!!!!!!!!!!!!!!");
     this.isUpdate = true;
   }
 
@@ -52,14 +53,12 @@ export class DetailsComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener("loadend", () => {
       // convert image file to base64 string
-      console.log('onFileSelected:', reader.result);
       this.image1 = ((<string>reader.result).split(';')[1]).split(',')[1];
-      console.log('image1:', this.image1);
     }, false);
-
     if (this.image) {
       reader.readAsDataURL(this.image);
     }
+
   }
 
 // сохраняем изменения

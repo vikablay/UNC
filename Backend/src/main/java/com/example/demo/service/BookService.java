@@ -5,6 +5,7 @@ import com.example.demo.entity.Book;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -27,7 +28,6 @@ public class BookService {
             return (int) (d1.getId() - d2.getId());
         });
         return books;
-        //return bookRepository.findAll();
     }
 
     public void save(Book book) {
@@ -75,13 +75,16 @@ public class BookService {
         return bookRepository.findByAuthors(author);
     }
 
-    public List<Book> findByAuthorFirstName(String authorFirstName) {
-        return authorRepository.findByFirstName(authorFirstName).getBooks();
+    public List<Book> findByAuthor(String author) {
+        String[] str = author.split(" ");
+        return authorRepository.findByFirstNameContainingOrLastNameContaining(author, author).getBooks();
+        // return authorRepository.findByFirstName(author).getBooks();
 
     }
 
-    public List<Book> findByAverageRatingBetween(double to, double from) {
-        return bookRepository.findByAverageRatingBetween(to, from);
+    public List<Book> findByAverageRatingBetween(double from, double to) {
+        List<Book> books = bookRepository.findByAverageRatingBetween(from, to);
+        return books;
     }
 
     public void saveAll(List<Book> users) {
@@ -93,5 +96,17 @@ public class BookService {
             book.updateAverageRating(newRatingMark);
             bookRepository.save(book);
         });
+    }
+
+    public List<Book> findLike(String partOfSome) {
+        return bookRepository.findAllByNameContainingOrDescriptionContaining(partOfSome, partOfSome);
+    }
+
+    public List<Book> sortBooksOfRating() {
+        return bookRepository.findAll(Sort.by("averageRating"));
+    }
+
+    public List<Book> sortBooksOfAuthor() {
+        return bookRepository.findAll(Sort.by("authors"));
     }
 }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-addbook',
@@ -18,7 +19,7 @@ export class AddbookComponent {
 
   title = "NOTHING"
 
-  constructor(private service: RestapiService) {
+  constructor(private service: RestapiService, private snackBar: MatSnackBar) {
   }
 
   onFileSelected(event: any) {
@@ -43,7 +44,7 @@ export class AddbookComponent {
     let resp = this.service.saveBook(this.bookName, this.authorName.split(' ')[0],
       this.authorName.split(' ')[1], this.image1,this.description);
     resp.subscribe(data => {
-      console.log("DATA:  " + data)
+      this.snackBar.open('Книга сохранена', 'OK', {duration: 1000 * 10})
     });
   }
 
