@@ -14,4 +14,11 @@ spec:
               service:
                 name: unc-backend-service
                 port:
+                  number: 90
+          - pathType: Prefix
+            path: "/"  # URL префикс для входа в нижеуказанный сервис
+            backend:
+              service:
+                name: unc-frontend-service
+                port:
                   number: 80

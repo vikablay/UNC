@@ -7,5 +7,6 @@ spec:
     app: unc-backend-pod # какие поды обслуживает сервис
   ports:
     - protocol: TCP
-      port: 80 # порт сервиса
+      port: 90 # порт сервиса
       targetPort: 8081 # порт отправки трафика
+  type: NodePort
