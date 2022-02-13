@@ -1,4 +1,4 @@
-<div *ngIf="!isUpdate; else editTemplate">
+<div *ngIf="!isUpdate; else editTemplate" style="margin-top: 90px;">
   <!--  <div class="detailsBook" id="detailsBook">-->
   <!--    <div class="image" id="image">-->
   <!--      <img src="data:image/jpeg;base64,{{book.image}}" alt="" width="315px" height="465px">-->
@@ -80,7 +80,7 @@
 
 <!--шаблон для редактирования-->
 <ng-template #editTemplate>
-  <div class="card border-info mb-3 mx-auto" style="width: 99%">
+  <div class="card border-info mb-3 mx-auto" style="width: 99% ; margin-top: 90px;">
     <div class="row g-0">
       <div class="col-md-3">
         <img src="data:image/jpeg;base64,{{book.image}}" class="img-fluid rounded-start mb-2" alt="..." width="315px"
@@ -92,7 +92,8 @@
           <h2 class="card-title">{{book.name}}</h2>
           <input type="text" [ngModelOptions]="{standalone: true}"
                  placeholder="Название книги" [(ngModel)]="book.name"/><br>
-          {{book.averageRating}}
+<!--          <div data-total-value="{{book.averageRating}}">-->
+<!--          </div>-->
           <div class="card-text mb-2">
             <div class="author" *ngIf="count==1">
               <span>Автор:</span>
