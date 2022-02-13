@@ -3,9 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${DATASOURCE_HOST:localhost}:5444/test-api
-    username: postgres
-    password: admin
+    url: jdbc:postgresql://${DATASOURCE_HOST:localhost}:5432/${DB_NAME:test-api}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create

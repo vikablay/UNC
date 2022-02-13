@@ -3,6 +3,7 @@ import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {deserialize} from "class-transformer";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-details',
@@ -21,7 +22,12 @@ export class DetailsComponent implements OnInit {
   count: number = 0;
   isUpdate: boolean = false;
 
-  constructor(private service: RestapiService, private router: Router, private activateRoute: ActivatedRoute) {
+  isAdmin: boolean = false;
+
+  constructor(private service: RestapiService,
+              private router: Router,
+              private activateRoute: ActivatedRoute,
+              private cookieService: CookieService) {
     this.bookN = this.activateRoute.snapshot.params['bookName'];
   }
 
@@ -34,6 +40,8 @@ export class DetailsComponent implements OnInit {
         this.authors = this.book.authors[au].firstName + " " + this.book.authors[au].lastName
       }
     });
+
+    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
   }
 
   update() {

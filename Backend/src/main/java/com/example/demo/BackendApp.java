@@ -22,8 +22,7 @@ import java.util.Base64;
 @SpringBootApplication
 public class BackendApp {
     private static final String[] ALLOWED_CORS_SOURCES = {
-            "http://localhost:4200",
-            "http://localhost:4210"
+            "*"
     };
 
     @Bean

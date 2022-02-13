@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  labels:
+    app: frontend
+data:
+  BACKEND_API_HOST: unc-backend-service
+  BACKEND_API_PORT: "90"

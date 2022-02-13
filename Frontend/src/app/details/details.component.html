@@ -73,7 +73,7 @@
   <button class="btn btn-primary" (click)="toBooks()">
     <span>К списку книг</span>
   </button>
-  <button class="btn btn-primary" (click)="update()">
+  <button class="btn btn-primary" (click)="update()" *ngIf="isAdmin">
     <span>Редактировать</span>
   </button>
 </div>
@@ -126,6 +126,6 @@
     </div>
   </div>
   <button class="btn btn-primary" (click)="saveChange()">
-    <span>Cохранить</span>
+    <span>Сохранить</span>
   </button>
 </ng-template>

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-db-config
+  labels:
+    app: postgres
+data:
+  DB_HOST: postgres
+  DB_NAME: test-api
+  DB_USERNAME: postgres
+  DB_PASSWORD: admin
