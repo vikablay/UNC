@@ -29,6 +29,10 @@ td {
   transform: translateY(5px);
 }
 
+img{
+  background: url("https://static5.depositphotos.com/1016154/457/i/600/depositphotos_4577553-stock-photo-blank-empty-3d-book-cover.jpg") no-repeat;
+  background-size: contain;
+}
 .simple-rating {
   position: relative;
   font-size: 20px;
@@ -51,8 +55,8 @@ td {
 }
 .simple-rating__item{
   position: absolute;
-  width: 0%;
-  height: 0%;
+  width: 0;
+  height: 0;
   opacity: 0;
   visibility: hidden;
   top: 0;
@@ -83,5 +87,3 @@ td {
 .simple-rating__label:checked ~ .simple-rating__label:hover{
   color: blanchedalmond;
 }
-
-

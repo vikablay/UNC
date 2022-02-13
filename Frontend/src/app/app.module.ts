@@ -17,6 +17,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {MaterialModule} from "./material/material.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AccountComponent } from './account/account.component';
+import { StarComponent } from './star/star.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AccountComponent } from './account/account.component';
     DetailsComponent,
     AddbookComponent,
     RegistrationComponent,
-    AccountComponent
+    AccountComponent,
+    StarComponent
   ],
   imports: [
     BrowserModule,

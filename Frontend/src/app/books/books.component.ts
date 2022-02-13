@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {Router} from "@angular/router";
-import {deserialize, deserializeArray} from "class-transformer";
-import {NewUser} from "../entity/NewUser";
+import {deserializeArray} from "class-transformer";
 
 
 @Component({
@@ -14,7 +13,6 @@ import {NewUser} from "../entity/NewUser";
 export class BooksComponent implements OnInit {
 
   books: Book[] = []
-  rating: number;
   thanks: string;
 
   from: number;
@@ -22,7 +20,11 @@ export class BooksComponent implements OnInit {
 
   author: string;
 
-  search:string;
+  search: string;
+
+
+  ratingClicked: number;
+  rating = 0;
 
   constructor(private service: RestapiService, private router: Router) {
   }
@@ -34,17 +36,30 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  changeRating(rating: number, id: number) {
-    this.rating = rating;
-    console.log(id, this.rating);
-    let resp = this.service.updateBookRating(this.rating, id);
-    resp.subscribe(data => {
-      for (let b in this.books) {
-        if (this.books[b].id == id)
-          this.books[b].averageRating = deserialize(Book, data.averageRating.toString()).averageRating;
-      }
-      console.log("DATA:  " + data)
-    });
+
+
+  ratingComponentClick(clickObj: any): void {
+    const item = this.books.find(((i: Book) => i.id === clickObj.itemId));
+    if (!!item) {
+      this.rating = clickObj.rating;
+      item.sumRatingMarks += this.rating
+      this.ratingClicked = clickObj.rating;
+    }
+    console.log(this.rating, item);
+  }
+
+
+  changeRating(rating: number) {
+    /* this.rating = rating;
+     console.log(this.id, this.rating);
+     let resp = this.service.updateBookRating(this.rating, this.id);
+     resp.subscribe(data => {
+       for (let b in this.books) {
+         if (this.books[b].id == this.id)
+           this.books[b].averageRating = deserialize(Book, data.averageRating.toString()).averageRating;
+       }
+       console.log("DATA:  " + data)
+     });*/
   }
 
   chooseRating() {
@@ -55,7 +70,7 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  findBooksOfAuthor(){
+  findBooksOfAuthor() {
     console.log(this.author);
     this.service.getBooksOfAuthor(this.author).subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
@@ -63,7 +78,7 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  searchBooks(){
+  searchBooks() {
     console.log(this.search);
     this.service.getBooksOfSearch(this.search).subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
@@ -71,13 +86,13 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  sortBooksOfRating(){
+  sortBooksOfRating() {
     this.service.getSortedBooksOfRating().subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
     });
   }
 
-  sortBooksOfAuthor(){
+  sortBooksOfAuthor() {
     this.service.getSortedBooksOfAuthor().subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
     });

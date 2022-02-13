@@ -1,0 +1,32 @@
+.img-wrap{
+  background-image: url(https://phonoteka.org/uploads/posts/2021-05/1620702187_9-phonoteka_org-p-fon-dlya-zum-knigi-11.jpg);
+  background-size: auto;
+}
+
+#headerwrap{
+  background: url(https://sun9-78.userapi.com/impg/lc2iX4jz4TWWqjXzW4HQxnlS7MEQVXeszgZx-g/f_sjHWIILO4.jpg?size=1920x1126&quality=95&sign=c6101d2b167b60cf3ae512a9242ca0e2&type=album) no-repeat center top;
+  margin-top:-10px;
+  padding-top: 20px;
+  text-align: center;
+  background-position: center center;
+  min-height: 650px;
+  width: 100%;
+
+  background-size: cover;
+}
+
+#headerwrap #h11{
+  margin-top: 202px;
+  color: white;
+  font-size: 50px;
+  font-weight: 300;
+  letter-spacing: 3px;
+}
+
+#headerwrap #h12{
+  margin-top: 43px;
+  color: white;
+  font-size: 50px;
+  font-weight: 300;
+  letter-spacing: 3px;
+}
