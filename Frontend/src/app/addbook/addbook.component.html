@@ -1,31 +1,10 @@
-<!--<div class="container addbook-container">-->
-<!--  <h3>{{title}}</h3>-->
-<!--  <form action="addbook.component.ts" method="post">-->
-<!--    <p>Введите название книги<br>-->
-<!--      <input type="text" [(ngModel)]="bookName" [ngModelOptions]="{ standalone: true }" placeholder="Название книги"-->
-<!--             value=""/>-->
-<!--    </p>-->
-<!--    <p>Введите фамилию и имя автора<br>-->
-<!--      <input type="text" [(ngModel)]="authorName" placeholder="Фамилия и имя автора" value=""-->
-<!--             [ngModelOptions]="{ standalone: true }"/>-->
-<!--    </p>-->
-<!--    <p>Введите описание<br>-->
-<!--      <textarea cols="45" [(ngModel)]="description" placeholder="Описание" value=""-->
-<!--                [ngModelOptions]="{ standalone: true }"></textarea>-->
-<!--    </p>-->
-<!--    <p>Выберите изображение обложки<br>-->
-<!--      <input type="file" placeholder="" required="required" (change)="onFileSelected($event)"/>-->
-<!--    </p>-->
-<!--    <input type="submit" value="Добавить" (click)="saveBook()"/>-->
-<!--  </form>-->
-<!--</div>-->
-
-<div class="card border-info mb-3 mx-auto" style="width: 99%">
+<div class="card border-info mb-3 mx-auto" style="width: 99%; margin-top: 90px;">
   <div class="row g-0">
     <div class="col-md-3">
       Выберите изображение обложки<br>
-      <input type="file" class="form-control mb-1" placeholder="" required="required" (change)="onFileSelected($event)"/>
-      <img src="data:image/jpeg;base64,{{image1}}" class="img-fluid rounded-start mb-2" alt="КАРТИНКА" width="315px"
+      <input type="file" class="form-control mb-1" placeholder="" required="required"
+             (change)="onFileSelected($event)"/>
+      <img src="data:image/jpeg;base64,{{image1}}" alt="" class="img-fluid mb-2" width="315px"
            height="465px"><br>
     </div>
     <div class="col-md-9">

@@ -6,7 +6,7 @@
   <title>Заголовок</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
-<body>
+<body style="margin-top: 90px;">
 <div class="container my-4">
   <input class="btn btn-primary" type="reset" value="Reset" (click)="ngOnInit()">
   <div class="row mb-4">
@@ -121,7 +121,7 @@
   <div class="row row-cols-md-4 g-4">
     <div class="col" *ngFor="let book of books">
       <div class="card h-100 text-center" style="height: 20%; width: 75%">
-        <img src="data:image/jpeg;base64,{{book.image}}" class="card-img-top" alt="..."
+        <img src="data:image/jpeg;base64,{{book.image}}" class="card-img-top" alt=""
              style="height: 100%; width: 100%"
              (click)="toDetails(book.name)">
         <div class="card-body">
@@ -138,30 +138,43 @@
                 {{author.firstName + "  " + author.lastName}}<br>
               </span>
             </div>
-            <div class="simple-rating">
-              <div class="simple-rating__items">
-                <input type="radio" class="simple-rating__item" id="simple-rating__5" name="simple-rating" value="5"
-                       (click)="changeRating(5,book.id)">
-                <label class="simple-rating__label" for="simple-rating__5"></label>
-                <input type="radio" class="simple-rating__item" id="simple-rating__4" name="simple-rating" value="4"
-                       (click)="changeRating(5,book.id)">
-                <label class="simple-rating__label" for="simple-rating__4"></label>
-                <input type="radio" class="simple-rating__item" id="simple-rating__3" name="simple-rating" value="3"
-                       (click)="changeRating(3,book.id)">
-                <label class="simple-rating__label" for="simple-rating__3"></label>
-                <input type="radio" class="simple-rating__item" id="simple-rating__2" name="simple-rating" value="2"
-                       (click)="changeRating(2,book.id)">
-                <label class="simple-rating__label" for="simple-rating__2"></label>
-                <input type="radio" class="simple-rating__item" id="simple-rating__1" name="simple-rating" value="1"
-                       (click)="changeRating(1,book.id)">
-                <label class="simple-rating__label" for="simple-rating__1"></label>
-              </div>
+            <!--            <div class="simple-rating">-->
+            <!--              <div class="simple-rating__items">-->
+            <!--                <input type="radio" class="simple-rating__item" id="simple-rating__5" name="simple-rating" data-item-value="5"-->
+            <!--                       [(ngModel)]="id"-->
+            <!--                       [ngModelOptions]="{standalone:true}" (click)="changeRating(5)">-->
+            <!--                <label class="simple-rating__label" for="simple-rating__5"></label>-->
+            <!--                <input type="radio" class="simple-rating__item" id="simple-rating__4" name="simple-rating" data-item-value="4"-->
+            <!--                       (click)="changeRating(4)">-->
+            <!--                <label class="simple-rating__label" for="simple-rating__4"></label>-->
+            <!--                <input type="radio" class="simple-rating__item" id="simple-rating__3" name="simple-rating" data-item-value="3"-->
+            <!--                       [(ngModel)]="id"-->
+            <!--                       [ngModelOptions]="{standalone:true}" (click)="changeRating(3)">-->
+            <!--                <label class="simple-rating__label" for="simple-rating__3"></label>-->
+            <!--                <input type="radio" class="simple-rating__item" id="simple-rating__2" name="simple-rating" data-item-value="2"-->
+            <!--                       (click)="changeRating(2)">-->
+            <!--                <label class="simple-rating__label" for="simple-rating__2"></label>-->
+            <!--                <input type="radio" class="simple-rating__item" id="simple-rating__1" name="simple-rating" data-item-value="1"-->
+            <!--                       (click)="changeRating(1)">-->
+            <!--                <label class="simple-rating__label" for="simple-rating__1"></label>-->
+            <!--              </div>-->
+            <!--            </div>-->
+
+
+            <div>
+                <app-star [rating]='rating' [itemId]='book.id' (ratingClick)='ratingComponentClick($event)'></app-star>
             </div>
+
+
             <h5>{{thanks}}</h5>
+            <button class="btn btn-light" type="button">
+              Заказать
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <p *ngIf='ratingClicked'>The Company has been given {{ratingClicked}} stars</p>
   </div>
 </div>
 </body>
