@@ -4,13 +4,12 @@ import com.example.demo.dto.NewUserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -29,6 +28,10 @@ public class User {
     private String email;
     @ManyToMany(fetch = EAGER)
     private List<Role> roles = new ArrayList<>();
+    @ManyToMany
+    private Set<Book> ratedBooks = new HashSet<>();
+    @ManyToMany
+    private Set<Book> purchasedBooks = new HashSet<>();
 
     public User(Long id, String username, String password, String email) {
         this.id = id;
