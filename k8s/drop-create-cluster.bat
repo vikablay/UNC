@@ -7,3 +7,4 @@ call kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.
 call kubectl apply -f dashboard
 call kubectl apply -f database
 call kubectl apply -f backend
+call kubectl apply -f frontend
