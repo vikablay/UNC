@@ -11,5 +11,6 @@ COPY . .
 RUN npm run build --prod
 
 FROM nginx:alpine
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build app/dist/Frontend /usr/share/nginx/html
 COPY Roboto-Regular.ttf /usr/share/nginx/html/fonts/Roboto-Regular.ttf
