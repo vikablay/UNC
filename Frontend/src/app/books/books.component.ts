@@ -2,7 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {Router} from "@angular/router";
-import {deserializeArray} from "class-transformer";
+import {deserialize, deserializeArray} from "class-transformer";
+import {NewUser} from "../entity/NewUser";
+import {CookieService} from "ngx-cookie-service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -22,11 +25,16 @@ export class BooksComponent implements OnInit {
 
   search: string;
 
-
   ratingClicked: number;
   rating = 0;
 
-  constructor(private service: RestapiService, private router: Router) {
+  isRated: boolean = false;
+  user: NewUser;
+
+  constructor(private service: RestapiService,
+              private router: Router,
+              private cookieService: CookieService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -34,32 +42,49 @@ export class BooksComponent implements OnInit {
       this.books = deserializeArray(Book, <string>data.body);
       console.log(this.books);
     });
+    this.service.getUser(this.cookieService.get('userName')).subscribe(data => {
+      this.user = deserialize(NewUser, <string>data.body);
+      console.log("USER:",this.user);
+    });
   }
-
 
 
   ratingComponentClick(clickObj: any): void {
+    console.log(this.isRated, this.user);
     const item = this.books.find(((i: Book) => i.id === clickObj.itemId));
-    if (!!item) {
-      this.rating = clickObj.rating;
-      item.sumRatingMarks += this.rating
-      this.ratingClicked = clickObj.rating;
+
+    for (let b in this.user.ratedBooks) {
+      if (this.user.ratedBooks[b].id == clickObj.itemId)
+        this.isRated=true;
     }
-    console.log(this.rating, item);
+    if(!this.isRated) {
+      if (!!item) {
+        this.rating = clickObj.rating;
+        console.log(this.rating, clickObj.itemId);
+        let resp = this.service.updateBookRating(this.rating, clickObj.itemId);
+        resp.subscribe(data => {
+          console.log("DATA:  " + data)
+        });
+
+        this.service.addRatedBookToUser(clickObj.itemId, this.cookieService.get('userName')).subscribe(
+          data => {
+            this.user = data;
+            console.log("USER addRatedBookToUser:",data);
+          });
+      }
+    }
+    else{
+      console.log(this.isRated);
+      this.isRated=false;
+      this.snackBar.open('Вы уже оценивали эту книгу', 'OK', {duration: 1000 * 10})
+    }
   }
 
-
-  changeRating(rating: number) {
-    /* this.rating = rating;
-     console.log(this.id, this.rating);
-     let resp = this.service.updateBookRating(this.rating, this.id);
-     resp.subscribe(data => {
-       for (let b in this.books) {
-         if (this.books[b].id == this.id)
-           this.books[b].averageRating = deserialize(Book, data.averageRating.toString()).averageRating;
-       }
-       console.log("DATA:  " + data)
-     });*/
+  getUser(){
+    this.service.getUser(this.cookieService.get('userName')).subscribe(data => {
+      this.user = deserialize(NewUser, <string>data.body);
+      console.log("USER:", this.user);
+    });
   }
 
   chooseRating() {
@@ -95,6 +120,15 @@ export class BooksComponent implements OnInit {
   sortBooksOfAuthor() {
     this.service.getSortedBooksOfAuthor().subscribe(data => {
       this.books = deserializeArray(Book, <string>data.body);
+    });
+  }
+
+  addPurchasedBookToUser(id: number) {
+    //let userName = this.user.username;
+    console.log(id, this.cookieService.get('userName'));
+    this.service.addPurchasedBookToUser(id, this.cookieService.get('userName')).subscribe(data => {
+      console.log(data);
+
     });
   }
 

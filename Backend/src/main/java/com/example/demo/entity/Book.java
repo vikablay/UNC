@@ -28,7 +28,7 @@ public class Book {
 
     private Long sumRatingMarks = 0L;
     private int ratingsQuantity = 0;
-    private double averageRating = 0;
+    private String averageRating;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
@@ -50,6 +50,14 @@ public class Book {
         addAuthor(author);
     }
 
+    public Book(String name, String image, Author author, String description, Genre genre) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        addAuthor(author);
+        addGenre(genre);
+    }
+
     public Book(String name, Author author) {
         this.name = name;
         addAuthor(author);
@@ -69,6 +77,6 @@ public class Book {
     public void updateAverageRating(Long newRatingMark) {
         ratingsQuantity += 1;
         sumRatingMarks += newRatingMark;
-        averageRating = (double) sumRatingMarks / ratingsQuantity;
+        averageRating = String.format("%.1f",(double) sumRatingMarks / ratingsQuantity);
     }
 }

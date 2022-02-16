@@ -7,6 +7,7 @@ import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -82,6 +83,7 @@ public class BookService {
 
     }
 
+    @Transactional
     public List<Book> findByAverageRatingBetween(double from, double to) {
         List<Book> books = bookRepository.findByAverageRatingBetween(from, to);
         return books;
@@ -98,6 +100,7 @@ public class BookService {
         });
     }
 
+    @Transactional
     public List<Book> findLike(String partOfSome) {
         return bookRepository.findAllByNameContainingOrDescriptionContaining(partOfSome, partOfSome);
     }

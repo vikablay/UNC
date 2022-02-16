@@ -18,7 +18,7 @@ export class Book {
   ];
   sumRatingMarks: number;
   ratingsQuantity: number;
-  averageRating: number;
+  averageRating: string;
   genres: [
     { name: string }
   ]

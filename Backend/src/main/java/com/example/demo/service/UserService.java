@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Book;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.BookRepository;
@@ -8,9 +9,11 @@ import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -36,20 +39,29 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<User> addPurchasedBookToUser(Long bookId, Long userId) {
-        userRepository.findById(userId).ifPresent(user -> {
+    @Transactional
+    public Optional<User> addPurchasedBookToUser(Long bookId, String userName) {
+        /*User opUser = userRepository.findByUsername(userName);
+        Book book = bookRepository.findById(bookId);
+        opUser.ifPresent(user -> {
             bookRepository.findById(bookId).ifPresent(book -> user.getPurchasedBooks().add(book));
             userRepository.save(user);
         });
-        return userRepository.findById(userId);
+        return opUser;*/
+        userRepository.findById(userRepository.findByUsername(userName).getId()).ifPresent(user -> {
+            bookRepository.findById(bookId).ifPresent(book -> user.getPurchasedBooks().add(book));
+            userRepository.save(user);
+        });
+        return userRepository.findById(userRepository.findByUsername(userName).getId());
     }
 
-    public Optional<User> addRatedBookToUser(Long bookId, Long userId) {
-        userRepository.findById(userId).ifPresent(user -> {
+    @Transactional
+    public Optional<User> addRatedBookToUser(Long bookId, String userName) {
+        userRepository.findById(userRepository.findByUsername(userName).getId()).ifPresent(user -> {
             bookRepository.findById(bookId).ifPresent(book -> user.getRatedBooks().add(book));
             userRepository.save(user);
         });
-        return userRepository.findById(userId);
+        return userRepository.findById(userRepository.findByUsername(userName).getId());
     }
 
     public User findByUsername(String username) {
@@ -60,7 +72,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
+    public User getUser(String userName) {
+        return userRepository.findByUsername(userName);
+    }
+
     public void saveAll(List<User> users) {
         userRepository.saveAll(users);
     }
+
 }
