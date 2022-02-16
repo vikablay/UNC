@@ -56,7 +56,6 @@ public class BookController {
     }
 
     @GetMapping("booksAverageRating")
-    @Transactional
     public List<Book> getBooksAverageRating(@RequestParam double from,
                                             @RequestParam double to) {
         return bookService.findByAverageRatingBetween(from, to);
@@ -70,7 +69,6 @@ public class BookController {
     }
 
     @GetMapping("searchBooks")
-    @Transactional
     public List<Book> getSearchBooks(@RequestParam String search) {
         return bookService.findLike(search);
     }

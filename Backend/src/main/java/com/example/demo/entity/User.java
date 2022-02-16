@@ -30,7 +30,7 @@ public class User {
     private List<Role> roles = new ArrayList<>();
     @ManyToMany
     private Set<Book> ratedBooks = new HashSet<>();
-    @ManyToMany
+    @ManyToMany(fetch = EAGER)
     private Set<Book> purchasedBooks = new HashSet<>();
 
     public User(Long id, String username, String password, String email) {

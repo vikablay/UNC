@@ -98,6 +98,28 @@ export class RestapiService {
       {headers: headers});
   }
 
+  addPurchasedBookToUser(bookId: number, userName: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const body = {};
+    return this.http.post<NewUser>(API_URL + '/api/v1/user/addPurchased?bookId=' + bookId + "&userName=" + userName,
+      body,
+      {headers: headers});
+  }
+
+  addRatedBookToUser(bookId: number, userName: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const body = {};
+    return this.http.post<NewUser>(API_URL + '/api/v1/user/addRated?bookId=' + bookId + "&userName=" + userName,
+      body,
+      {headers: headers});
+  }
+
   getBooksAverageRating(from: number, to: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -164,10 +186,29 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
+
     return this.http.get(API_URL + '/api/v1/sortOfAuthor', {
       headers: headers,
       responseType: 'text' as 'json',
       observe: 'response'
     });
   }
+
+  getUser(userName: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    const params = {
+      'userName': userName
+    };
+    return this.http.get(API_URL + '/api/v1/user', {
+      headers: headers,
+      params: params,
+      responseType: 'text' as 'json',
+      observe: 'response'
+    });
+  }
+
+
 }

@@ -1,1 +1,32 @@
-<p>account works!</p>
+<div *ngFor="let book of user.purchasedBooks" style="margin-top: 90px;">
+  <div class="card border-info mx-auto mb-0" style="width: 69%">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="data:image/jpeg;base64,{{book.image}}" class="img-fluid rounded-start" alt="..." width="315px"
+             height="465px">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h2 class="card-title">{{book.name}}</h2>
+          Рейтинг: {{book.averageRating}}
+          <div class="card-text mb-2">
+            <div *ngFor="let author of book.authors">
+              <span class="if" *ngIf="author.firstName==null">
+                {{author.lastName}}<br>
+              </span>
+              <span class="if" *ngIf="author.lastName==null">
+                {{author.firstName}}<br>
+              </span>
+              <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+                {{author.firstName + "  " + author.lastName}}<br>
+              </span>
+            </div>
+          </div>
+          <p class="card-text" style="font-style: oblique">{{book.description}}</p>
+<!--          <a href="https://bookshake.net/get-file/c8be0073-ba1f-465a-9f75-5dc508.." (click)=addBuyedBookToUser()>Скачать книгу</a>-->
+          <a class="card-text" href="https://bookshake.net/get-file/c8be0073-ba1f-465a-9f75-5dc508..">Скачать книгу</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
