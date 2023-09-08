@@ -16,8 +16,11 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "books_authors",

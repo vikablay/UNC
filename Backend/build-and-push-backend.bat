@@ -1,4 +1,4 @@
 call docker rmi afler/backend
 call docker build . -t afler/backend:latest
 call docker push afler/backend
-REM call docker run --name UNC_BACKEND -d -e DATASOURCE_HOST=192.168.0.107 -p 8082:8081 backend:latest
+call docker run --name unc-backend -d -e DATASOURCE_HOST=host.docker.internal -p 8082:8081 afler/backend:latest

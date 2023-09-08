@@ -20,6 +20,7 @@ public class Book {
     private Long id;
 
     private String name;
+
     private String description;
 
     @ToString.Exclude
@@ -27,7 +28,9 @@ public class Book {
     private List<Author> authors = new ArrayList<>();
 
     private Long sumRatingMarks = 0L;
+
     private int ratingsQuantity = 0;
+
     private String averageRating;
 
     @ToString.Exclude

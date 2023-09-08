@@ -19,7 +19,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final CustomUserDetailService userDetailService;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -41,23 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       http.cors();
+        http.cors();
         http.csrf().disable();
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.addFilter(customAuthenticationFilter);
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/registration/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/test").permitAll();
+        http.authorizeRequests()
+                .antMatchers(
+                        "/api/login/**",
+                        "/api/registration/**",
+                        "api/test",
+                        "/authenticate",
+                        "/login")
+                .permitAll();
         http.logout().permitAll().logoutUrl("/api/logout").logoutSuccessHandler((request, response, authentication) -> {
         });
-        http.authorizeRequests().antMatchers("/authenticate", "/login").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-       /*http.authorizeRequests().anyRequest().permitAll();
-        http.csrf().disable();*/
-
     }
 
 }

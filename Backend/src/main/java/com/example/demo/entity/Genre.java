@@ -16,7 +16,9 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
     private Long id;
+
     private String name;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "books_genres",

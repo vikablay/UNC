@@ -23,13 +23,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
     private Long id;
+
     private String username;
+
     private String password;
+
     private String email;
+
     @ManyToMany(fetch = EAGER)
     private List<Role> roles = new ArrayList<>();
+
     @ManyToMany
     private Set<Book> ratedBooks = new HashSet<>();
+
     @ManyToMany(fetch = EAGER)
     private Set<Book> purchasedBooks = new HashSet<>();
 
