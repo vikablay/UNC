@@ -13,7 +13,7 @@
     <name>Backend</name>
     <description>Backend microservice</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>15</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -62,7 +62,11 @@
             <artifactId>java-jwt</artifactId>
             <version>3.18.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.14.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,6 +82,26 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../Frontend/dist/Frontend/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
