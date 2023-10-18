@@ -50,7 +50,6 @@ public class BookController {
     }
 
     @GetMapping("book")
-    @Transactional
     public Book getBook(@RequestParam String name) {
         return bookService.findByName(name);
     }

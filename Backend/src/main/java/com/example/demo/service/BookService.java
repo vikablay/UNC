@@ -25,9 +25,7 @@ public class BookService {
 
     public List<Book> findAll() {
         List<Book> books = bookRepository.findAll();
-        Collections.sort(books, (d1, d2) -> {
-            return (int) (d1.getId() - d2.getId());
-        });
+        books.sort((d1, d2) -> (int) (d1.getId() - d2.getId()));
         return books;
     }
 
@@ -40,10 +38,10 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    @Transactional
     public Book findByName(String name) {
         return bookRepository.findByName(name);
     }
-
 
     public Book findById(Long id) {
         return bookRepository.findById(id).orElse(null);
@@ -85,8 +83,7 @@ public class BookService {
 
     @Transactional
     public List<Book> findByAverageRatingBetween(double from, double to) {
-        List<Book> books = bookRepository.findByAverageRatingBetween(from, to);
-        return books;
+        return bookRepository.findByAverageRatingBetween(from, to);
     }
 
     public void saveAll(List<Book> users) {

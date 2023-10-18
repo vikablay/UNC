@@ -21,7 +21,6 @@ public class SecurityConfig {
     @Bean
     @Primary
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        // Спринг автоматически привяжет существующие реализации PasswordEncoder и UserDetailsService к AuthenticationManager
         return authenticationConfiguration.getAuthenticationManager();
     }
 

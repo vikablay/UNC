@@ -41,13 +41,13 @@ public class UserService {
 
     @Transactional
     public Optional<User> addPurchasedBookToUser(Long bookId, String userName) {
-        /*User opUser = userRepository.findByUsername(userName);
-        Book book = bookRepository.findById(bookId);
-        opUser.ifPresent(user -> {
-            bookRepository.findById(bookId).ifPresent(book -> user.getPurchasedBooks().add(book));
-            userRepository.save(user);
-        });
-        return opUser;*/
+//        User opUser = userRepository.findByUsername(userName);
+//        Book book = bookRepository.findById(bookId);
+//        opUser.ifPresent(user -> {
+//            bookRepository.findById(bookId).ifPresent(book -> user.getPurchasedBooks().add(book));
+//            userRepository.save(user);
+//        });
+//        return opUser;
         userRepository.findById(userRepository.findByUsername(userName).getId()).ifPresent(user -> {
             bookRepository.findById(bookId).ifPresent(book -> user.getPurchasedBooks().add(book));
             userRepository.save(user);
