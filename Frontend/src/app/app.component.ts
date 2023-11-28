@@ -14,8 +14,7 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
 
-  constructor(private router: Router,
-              private cookieService: CookieService,
+  constructor(private cookieService: CookieService,
               private restAPIService: RestapiService) {
   }
 

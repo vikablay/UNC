@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {Book} from "../entity/Book";
 import {Router} from "@angular/router";
@@ -30,6 +30,7 @@ export class BooksComponent implements OnInit {
 
   isRated: boolean = false;
   user: NewUser;
+  isAdmin: boolean = false;
 
   constructor(private service: RestapiService,
               private router: Router,
@@ -44,8 +45,9 @@ export class BooksComponent implements OnInit {
     });
     this.service.getUser(this.cookieService.get('userName')).subscribe(data => {
       this.user = deserialize(NewUser, <string>data.body);
-      console.log("USER:",this.user);
+      console.log("USER:", this.user);
     });
+    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
   }
 
 
@@ -55,9 +57,9 @@ export class BooksComponent implements OnInit {
 
     for (let b in this.user.ratedBooks) {
       if (this.user.ratedBooks[b].id == clickObj.itemId)
-        this.isRated=true;
+        this.isRated = true;
     }
-    if(!this.isRated) {
+    if (!this.isRated) {
       if (!!item) {
         this.rating = clickObj.rating;
         console.log(this.rating, clickObj.itemId);
@@ -69,18 +71,17 @@ export class BooksComponent implements OnInit {
         this.service.addRatedBookToUser(clickObj.itemId, this.cookieService.get('userName')).subscribe(
           data => {
             this.user = data;
-            console.log("USER addRatedBookToUser:",data);
+            console.log("USER addRatedBookToUser:", data);
           });
       }
-    }
-    else{
+    } else {
       console.log(this.isRated);
-      this.isRated=false;
+      this.isRated = false;
       this.snackBar.open('Вы уже оценивали эту книгу', 'OK', {duration: 1000 * 10})
     }
   }
 
-  getUser(){
+  getUser() {
     this.service.getUser(this.cookieService.get('userName')).subscribe(data => {
       this.user = deserialize(NewUser, <string>data.body);
       console.log("USER:", this.user);
@@ -95,40 +96,19 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  findBooksOfAuthor() {
-    console.log(this.author);
-    this.service.getBooksOfAuthor(this.author).subscribe(data => {
-      this.books = deserializeArray(Book, <string>data.body);
-      console.log(this.books);
-    });
-  }
-
-  searchBooks() {
-    console.log(this.search);
-    this.service.getBooksOfSearch(this.search).subscribe(data => {
-      this.books = deserializeArray(Book, <string>data.body);
-      console.log(this.search);
-    });
-  }
-
-  sortBooksOfRating() {
-    this.service.getSortedBooksOfRating().subscribe(data => {
-      this.books = deserializeArray(Book, <string>data.body);
-    });
-  }
-
-  sortBooksOfAuthor() {
-    this.service.getSortedBooksOfAuthor().subscribe(data => {
-      this.books = deserializeArray(Book, <string>data.body);
-    });
-  }
-
   addPurchasedBookToUser(id: number) {
     //let userName = this.user.username;
     console.log(id, this.cookieService.get('userName'));
     this.service.addPurchasedBookToUser(id, this.cookieService.get('userName')).subscribe(data => {
       console.log(data);
 
+    });
+  }
+
+  deleteBook(id: number) {
+    this.service.deleteBookById(id).subscribe()
+    this.router.navigateByUrl('/about', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['/books']);
     });
   }
 

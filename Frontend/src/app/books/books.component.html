@@ -10,153 +10,47 @@
 <div class="container my-4">
   <input class="btn btn-primary" type="reset" value="Reset" (click)="ngOnInit()">
   <div class="row mb-4">
-    <div class="col-md-2 dropdown">
-      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-              aria-expanded="false">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-funnel-fill" fill="currentColor"
-             xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-                d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
-        </svg>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li>
-          <button class="dropdown-item btn-light" data-bs-toggle="modal" data-bs-target="#ratingModal">По рейтингу
-            заданном диапазоне
-          </button>
-        </li>
-        <li>
-          <button class="dropdown-item btn-light" data-bs-toggle="modal" data-bs-target="#authorModal">По автору
-          </button>
-        </li>
-      </ul>
-    </div>
 
-
-    <div class="col-md-6 dropdown">
-      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-              aria-expanded="false">
-        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor"
-             xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-        <!--        <li>-->
-        <!--          <button class="dropdown-item btn-light" (click)="sortBooksOfAuthor()">По автору-->
-        <!--          </button>-->
-        <!--        </li>-->
-        <li>
-          <button class="dropdown-item btn-light" (click)="sortBooksOfRating()">По рейтингу
-          </button>
-        </li>
-      </ul>
-    </div>
-
-
-    <form class="col-md-4 d-flex">
-      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="search"
-             [ngModelOptions]="{standalone:true}">
-      <button class="btn btn-outline-success" type="submit" (click)="searchBooks()">Search</button>
-    </form>
-  </div>
-  <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ratingModalLabel">Задайте диапазон</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body mx-auto">
-          <div class="input-group mb-3" style="float: left; width: 150px; margin-right: 20px;">
-            <label class="input-group-text" for="inputGroupSelect01">От</label>
-            <select class="form-select" id="inputGroupSelect01" [(ngModel)]="from">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-          <div class="input-group mb-3" style="width: 150px">
-            <label class="input-group-text" for="inputGroupSelect02">До</label>
-            <select class="form-select" id="inputGroupSelect02" [(ngModel)]="to">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="chooseRating()">Поиск</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="authorModalLabel">Введите автора</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="author"
-                 [ngModelOptions]="{standalone:true}">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="findBooksOfAuthor()">Поиск
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row row-cols-md-4 g-4">
-    <div class="col" *ngFor="let book of books">
-      <div class="card h-100 text-center" style="height: 20%; width: 75%">
-        <img src="data:image/jpeg;base64,{{book.image}}" class="card-img-top" alt=""
-             style="height: 100%; width: 100%"
-             (click)="toDetails(book.name)">
-        <div class="card-body">
-          <h5 class="card-title" (click)="toDetails(book.name)">{{book.name}}</h5>
-          <div class="card-text">
-            <div *ngFor="let author of book.authors" (click)="toDetails(book.name)">
+    <div class="row row-cols-md-4 g-4">
+      <div class="col" *ngFor="let book of books">
+        <div class="card h-100 text-center" style="height: 20%; width: 75%">
+          <img src="data:image/jpeg;base64,{{book.image}}" class="card-img-top" alt=""
+               style="height: 100%; width: 100%"
+               (click)="toDetails(book.name)">
+          <div class="card-body">
+            <h5 class="card-title" (click)="toDetails(book.name)">{{book.name}}</h5>
+            <div class="card-text">
+              <div *ngFor="let author of book.authors" (click)="toDetails(book.name)">
               <span class="if" *ngIf="author.firstName==null">
                 {{author.lastName}}<br>
               </span>
-              <span class="if" *ngIf="author.lastName==null">
+                <span class="if" *ngIf="author.lastName==null">
                 {{author.firstName}}<br>
               </span>
-              <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
+                <span class="if" *ngIf="author.lastName!=null && author.firstName!=null">
                 {{author.firstName + "  " + author.lastName}}<br>
               </span>
-            </div>
-            <div>
-              <app-star [rating]='rating' [itemId]='book.id' (ratingClick)='ratingComponentClick($event)'></app-star>
-            </div>
+              </div>
+              <div>
+                <app-star [rating]='rating' [itemId]='book.id' (ratingClick)='ratingComponentClick($event)'></app-star>
+              </div>
 
-            <h5>{{thanks}}</h5>
-            <button class="btn btn-light" type="button" (click)="addPurchasedBookToUser(book.id)">
-              Заказать
-            </button>
+              <h5>{{thanks}}</h5>
+              <div>
+                <button class="btn btn-light" type="button" (click)="addPurchasedBookToUser(book.id)">
+                  Заказать
+                </button>
+                <button class="btn btn-light" *ngIf="isAdmin" type="button"
+                        (click)="deleteBook(book.id)">Удалить
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <p *ngIf='ratingClicked'>The Company has been given {{ratingClicked}} stars</p>
     </div>
-    <p *ngIf='ratingClicked'>The Company has been given {{ratingClicked}} stars</p>
+
   </div>
-
-  <!--  <ng-template #starRating>-->
-  <!--    <app-star [rating]='rating' [itemId]='book.id' (ratingClick)='ratingComponentClick($event)'></app-star>-->
-  <!--  </ng-template>-->
-
-
 </div>
 </body>

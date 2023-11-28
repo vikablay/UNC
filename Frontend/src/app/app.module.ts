@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
+import {ClassProvider, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 
 import {AppComponent} from "./app.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AboutComponent} from './about/about.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AppRoutingModule} from "./app-routing.module";
@@ -18,6 +18,13 @@ import {MaterialModule} from "./material/material.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AccountComponent} from './account/account.component';
 import {StarComponent} from './star/star.component';
+import {LoggingInterceptorService} from "./logging-interceptor.service";
+
+const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
+    provide: HTTP_INTERCEPTORS ,
+    useClass: LoggingInterceptorService,
+    multi: true
+};
 
 @NgModule({
   declarations: [
@@ -42,7 +49,10 @@ import {StarComponent} from './star/star.component';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [CookieService],
+  providers: [
+      CookieService,
+      LOGGING_INTERCEPTOR_PROVIDER
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

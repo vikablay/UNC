@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
@@ -25,6 +28,7 @@ public class Book {
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Author> authors = new ArrayList<>();
 
     private Long sumRatingMarks = 0L;
@@ -80,6 +84,6 @@ public class Book {
     public void updateAverageRating(Long newRatingMark) {
         ratingsQuantity += 1;
         sumRatingMarks += newRatingMark;
-        averageRating = String.format("%.1f",(double) sumRatingMarks / ratingsQuantity);
+        averageRating = String.format("%.1f", (double) sumRatingMarks / ratingsQuantity);
     }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {Book} from "./entity/Book";
 import {CookieService} from "ngx-cookie-service";
@@ -7,15 +7,17 @@ import {NewUser} from "./entity/NewUser";
 
 const API_HOST: string = environment.backendAPIHost
 const API_PORT: string = environment.backendAPIPort
-const API_URL: string = 'http://' + API_HOST + ':' + API_PORT
+// const API_URL: string = 'http://' + API_HOST + ':' + API_PORT
+const API_URL: string = 'http://localhost:8081'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestapiService {
 
-  constructor(private http: HttpClient,
+  constructor(private httpClient: HttpClient,
               private cookieService: CookieService) {
+    console.log(API_URL)
   }
 
   login(username: string, password: string) {
@@ -23,7 +25,7 @@ export class RestapiService {
       'username': username,
       'password': password
     }
-    return this.http.get(API_URL + '/api/login', {
+    return this.httpClient.get(API_URL + '/api/login', {
       params: params,
       responseType: 'text' as 'json',
       observe: 'response'
@@ -31,7 +33,7 @@ export class RestapiService {
   }
 
   register(newUser: NewUser) {
-    return this.http.post(API_URL + '/api/registration', newUser, {
+    return this.httpClient.post(API_URL + '/api/registration', newUser, {
       responseType: 'text',
       observe: 'body'
     })
@@ -42,7 +44,7 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-    return this.http.get(API_URL + '/api/v1/books', {
+    return this.httpClient.get(API_URL + '/api/v1/books', {
       headers: headers,
       responseType: 'text' as 'json',
       observe: 'response'
@@ -57,7 +59,7 @@ export class RestapiService {
     const params = {
       'name': name
     }
-    return this.http.get(API_URL + '/api/v1/book', {
+    return this.httpClient.get(API_URL + '/api/v1/book', {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
@@ -72,11 +74,7 @@ export class RestapiService {
     });
     const body = new Book(name, [{firstName, lastName}], image, description);
     console.log("IMG RESTAPI", image);
-    return this.http.post<Book>(API_URL + '/api/v1/saveBook', body, {headers: headers});
-  }
-
-  logout() {
-    return this.http.post(API_URL + '/api/logout', {});
+    return this.httpClient.post<Book>(API_URL + '/api/v1/saveBook', body, {headers: headers});
   }
 
   updateBook(book: Book) {
@@ -84,7 +82,20 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-    return this.http.post<Book>(API_URL + '/api/v1/updateBook', book, {headers: headers});
+    return this.httpClient.post<Book>(API_URL + '/api/v1/updateBook', book, {headers: headers});
+  }
+
+  deleteBookById(id: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
+    let params = new HttpParams().set('id', id)
+    return this.httpClient.post<Book>(API_URL + '/api/v1/deleteBook', {}, {headers: headers, params: params});
+  }
+
+  logout() {
+    return this.httpClient.post(API_URL + '/api/logout', {});
   }
 
   updateBookRating(rating: number, id: number) {
@@ -93,7 +104,7 @@ export class RestapiService {
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
     const body = {};
-    return this.http.post<Book>(API_URL + '/api/v1/updateBookRating?id=' + id + "&rating=" + rating,
+    return this.httpClient.post<Book>(API_URL + '/api/v1/updateBookRating?id=' + id + "&rating=" + rating,
       body,
       {headers: headers});
   }
@@ -104,7 +115,7 @@ export class RestapiService {
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
     const body = {};
-    return this.http.post<NewUser>(API_URL + '/api/v1/user/addPurchased?bookId=' + bookId + "&userName=" + userName,
+    return this.httpClient.post<NewUser>(API_URL + '/api/v1/user/addPurchased?bookId=' + bookId + "&userName=" + userName,
       body,
       {headers: headers});
   }
@@ -115,7 +126,7 @@ export class RestapiService {
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
     const body = {};
-    return this.http.post<NewUser>(API_URL + '/api/v1/user/addRated?bookId=' + bookId + "&userName=" + userName,
+    return this.httpClient.post<NewUser>(API_URL + '/api/v1/user/addRated?bookId=' + bookId + "&userName=" + userName,
       body,
       {headers: headers});
   }
@@ -129,7 +140,7 @@ export class RestapiService {
       'from': from,
       'to': to
     };
-    return this.http.get(API_URL + '/api/v1/booksAverageRating', {
+    return this.httpClient.get(API_URL + '/api/v1/booksAverageRating', {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
@@ -145,7 +156,7 @@ export class RestapiService {
     const params = {
       'author': author
     };
-    return this.http.get(API_URL + '/api/v1/booksOfAuthor', {
+    return this.httpClient.get(API_URL + '/api/v1/booksOfAuthor', {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
@@ -161,7 +172,7 @@ export class RestapiService {
     const params = {
       'search': search
     };
-    return this.http.get(API_URL + '/api/v1/searchBooks', {
+    return this.httpClient.get(API_URL + '/api/v1/searchBooks', {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
@@ -174,7 +185,7 @@ export class RestapiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
-    return this.http.get(API_URL + '/api/v1/sortOfAverageRating', {
+    return this.httpClient.get(API_URL + '/api/v1/sortOfAverageRating', {
       headers: headers,
       responseType: 'text' as 'json',
       observe: 'response'
@@ -187,7 +198,7 @@ export class RestapiService {
       'Authorization': 'Bearer ' + this.cookieService.get('access_token')
     });
 
-    return this.http.get(API_URL + '/api/v1/sortOfAuthor', {
+    return this.httpClient.get(API_URL + '/api/v1/sortOfAuthor', {
       headers: headers,
       responseType: 'text' as 'json',
       observe: 'response'
@@ -202,7 +213,7 @@ export class RestapiService {
     const params = {
       'userName': userName
     };
-    return this.http.get(API_URL + '/api/v1/user', {
+    return this.httpClient.get(API_URL + '/api/v1/user', {
       headers: headers,
       params: params,
       responseType: 'text' as 'json',
