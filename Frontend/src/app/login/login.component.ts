@@ -7,46 +7,45 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
-  authResp: AuthResp;
-  isAuthenticated: boolean;
+    username: string;
+    password: string;
+    authResp: AuthResp;
+    isAuthenticated: boolean;
 
-  constructor(private restAPIService: RestapiService,
-              private cookieService: CookieService,
-              private snackBar: MatSnackBar,
-              private router: Router) {
-  }
-
-  ngOnInit(): void {
-    if (this.cookieService.check('isAuthenticated')) {
-      this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
+    constructor(private restAPIService: RestapiService,
+                private cookieService: CookieService,
+                private snackBar: MatSnackBar,
+                private router: Router) {
     }
-  }
 
-  onLoginClick() {
-    this.restAPIService.login(this.username, this.password).subscribe({
-      next: resp => {
-        this.authResp = deserialize(AuthResp, <string>resp.body)
-        this.cookieService.set('access_token', this.authResp.access_token, {expires: 1})
-        this.cookieService.set('isAuthenticated', resp.statusText)
-        this.isAuthenticated = (resp.statusText == 'OK')
-        let role = this.authResp.roles.substring(1, this.authResp.roles.length - 1)
-        this.cookieService.set('role', role)
-        this.cookieService.set('userName', this.username)
-        this.router.navigateByUrl('/about', {skipLocationChange: false}).then(() => {
-          this.router.navigate(['/books']);
-        });
-      },
-      error: error => {
-        this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 10})
-      }
-    })
-  }
+    ngOnInit(): void {
+        if (this.cookieService.check('isAuthenticated')) {
+            this.isAuthenticated = (this.cookieService.get('isAuthenticated') == 'OK')
+        }
+    }
+
+    onLoginClick() {
+        this.restAPIService.login(this.username, this.password).subscribe({
+            next: resp => {
+                this.authResp = deserialize(AuthResp, <string>resp.body)
+                this.cookieService.set('access_token', this.authResp.access_token, {expires: 1})
+                this.cookieService.set('isAuthenticated', resp.statusText)
+                this.isAuthenticated = (resp.statusText == 'OK')
+                let role = this.authResp.roles.substring(1, this.authResp.roles.length - 1)
+                this.cookieService.set('role', role)
+                this.cookieService.set('userName', this.username)
+                this.router.navigate(['/books']).then(r => location.reload());
+
+            },
+            error: error => {
+                this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 3})
+            }
+        })
+    }
 }

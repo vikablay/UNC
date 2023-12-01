@@ -8,6 +8,7 @@ import {AddbookComponent} from "./addbook/addbook.component";
 import {DetailsComponent} from "./details/details.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {AccountComponent} from "./account/account.component";
+import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'about', pathMatch: 'full'},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'addbook', component: AddbookComponent},
   {path: 'details/:bookName', component: DetailsComponent},
   {path: 'account', component: AccountComponent},
+  {path: 'user', component: UserComponent},
 
   {path: '**', component: NotFoundComponent}
 ];

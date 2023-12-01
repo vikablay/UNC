@@ -6,81 +6,84 @@ import {deserialize} from "class-transformer";
 import {CookieService} from "ngx-cookie-service";
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.css']
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
 
-  book: Book;
-  bookN: string;
+    book: any;
+    bookName: string;
 
-  authors: string;
-  image1: string;
-  image: File;
+    authors: string;
+    imgBase64: string;
+    image: File;
 
-  count: number = 0;
-  isUpdate: boolean = false;
+    count: number = 0;
+    isUpdate: boolean = false;
 
-  isAdmin: boolean = false;
+    isAdmin: boolean = false;
 
-  constructor(private service: RestapiService,
-              private router: Router,
-              private activateRoute: ActivatedRoute,
-              private cookieService: CookieService) {
-    this.bookN = this.activateRoute.snapshot.params['bookName'];
-  }
-
-  ngOnInit(): void {
-    this.service.getBookForDetails(this.bookN).subscribe(data => {
-      this.book = deserialize(Book, <string>data.body);
-      console.log("DETAILS2  " + this.book.name);
-      for (var au in this.book.authors) {
-        this.count += 1;
-        this.authors = this.book.authors[au].firstName + " " + this.book.authors[au].lastName
-      }
-    });
-
-    this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
-  }
-
-  update() {
-    this.isUpdate = true;
-  }
-
-  onFileSelected(event: any) {
-    this.image = event.target.files[0];
-    const reader = new FileReader();
-    reader.addEventListener("loadend", () => {
-      // convert image file to base64 string
-      this.image1 = ((<string>reader.result).split(';')[1]).split(',')[1];
-    }, false);
-    if (this.image) {
-      reader.readAsDataURL(this.image);
+    constructor(private service: RestapiService,
+                private router: Router,
+                private activateRoute: ActivatedRoute,
+                private cookieService: CookieService) {
+        this.bookName = this.activateRoute.snapshot.params['bookName'];
     }
 
-  }
+    ngOnInit(): void {
+        this.isAdmin = (this.cookieService.get('role') == 'ROLE_ADMIN')
 
-// сохраняем изменения
-  saveChange() {
-    if (this.authors != null) {
-      for (let au in this.book.authors) {
-        this.book.authors[au].firstName = this.authors.split(' ')[0];
-        this.book.authors[au].lastName = this.authors.split(' ')[1];
-        console.log(this.book.authors[au]);
-      }
+        this.service.getBookForDetails(this.bookName).subscribe(data => {
+            this.book = JSON.parse(<string>data.body);
+            for (var au in this.book.authors) {
+                this.count += 1;
+                this.authors = this.book.authors[au].firstName + " " + this.book.authors[au].lastName
+            }
+        });
     }
-    if (this.image1 != null)
-      this.book.image = this.image1;
-    console.log("name:", this.book.name);
-    console.log("author:", this.book.authors);
-    console.log("img:", this.book.image);
-    this.isUpdate = false;
-    this.service.updateBook(this.book).subscribe(data => console.log("DATA:  " + data));
-  }
+
+    update() {
+        this.isUpdate = true;
+    }
+
+    onFileSelected(event: any) {
+        this.image = event.target.files[0];
+        const reader = new FileReader();
+        reader.addEventListener("loadend", () => {
+            // convert image file to base64 string
+            this.imgBase64 = ((<string>reader.result).split(';')[1]).split(',')[1];
+        }, false);
+        if (this.image) {
+            reader.readAsDataURL(this.image);
+        }
+    }
+
+    saveChange() {
+        if (this.authors != null) {
+            for (let au in this.book.authors) {
+                this.book.authors[au].firstName = this.authors.split(' ')[0];
+                this.book.authors[au].lastName = this.authors.split(' ')[1];
+                console.log(this.book.authors[au]);
+            }
+        }
+        if (this.imgBase64 != null)
+            this.book.image = this.imgBase64;
+        console.log("name:", this.book.name);
+        console.log("author:", this.book.authors);
+        console.log("img:", this.book.image);
+        this.isUpdate = false;
+        this.service.updateBook(this.book).subscribe();
+    }
 
 
-  toBooks() {
-    this.router.navigate(['/books']);
-  }
+    toBooks() {
+        this.router.navigate(['/books']);
+    }
+
+    delete() {
+        this.service.deleteBookById(this.book.id).subscribe(data => {
+            this.router.navigate(['/books']).then(location.reload);
+        })
+    }
 }

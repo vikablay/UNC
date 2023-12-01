@@ -13,7 +13,9 @@ import java.util.List;
 
 @Service
 public class BookService {
+
     private final BookRepository bookRepository;
+
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -22,16 +24,19 @@ public class BookService {
         this.authorRepository = authorRepository;
     }
 
+    @Transactional
     public List<Book> findAll() {
         List<Book> books = bookRepository.findAll();
         books.sort((d1, d2) -> (int) (d1.getId() - d2.getId()));
         return books;
     }
 
+    @Transactional
     public void save(Book book) {
         bookRepository.save(book);
     }
 
+    @Transactional
     public void save(Book book, Author author) {
         author.addBook(book);
         bookRepository.save(book);
@@ -42,14 +47,17 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
+    @Transactional
     public Book findById(Long id) {
         return bookRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateName(Book bookUpdate) {
         bookRepository.findById(bookUpdate.getId()).ifPresent(book -> {
             book.setName(bookUpdate.getName());
@@ -69,14 +77,9 @@ public class BookService {
         });
     }
 
-    public List<Book> findByAuthor(Author author) {
-        return bookRepository.findByAuthors(author);
-    }
-
+    @Transactional
     public List<Book> findByAuthor(String author) {
-        String[] str = author.split(" ");
         return authorRepository.findByFirstNameContainingOrLastNameContaining(author, author).getBooks();
-        // return authorRepository.findByFirstName(author).getBooks();
 
     }
 
@@ -85,10 +88,7 @@ public class BookService {
         return bookRepository.findByAverageRatingBetween(from, to);
     }
 
-    public void saveAll(List<Book> users) {
-        bookRepository.saveAll(users);
-    }
-
+    @Transactional
     public void updateAverageRating(Long id, Long newRatingMark) {
         bookRepository.findById(id).ifPresent(book -> {
             book.updateAverageRating(newRatingMark);
@@ -101,10 +101,12 @@ public class BookService {
         return bookRepository.findAllByNameContainingOrDescriptionContaining(partOfSome, partOfSome);
     }
 
+    @Transactional
     public List<Book> sortBooksOfRating() {
         return bookRepository.findAll(Sort.by("averageRating"));
     }
 
+    @Transactional
     public List<Book> sortBooksOfAuthor() {
         return bookRepository.findAll(Sort.by("authors"));
     }

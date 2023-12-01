@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {NewUser} from "../entity/NewUser";
+import {User} from "../entity/User";
 import {RestapiService} from "../restapi.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -27,7 +27,7 @@ export class RegistrationComponent {
 
   onRegisterClick() {
     this.roleToPass.push(this.roles[this.selectedRole - 1].name);
-    let newUser = new NewUser(this.username, this.password, this.email, this.roleToPass)
+    let newUser = new User(this.username, this.password, this.email, this.roleToPass)
     this.restAPIService.register(newUser).subscribe(data => {
       this.snackBar.open(data, 'OK', {duration: 1000 * 10});
     });

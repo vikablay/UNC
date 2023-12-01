@@ -1,26 +1,28 @@
 export class Book {
 
-  constructor(name: string, authors: [{ firstName: string, lastName: string }], image: string, description: string) {
-    this.name = name;
-    this.authors = authors;
-    this.image = image;
-    this.description = description;
-  }
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    ratingsQuantity: number;
+    sumRatingMarks: number;
+    averageRating: string;
 
-  id: number;
-  name: string;
-  description: string;
-  authors: [
-    {
-      firstName: string,
-      lastName: string
+    authors: [
+        {
+            firstName: string,
+            lastName: string
+        }
+    ];
+
+    genres: [
+        { name: string }
+    ]
+
+    constructor(name: string, authors: [{ firstName: string, lastName: string }], image: string, description: string) {
+        this.name = name;
+        this.authors = authors;
+        this.image = image;
+        this.description = description;
     }
-  ];
-  sumRatingMarks: number;
-  ratingsQuantity: number;
-  averageRating: string;
-  genres: [
-    { name: string }
-  ]
-  image: string;
 }

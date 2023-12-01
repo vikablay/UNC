@@ -1,5 +1,7 @@
 .rating {
-  float:left;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
 }
 
 .rating:not(:checked) > input {

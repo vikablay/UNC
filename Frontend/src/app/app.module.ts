@@ -19,6 +19,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AccountComponent} from './account/account.component';
 import {StarComponent} from './star/star.component';
 import {LoggingInterceptorService} from "./logging-interceptor.service";
+import { UserComponent } from './user/user.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
 
 const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     provide: HTTP_INTERCEPTORS ,
@@ -38,17 +41,20 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     AddbookComponent,
     RegistrationComponent,
     AccountComponent,
-    StarComponent
+    StarComponent,
+    UserComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    NgSelectModule,
-    MaterialModule,
-    BrowserAnimationsModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        AppRoutingModule,
+        NgSelectModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatButtonModule
+    ],
   providers: [
       CookieService,
       LOGGING_INTERCEPTOR_PROVIDER

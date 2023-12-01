@@ -1,8 +1,11 @@
-export class NewUser {
+export class User {
+
+    id: string
     username: string;
     password: string;
     email: string;
     roles: string[];
+
     ratedBooks: [
         {
             id: number,
@@ -23,6 +26,7 @@ export class NewUser {
             image: string,
         }
     ]
+
     purchasedBooks: [
         {
             id: number,

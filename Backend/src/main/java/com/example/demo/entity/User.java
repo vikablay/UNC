@@ -1,19 +1,16 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.NewUserDTO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static javax.persistence.FetchType.EAGER;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,14 +27,14 @@ public class User {
 
     private String email;
 
-    @ManyToMany(fetch = EAGER)
+    @ManyToMany
     private List<Role> roles = new ArrayList<>();
 
     @ManyToMany
-    private Set<Book> ratedBooks = new HashSet<>();
+    private List<Book> ratedBooks = new ArrayList<>();
 
-    @ManyToMany(fetch = EAGER)
-    private Set<Book> purchasedBooks = new HashSet<>();
+    @ManyToMany
+    private List<Book> purchasedBooks = new ArrayList<>();
 
     public User(Long id, String username, String password, String email) {
         this.id = id;
