@@ -90,7 +90,7 @@
     </nav>
 </header>
 <div>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="activate($event)"></router-outlet>
 </div>
 </body>
 </html>

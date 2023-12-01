@@ -11,22 +11,22 @@ import {AccountComponent} from "./account/account.component";
 import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'about', pathMatch: 'full'},
-  {path: 'about', component: AboutComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'registration', component: RegistrationComponent},
-  {path: 'books', component: BooksComponent},
-  {path: 'addbook', component: AddbookComponent},
-  {path: 'details/:bookName', component: DetailsComponent},
-  {path: 'account', component: AccountComponent},
-  {path: 'user', component: UserComponent},
+    {path: '', redirectTo: 'about', pathMatch: 'full'},
+    {path: 'about', component: AboutComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'registration', component: RegistrationComponent},
+    {path: 'books', component: BooksComponent},
+    {path: 'addbook', component: AddbookComponent},
+    {path: 'details/:bookName', component: DetailsComponent},
+    {path: 'account', component: AccountComponent},
+    {path: 'user', component: UserComponent},
 
-  {path: '**', component: NotFoundComponent}
+    {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"})],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 

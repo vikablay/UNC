@@ -78,12 +78,12 @@ export class DetailsComponent implements OnInit {
 
 
     toBooks() {
-        this.router.navigate(['/books']);
+        this.router.navigate(['books']);
     }
 
     delete() {
         this.service.deleteBookById(this.book.id).subscribe(data => {
-            this.router.navigate(['/books']).then(location.reload);
+            this.router.navigate(['books']);
         })
     }
 }

@@ -108,6 +108,6 @@ export class BooksComponent implements OnInit {
     }
 
     toDetails(name: string): void {
-        this.router.navigate(['/details', name]);
+        this.router.navigate(['details', name]);
     }
 }

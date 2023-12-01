@@ -28,10 +28,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.cors();
         http.csrf().disable();
+
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.addFilter(customAuthenticationFilter);
+
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+
         http.authorizeRequests()
                 .antMatchers("/api/login",
                         "/api/login/**",
@@ -53,10 +56,14 @@ public class SecurityConfig {
                         "/**/*.js",
                         "/layout/**")
                 .permitAll();
+
         http.logout().permitAll().logoutUrl("/api/logout").logoutSuccessHandler((request, response, authentication) -> {
         });
+
         http.authorizeRequests().anyRequest().authenticated();
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.antMatcher("/api/**").addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }

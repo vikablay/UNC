@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {RestapiService} from "../restapi.service";
 import {CookieService} from "ngx-cookie-service";
 import {AuthResp} from "../entity/AuthResp";
 import {deserialize} from "class-transformer";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-login',
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     constructor(private restAPIService: RestapiService,
                 private cookieService: CookieService,
                 private snackBar: MatSnackBar,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -40,8 +41,7 @@ export class LoginComponent implements OnInit {
                 let role = this.authResp.roles.substring(1, this.authResp.roles.length - 1)
                 this.cookieService.set('role', role)
                 this.cookieService.set('userName', this.username)
-                this.router.navigate(['/books']).then(r => location.reload());
-
+                this.router.navigate(['books'], {skipLocationChange: false}).then()
             },
             error: error => {
                 this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 10})
