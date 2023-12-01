@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -32,7 +31,7 @@ public class UserController {
     @DeleteMapping("/user")
     public ResponseEntity<Object> deleteUserById(@RequestParam String id) {
         userService.deleteById(Long.valueOf(id));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Ok");
     }
 
     @PostMapping("/user/addPurchased")

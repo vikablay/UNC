@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
             },
             error: error => {
-                this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 3})
+                this.snackBar.open('Неверное имя пользователя или пароль', 'OK', {duration: 1000 * 10})
             }
         })
     }

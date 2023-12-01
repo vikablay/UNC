@@ -220,6 +220,8 @@ export class RestapiService {
         return this.httpClient.delete(API_URL + '/api/v1/user', {
             headers: headers,
             params: params,
+            responseType: 'text' as 'json',
+            observe: 'response'
         });
     }
 

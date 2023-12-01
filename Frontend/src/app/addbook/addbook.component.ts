@@ -19,7 +19,8 @@ export class AddbookComponent {
 
   title = "NOTHING"
 
-  constructor(private service: RestapiService, private snackBar: MatSnackBar) {
+  constructor(private service: RestapiService,
+              private snackBar: MatSnackBar) {
   }
 
   onFileSelected(event: any) {

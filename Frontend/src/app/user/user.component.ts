@@ -3,6 +3,7 @@ import {RestapiService} from "../restapi.service";
 import {User} from "../entity/User";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-user',
@@ -16,7 +17,8 @@ export class UserComponent implements OnInit {
     dataSource = new MatTableDataSource<Object>();
 
     constructor(private restAPIService: RestapiService,
-                private router: Router) {
+                private router: Router,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit(): void {
@@ -27,8 +29,9 @@ export class UserComponent implements OnInit {
     }
 
     deleteUserById(id: number) {
-        this.restAPIService.deleteUserById(id).subscribe(() => {
+        this.restAPIService.deleteUserById(id).subscribe(data => {
             this.router.navigate(['/user']).then(location.reload);
+            this.snackBar.open('Пользователь удален', 'OK', {duration: 1000 * 10})
         })
     }
 }
