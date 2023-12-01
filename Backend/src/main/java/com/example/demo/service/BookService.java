@@ -84,11 +84,6 @@ public class BookService {
     }
 
     @Transactional
-    public List<Book> findByAverageRatingBetween(double from, double to) {
-        return bookRepository.findByAverageRatingBetween(from, to);
-    }
-
-    @Transactional
     public void updateAverageRating(Long id, Long newRatingMark) {
         bookRepository.findById(id).ifPresent(book -> {
             book.updateAverageRating(newRatingMark);

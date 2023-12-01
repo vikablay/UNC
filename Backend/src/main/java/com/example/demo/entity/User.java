@@ -3,11 +3,11 @@ package com.example.demo.entity;
 import com.example.demo.dto.NewUserDTO;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.EAGER;
 
 @Getter
 @Setter

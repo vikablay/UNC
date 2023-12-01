@@ -2,6 +2,10 @@ server:
   port: 8081
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
   datasource:
     url: jdbc:postgresql://${DATASOURCE_HOST:localhost}:5432/${DB_NAME:test-api}
     username: ${DB_USERNAME:postgres}

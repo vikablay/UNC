@@ -1,14 +1,16 @@
 package com.example.demo.config;
 
 import com.example.demo.filter.CustomAuthenticationFilter;
-import com.example.demo.filter.CustomAuthorizationFilter;
+import com.example.demo.filter.CustomJWTFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,43 +28,47 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
-        http.cors();
-        http.csrf().disable();
-
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.addFilter(customAuthenticationFilter);
 
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(STATELESS))
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/api/login",
+                                        "/api/login/**",
+                                        "/api/registration/**",
+                                        "api/test",
+                                        "/authenticate",
+                                        "/login",
+                                        "/webjars/**",
+                                        "/*.html",
+                                        "/favicon.ico",
+                                        "/**/*.html",
+                                        "/**/*.woff",
+                                        "/**/*.woff2",
+                                        "/**/*.png",
+                                        "/**/*.ttf",
+                                        "/**/*.css",
+                                        "/**/*.jpg",
+                                        "/**/*.json",
+                                        "/**/*.js",
+                                        "/layout/**")
+                                .permitAll()
+                                .anyRequest().authenticated())
+                .logout((logout) ->
+                        logout.permitAll()
+                                .logoutUrl("/api/logout")
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                }));
 
-        http.authorizeRequests()
-                .antMatchers("/api/login",
-                        "/api/login/**",
-                        "/api/registration/**",
-                        "api/test",
-                        "/authenticate",
-                        "/login",
-                        "/webjars/**",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.woff",
-                        "/**/*.woff2",
-                        "/**/*.png",
-                        "/**/*.ttf",
-                        "/**/*.css",
-                        "/**/*.jpg",
-                        "/**/*.json",
-                        "/**/*.js",
-                        "/layout/**")
-                .permitAll();
+        http.securityMatcher("/api/**").addFilterBefore(new CustomJWTFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.logout().permitAll().logoutUrl("/api/logout").logoutSuccessHandler((request, response, authentication) -> {
+        http.securityContext((secContext) -> {
+            secContext.requireExplicitSave(false);
         });
-
-        http.authorizeRequests().anyRequest().authenticated();
-
-        http.antMatcher("/api/**").addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
