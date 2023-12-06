@@ -1,6 +1,6 @@
 import {ClassProvider, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {AppComponent} from "./app.component";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -19,31 +19,36 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AccountComponent} from './account/account.component';
 import {StarComponent} from './star/star.component';
 import {LoggingInterceptorService} from "./logging-interceptor.service";
-import { UserComponent } from './user/user.component';
+import {UserComponent} from './user/user.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import { UserEditorComponent } from './user-editor/user-editor.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
-    provide: HTTP_INTERCEPTORS ,
+    provide: HTTP_INTERCEPTORS,
     useClass: LoggingInterceptorService,
     multi: true
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AboutComponent,
-    NotFoundComponent,
-    LoginComponent,
-    BooksComponent,
-    AddbookComponent,
-    DetailsComponent,
-    AddbookComponent,
-    RegistrationComponent,
-    AccountComponent,
-    StarComponent,
-    UserComponent
-  ],
+    declarations: [
+        AppComponent,
+        AboutComponent,
+        NotFoundComponent,
+        LoginComponent,
+        BooksComponent,
+        AddbookComponent,
+        DetailsComponent,
+        AddbookComponent,
+        RegistrationComponent,
+        AccountComponent,
+        StarComponent,
+        UserComponent,
+        UserEditorComponent
+    ],
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -53,13 +58,17 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
         MaterialModule,
         BrowserAnimationsModule,
         MatTableModule,
-        MatButtonModule
+        MatButtonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
     ],
-  providers: [
-      CookieService,
-      LOGGING_INTERCEPTOR_PROVIDER
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        CookieService,
+        LOGGING_INTERCEPTOR_PROVIDER
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

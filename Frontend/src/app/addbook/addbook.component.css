@@ -1,5 +1,9 @@
 img {
-  background: url("https://static5.depositphotos.com/1016154/457/i/600/depositphotos_4577553-stock-photo-blank-empty-3d-book-cover.jpg") no-repeat;
+  background: url("https://new.t8print.com/img/14132401.jpg") no-repeat;
   background-size: contain;
   display: inline-block;
+}
+
+.btn {
+    margin: 5px;
 }

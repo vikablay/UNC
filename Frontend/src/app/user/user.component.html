@@ -19,6 +19,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Действия</th>
             <td mat-cell *matCellDef="let user">
+                <button class="btn btn-primary" type="button" (click)="updateUserById(user.id)">Редактировать</button>
                 <button class="btn btn-primary" type="button" (click)="deleteUserById(user.id)">Удалить</button>
             </td>
         </ng-container>

@@ -16,7 +16,9 @@
   display: inline-block;
 }
 
-
+.btn {
+    margin: 5px;
+}
 /*.btn-primary {*/
 /*  margin: 0 auto;*/
 /*  background-color: lavender;*/
