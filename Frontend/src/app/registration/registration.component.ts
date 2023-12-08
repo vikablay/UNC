@@ -18,7 +18,7 @@ export class RegistrationComponent {
 
   roles = [
     {id: 1, name: "ROLE_ADMIN", placeholder: "Администратор"},
-    {id: 2, name: "ROLE_CUSTOMER", placeholder: "Покупатель"}
+    {id: 2, name: "ROLE_CUSTOMER", placeholder: "Посетитель"}
   ]
 
   constructor(private restAPIService: RestapiService,

@@ -33,8 +33,8 @@ export class UserComponent implements OnInit {
 
     deleteUserById(id: number) {
         this.restAPIService.deleteUserById(id).subscribe(data => {
-            this.router.navigate(['user']);
             this.snackBar.open('Пользователь удален', 'OK', {duration: 1000 * 10})
+            this.ngOnInit();
         })
     }
 

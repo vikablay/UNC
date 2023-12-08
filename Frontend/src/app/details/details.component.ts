@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RestapiService} from "../restapi.service";
-import {Book} from "../entity/Book";
 import {ActivatedRoute, Router} from "@angular/router";
-import {deserialize} from "class-transformer";
 import {CookieService} from "ngx-cookie-service";
 
 @Component({
@@ -51,8 +49,9 @@ export class DetailsComponent implements OnInit {
         this.image = event.target.files[0];
         const reader = new FileReader();
         reader.addEventListener("loadend", () => {
-            // convert image file to base64 string
-            this.imgBase64 = ((<string>reader.result).split(';')[1]).split(',')[1];
+            this.imgBase64 = ((<string>reader.result)
+                .split(';')[1])
+                .split(',')[1]; // convert image file to base64 string
         }, false);
         if (this.image) {
             reader.readAsDataURL(this.image);
