@@ -16,14 +16,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class BooksComponent implements OnInit {
 
     books: Book[] = []
-    thanks: string;
 
     from: number;
     to: number;
-
-    author: string;
-
-    search: string;
 
     ratingClicked: number;
     rating = 0;

@@ -8,21 +8,20 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {UserEditorComponent} from "../user-editor/user-editor.component";
 
 @Component({
-    selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
-    users: User[] = [];
-    columns: string[] = ['id', 'username', 'email', 'actions']
-    dataSource = new MatTableDataSource<Object>();
 
     constructor(private restAPIService: RestapiService,
                 private router: Router,
                 private snackBar: MatSnackBar,
                 private dialog: MatDialog) {
     }
+
+    users: User[] = [];
+    columns: string[] = ['id', 'username', 'email', 'actions']
+    dataSource = new MatTableDataSource<Object>();
 
     ngOnInit(): void {
         this.restAPIService.getUsers().subscribe(data => {
